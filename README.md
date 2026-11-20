@@ -20,6 +20,8 @@ Every level is randomly generated and picks one of nine small puzzles at random,
 
 ## Features
 
+- Guided breathing between levels: an orb expands as you inhale and shrinks as you exhale. The exhale gets slightly longer as you keep playing, to help slow you down, and every fourth level adds a three-breath pause. The background also glows gently in the same rhythm
+- Gentle difficulty curve in every mode
 - Infinite, procedurally generated levels that are always solvable
 - Six atmospheric chapters (starry night, lantern lake, dawn garden, autumn forest, seabed, aurora), each with its own animated background and musical key
 - Generative ambient music and soft pentatonic sound effects (Web Audio API, no audio files)

@@ -51,6 +51,10 @@ canvas#c{position:fixed;inset:0;width:100%;height:100%;touch-action:none;display
 .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 66px);transform:translateX(-50%);max-width:calc(100% - 32px);padding:8px 16px;border-radius:18px;background:rgba(255,255,255,.1);font-size:14px;text-align:center;opacity:0;transition:opacity .6s;pointer-events:none}
 .toast.show{opacity:1}
 button:focus-visible{outline:2px solid #ffe7a8;outline-offset:2px}
+.orb{width:min(220px,60vw);aspect-ratio:1;display:grid;place-items:center;margin:14px 0 6px}
+.ring{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,rgba(255,238,200,.6),rgba(255,214,140,.14) 58%,transparent 72%);box-shadow:0 0 70px rgba(255,220,150,.3);transform:scale(.45)}
+.bt{font-size:14px;opacity:.7;margin:0}
+#bWord{font-size:clamp(30px,8vw,42px);margin:6px 0 4px}
 @media (prefers-reduced-motion:reduce){.ov,.sheet{transition:none}}
 </style>
 </head>
@@ -71,11 +75,14 @@ button:focus-visible{outline:2px solid #ffe7a8;outline-offset:2px}
 
 <div class="ov" id="msg"><div class="big" id="mBig"></div><h2 id="mT"></h2><p id="mP"></p><small>tocca per continuare</small></div>
 
+<div class="ov" id="breath"><p class="bt" id="bTitle"></p><div class="orb"><div class="ring" id="orb"></div></div><h2 id="bWord"></h2><p id="bSub"></p><small>tocca per saltare</small></div>
+
 <div class="sheet" id="sheet" role="dialog" aria-label="Impostazioni">
   <h3>Impostazioni</h3>
   <div class="row"><span>Musica</span><button class="tg" id="tMusic" aria-label="Musica"></button></div>
   <div class="row"><span>Suoni del gioco</span><button class="tg" id="tSfx" aria-label="Suoni"></button></div>
   <div class="row"><span>Modalità zen<small>Luce infinita, non si perde mai</small></span><button class="tg" id="tZen" aria-label="Modalità zen"></button></div>
+  <div class="row"><span>Pause di respiro<small>Un respiro guidato tra un livello e l'altro</small></span><button class="tg" id="tBreath" aria-label="Pause di respiro"></button></div>
   <h4>Giochi che possono capitare</h4>
   <div id="modeRows"></div>
   <button class="pill" id="bSkip">Salta questo livello</button>
@@ -86,7 +93,7 @@ button:focus-visible{outline:2px solid #ffe7a8;outline-offset:2px}
   <h2>Legàmi</h2>
   <div class="demo">🧵 🏮 🌿 🎨 ✨ 🔍 🃏 🪞 🎈</div>
   <p>Nove piccoli giochi, mescolati a caso. Ogni livello è un enigma nuovo e non sai mai quale arriva.</p>
-  <p style="opacity:.6;font-size:15px">Nessuna fretta, nessun punteggio. Se la luce finisce si ricomincia e basta.</p>
+  <p style="opacity:.6;font-size:15px">Tra un livello e l'altro, un respiro. Nessuna fretta, nessun punteggio. Se la luce finisce si ricomincia e basta.</p>
   <button class="pill" id="bStart">Tocca per iniziare</button>
   <small>Meglio con le cuffie 🎧</small>
 </div>
@@ -157,6 +164,8 @@ const A={ctx:null,root:48,music:store.get('music',true),sfx:store.get('sfx',true
  done(){if(!this.ok())return;const t=this.ctx.currentTime;[0,4,7,12].forEach((s,i)=>this.bell(this.root+24+s,t+i*.09,.05,this.fxb,2.2))},
  win(){if(!this.ok())return;const t=this.ctx.currentTime;[0,4,7,11,14,19,24].forEach((s,i)=>this.bell(this.root+24+s,t+i*.13,.045,this.fxb,3))},
  lose(){if(!this.ok())return;const t=this.ctx.currentTime;[7,4,0].forEach((s,i)=>this.bell(this.root+19+s,t+i*.3,.035,this.fxb,2.5))},
+ breath(up,dur){if(!this.ok())return;const c=this.ctx,t=c.currentTime,g=c.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.03,t+dur*.5);g.gain.linearRampToValueAtTime(0,t+dur);g.connect(this.fxb);
+  [0,7].forEach(s=>{const o=c.createOscillator();o.type='sine';o.frequency.value=mtof(this.root+(up?12:7)+s);o.connect(g);o.start(t);o.stop(t+dur+.1)})},
  setMusic(on){this.music=on;store.set('music',on);if(this.ctx)this.mus.gain.setTargetAtTime(on?.55:0,this.ctx.currentTime,.6)},
  setSfx(on){this.sfx=on;store.set('sfx',on);if(this.ctx)this.fxb.gain.setTargetAtTime(on?.7:0,this.ctx.currentTime,.1)}
 };
@@ -514,7 +523,18 @@ function showMsg(big,t,p,cb,ms,small){$('mBig').textContent=big;$('mT').textCont
 function closeMsg(){if(!msgCb)return;const cb=msgCb;msgCb=null;clearTimeout(msgT);$('msg').classList.remove('show');setTimeout(cb,350)}
 $('msg').addEventListener('click',closeMsg);
 function win(){state='won';A.win();if(M===legami)L.pairs.forEach(pr=>pr.e.forEach(c=>burst(c,pr.color,10)));else{const a=area();for(let i=0;i<5;i++)burstAt(a.x+Math.random()*a.w,a.y+a.h*(.2+Math.random()*.6),COLORS[i],12)}
- setTimeout(()=>showMsg('✨','Livello '+L.n+' completato',PHRASES[Math.floor(Math.random()*PHRASES.length)],()=>{fade=1;newLevel(L.n+1)},3200),900)}
+ wins++;const n=L.n,nx=()=>{fade=1;newLevel(n+1)};
+ setTimeout(()=>{if(breathOn)breathe(n%4===0?3:1,'✨ Livello '+n+' completato',nx);else showMsg('✨','Livello '+n+' completato',PHRASES[Math.floor(Math.random()*PHRASES.length)],nx,3200)},900)}
+/* ---------- Guided breathing: the exhale slowly lengthens as you play ---------- */
+let breathOn=store.get('breath',true),wins=0;
+const BR=()=>({inh:4,exh:4+Math.min(3,wins*.5)});
+function breathe(cycles,title,cb){const ov=$('breath'),orb=$('orb'),ease='cubic-bezier(.45,0,.55,1)';let k=0,done=false,tm;$('bTitle').textContent=title;$('bWord').textContent='';$('bSub').textContent='';
+ orb.style.transition='none';orb.style.transform='scale(.45)';void orb.offsetWidth;ov.classList.add('show');
+ const end=()=>{if(done)return;done=true;clearTimeout(tm);ov.onclick=null;ov.classList.remove('show');setTimeout(cb,400)};ov.onclick=end;
+ const step=()=>{if(done)return;if(k>=cycles){$('bWord').textContent=PHRASES[Math.floor(Math.random()*PHRASES.length)];$('bSub').textContent='';tm=setTimeout(end,2000);return}
+  const{inh,exh}=BR();$('bWord').textContent='Inspira…';$('bSub').textContent=cycles>1?`Respiro ${k+1} di ${cycles}`:'';orb.style.transition=`transform ${inh}s ${ease}`;orb.style.transform='scale(1)';A.breath(true,inh);
+  tm=setTimeout(()=>{if(done)return;$('bWord').textContent='Espira…';orb.style.transition=`transform ${exh}s ${ease}`;orb.style.transform='scale(.45)';A.breath(false,exh);k++;tm=setTimeout(step,exh*1000)},inh*1000)};
+ tm=setTimeout(step,800)}
 function lose(){state='lost';A.lose();showMsg('🌙','La luce si è spenta','Nessun problema: si riparte dallo stesso enigma, con calma.',()=>{fade=1;loadLevel()},3000)}
 let toastT;function toast(s){const el=$('toast');el.textContent=s;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2200)}
 
@@ -523,12 +543,13 @@ $('bReset').onclick=()=>{if(state==='play'){fade=1;loadLevel()}};
 $('bHint').onclick=()=>{if(state==='play'&&M.hint)M.hint()};
 const sheet=$('sheet');
 $('modeRows').innerHTML=KEYS.map(k=>`<div class="row"><span>${MODES[k].icon} ${MODES[k].name}<small>${MODES[k].short}</small></span><button class="tg" data-m="${k}" aria-label="${MODES[k].name}"></button></div>`).join('');
-const syncT=()=>{$('tMusic').classList.toggle('on',A.music);$('tSfx').classList.toggle('on',A.sfx);$('tZen').classList.toggle('on',zen);document.querySelectorAll('[data-m]').forEach(b=>b.classList.toggle('on',enabled.includes(b.dataset.m)))};
+const syncT=()=>{$('tMusic').classList.toggle('on',A.music);$('tSfx').classList.toggle('on',A.sfx);$('tZen').classList.toggle('on',zen);$('tBreath').classList.toggle('on',breathOn);document.querySelectorAll('[data-m]').forEach(b=>b.classList.toggle('on',enabled.includes(b.dataset.m)))};
 document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{const k=b.dataset.m;if(enabled.includes(k)){if(enabled.length===1){toast('Almeno un gioco deve restare');return}enabled=enabled.filter(x=>x!==k)}else enabled.push(k);store.set('modes',enabled);syncT()});
 $('bSet').onclick=()=>{syncT();sheet.classList.add('show')};
 $('bClose').onclick=()=>sheet.classList.remove('show');
 $('tMusic').onclick=()=>{A.setMusic(!A.music);syncT()};
 $('tSfx').onclick=()=>{A.setSfx(!A.sfx);syncT()};
+$('tBreath').onclick=()=>{breathOn=!breathOn;store.set('breath',breathOn);syncT()};
 $('tZen').onclick=()=>{zen=!zen;store.set('zen',zen);syncT();updInk()};
 $('bSkip').onclick=()=>{sheet.classList.remove('show');fade=1;newLevel(level+1)};
 $('bStart').onclick=()=>{A.init();try{A.ctx&&A.ctx.resume()}catch(_){}const s=$('start');s.classList.remove('show');s.style.opacity=0;s.style.pointerEvents='none';
@@ -556,6 +577,8 @@ let last=performance.now();
 function frame(now){const t=now/1000,dt=Math.min(.05,(now-last)/1000);last=now;
  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,theme.top);g.addColorStop(1,theme.bot);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
  drawFx(t,dt);
+ {const{inh,exh}=BR(),ph=t%(inh+exh),bv=ph<inh?.5-.5*Math.cos(Math.PI*ph/inh):.5+.5*Math.cos(Math.PI*(ph-inh)/exh),a=area(),cx=a.x+a.w/2,cy=a.y+a.h/2,rad=Math.max(10,Math.min(W,H)*(.42+.12*bv));
+  const rg=ctx.createRadialGradient(cx,cy,0,cx,cy,rad);rg.addColorStop(0,`rgba(255,236,200,${.035+.05*bv})`);rg.addColorStop(1,'rgba(255,236,200,0)');ctx.fillStyle=rg;ctx.fillRect(0,0,W,H)}
  if(L&&M){try{M.draw(t,dt,now)}catch(err){console.error(err)}}
  B=B.filter(b=>(b.life-=dt*.9)>0);B.forEach(b=>{b.x+=b.vx*dt;b.y+=b.vy*dt;b.vx*=.97;b.vy*=.97;ctx.globalAlpha=b.life;ctx.fillStyle=b.color;circle(b.x,b.y,2.2*b.life+.6);ctx.fill()});ctx.globalAlpha=1;
  if(fade>0){ctx.fillStyle=`rgba(4,6,18,${fade})`;ctx.fillRect(0,0,W,H);fade=Math.max(0,fade-dt*1.6)}
