@@ -93,8 +93,8 @@ button:focus-visible{outline:2px solid #ffe7a8;outline-offset:2px}
 
 <div class="ov" id="start">
   <h2>Legàmi</h2>
-  <div class="demo">🧵 🏮 🌿 🎨 ✨ 🔍 🃏 🪞 🎈</div>
-  <p>Nove piccoli giochi, mescolati a caso. Ogni livello è un enigma nuovo e non sai mai quale arriva.</p>
+  <div class="demo">🧵 🏮 🌿 🎨 ✨ 🔍 🃏<br>🪞 🎈 🏺 🧭 🧩 🧮</div>
+  <p>Tredici piccoli giochi, ognuno con più varianti, mescolati a caso. Ogni livello è un enigma nuovo e non sai mai quale arriva.</p>
   <p style="opacity:.6;font-size:15px">Tra un livello e l'altro, un respiro. Nessuna fretta, nessun punteggio. Se la luce finisce si ricomincia e basta.</p>
   <p id="sPhrase"></p>
   <button class="pill" id="bStart">Tocca per iniziare</button>
@@ -122,19 +122,28 @@ const THEMES=[
 const COLORS=['#7dd3fc','#f9a8d4','#fcd34d','#86efac','#c4b5fd','#fdba74','#5eead4','#fca5a5','#a5b4fc'];
 const PAIRS=[['🐝','🌸'],['🌧️','☂️'],['🐿️','🌰'],['🌙','⭐'],['☀️','🌻'],['❄️','⛄'],['☕','🥐'],['🔑','🔒'],['📖','👓'],['🍪','🥛'],['🎸','🎵'],['🐶','🦴'],['🐱','🧶'],['🐰','🥕'],['🐼','🎋'],['🐵','🍌'],['🐧','🧊'],['🐻','🍯'],['🐭','🧀'],['🎨','🖌️'],['✉️','📮'],['⚓','⛵'],['🐌','🍃'],['🐞','🍀'],['🐟','🌊'],['🦋','🌼'],['🍂','🌳'],['🌋','🔥'],['🏔️','⛷️'],['🎁','🎀'],['🍝','🍅'],['🐢','🏝️'],['🦉','🌲'],['🐸','💧'],['🎈','🎂'],['📷','🖼️'],['🌍','🚀'],['🎻','🎼'],['🍓','🍰'],['🧤','🧣']];
 const CATS=[
- {nm:'frutta',it:['🍎','🍌','🍇','🍓','🍑','🍒','🥝','🍍','🍉','🍐']},
- {nm:'animali marini',it:['🐙','🦀','🐬','🐳','🦑','🐠','🦈','🦞']},
- {nm:'cielo e meteo',it:['☀️','🌙','⭐','☁️','🌈','⚡','❄️','🌪️']},
- {nm:'strumenti musicali',it:['🎸','🎻','🥁','🎺','🎹','🎷']},
- {nm:'mezzi di trasporto',it:['🚗','🚲','🚂','✈️','🚢','🚌','🚁','🛵']},
- {nm:'sport',it:['⚽','🏀','🎾','🏐','🏈','⚾','🏓','🎳']},
- {nm:'insetti',it:['🐝','🐞','🦋','🐜','🐛','🦗']},
- {nm:'piante',it:['🌳','🌲','🌵','🌴','🌿','🍀','🌻','🌷']},
- {nm:'dolci',it:['🍰','🍪','🍩','🧁','🍫','🍬','🍭','🍮']},
- {nm:'vestiti',it:['👕','👖','🧦','🧣','👗','🧤','👟','🎩']},
- {nm:'animali della fattoria',it:['🐄','🐖','🐑','🐓','🐐','🐴','🦆']},
- {nm:'verdure',it:['🥕','🥦','🌽','🥒','🍆','🥔','🧅']},
- {nm:'cose da scuola',it:['✏️','📏','📐','📎','✂️','🖍️','📌']}
+ {nm:'frutti',it:[['🍎','mela'],['🍌','banana'],['🍇','uva'],['🍓','fragola'],['🍑','pesca'],['🍒','ciliegie'],['🍍','ananas'],['🍉','anguria'],['🍐','pera'],['🍋','limone']]},
+ {nm:'animali del mare',it:[['🐙','polpo'],['🦀','granchio'],['🐬','delfino'],['🐳','balena'],['🐠','pesce'],['🦈','squalo']]},
+ {nm:'cose del cielo',it:[['☀️','sole'],['🌙','luna'],['⭐','stella'],['☁️','nuvola'],['🌈','arcobaleno'],['⚡','fulmine']]},
+ {nm:'strumenti musicali',it:[['🎸','chitarra'],['🎻','violino'],['🥁','tamburo'],['🎺','tromba'],['🎹','pianoforte'],['🎷','sassofono']]},
+ {nm:'mezzi di trasporto',it:[['🚗','auto'],['🚲','bicicletta'],['🚂','treno'],['✈️','aereo'],['🚢','nave'],['🚌','autobus'],['🚁','elicottero']]},
+ {nm:'palloni da sport',it:[['⚽','calcio'],['🏀','basket'],['🎾','tennis'],['🏐','pallavolo'],['🏈','football'],['⚾','baseball']]},
+ {nm:'insetti',it:[['🐝','ape'],['🐞','coccinella'],['🦋','farfalla'],['🐜','formica'],['🐛','bruco']]},
+ {nm:'alberi e fiori',it:[['🌳','albero'],['🌲','abete'],['🌵','cactus'],['🌴','palma'],['🌷','tulipano'],['🌹','rosa']]},
+ {nm:'dolci',it:[['🍰','torta'],['🍪','biscotto'],['🍩','ciambella'],['🧁','cupcake'],['🍫','cioccolato'],['🍭','lecca-lecca'],['🍦','gelato']]},
+ {nm:'vestiti',it:[['👕','maglietta'],['👖','jeans'],['🧦','calzini'],['🧣','sciarpa'],['👗','vestito'],['🧤','guanti'],['🎩','cappello']]},
+ {nm:'animali della fattoria',it:[['🐄','mucca'],['🐖','maiale'],['🐑','pecora'],['🐓','gallo'],['🐴','cavallo'],['🦆','anatra']]},
+ {nm:'verdure',it:[['🥕','carota'],['🥦','broccolo'],['🌽','mais'],['🥒','cetriolo'],['🍆','melanzana'],['🥔','patata']]},
+ {nm:'cose da scuola',it:[['✏️','matita'],['📏','righello'],['📎','graffetta'],['✂️','forbici'],['📚','libri'],['🎒','zaino']]},
+ {nm:'animali della savana',it:[['🦁','leone'],['🦒','giraffa'],['🐘','elefante'],['🦓','zebra'],['🦏','rinoceronte']]}
+];
+const COLGROUPS=[
+ {nm:'rossi',it:[['🍎','mela'],['🍓','fragola'],['🍒','ciliegie'],['🌹','rosa'],['🚒','camion dei pompieri'],['🍅','pomodoro'],['❤️','cuore'],['🌶️','peperoncino']]},
+ {nm:'gialli',it:[['🍌','banana'],['🌻','girasole'],['🍋','limone'],['🐥','pulcino'],['🧀','formaggio'],['🌽','mais'],['⭐','stella']]},
+ {nm:'verdi',it:[['🥦','broccolo'],['🥒','cetriolo'],['🍀','quadrifoglio'],['🐸','rana'],['🌲','abete'],['🥝','kiwi'],['🐢','tartaruga']]},
+ {nm:'blu',it:[['💙','cuore blu'],['🐳','balena'],['💎','diamante'],['🌊','onda'],['👖','jeans'],['🧢','berretto']]},
+ {nm:'bianchi',it:[['🥛','latte'],['⛄','pupazzo di neve'],['☁️','nuvola'],['🐑','pecora'],['🍚','riso'],['🦢','cigno']]},
+ {nm:'arancioni',it:[['🍊','arancia'],['🥕','carota'],['🎃','zucca'],['🦊','volpe'],['🏀','basket'],['🍑','pesca']]}
 ];
 /* Calming phrases, grouped by theme. Drawn from a shuffled deck so none repeats until all have been shown. */
 const PHRASES=[
@@ -219,10 +228,11 @@ const burst=(c,color,n)=>{const[x,y]=center(c);burstAt(x,y,color,n)};
 function board(){ctx.fillStyle='rgba(255,255,255,.035)';rr(ox-8,oy-8,L.cols*cs+16,L.rows*cs+16,18);ctx.fill()}
 
 /* =========================================================
-   MODE 1 — Legàmi: connect associated pairs
+   MODE 1 — Legàmi: connect pairs (variants: associations, twins, colours)
    ========================================================= */
-const legami={name:'Legàmi',icon:'🧵',short:'Unisci le coppie: i fili non si incrociano',how:'Trascina il dito da una cosa a quella che le si associa (🐝 → 🌸). I fili non possono incrociarsi.',budget:true,
+const legami={name:'Legàmi',icon:'🧵',short:'Unisci le coppie: i fili non si incrociano',how:'Trascina il dito da una figura alla sua compagna. I fili non possono incrociarsi.',budget:true,
  gen(n,r){
+  const v=r()<.5?'associa':r()<.5?'gemelli':'colori';
   const cols=5+Math.min(1,Math.floor(n/15)),rows=cols+2,N=cols*rows;
   let want=Math.min(6,3+Math.floor(n/8));
   const nb=c=>[0,1,2,3].map(d=>nbr(c,d,cols,rows)).filter(x=>x>=0);
@@ -246,9 +256,11 @@ const legami={name:'Legàmi',icon:'🧵',short:'Unisci le coppie: i fili non si 
    const rocks=new Set();
    if(n>=20&&r()<.35){const free=[];for(let i=0;i<N;i++)if(occ[i]<0)free.push(i);shuffle(free,r).slice(0,1+Math.floor(r()*2)).forEach(c=>rocks.add(c))}
    const emo=shuffle(PAIRS,r),cl=shuffle(COLORS,r),epMap={};
-   const pairs=sol.map((s,p)=>{const e=[s[0],s[s.length-1]];epMap[e[0]]=p;epMap[e[1]]=p;return{e,em:r()<.5?emo[p]:[emo[p][1],emo[p][0]],color:cl[p%cl.length],sol:s}});
+   const pairs=sol.map((s,p)=>{const e=[s[0],s[s.length-1]];epMap[e[0]]=p;epMap[e[1]]=p;
+    const em=v==='colori'?null:v==='gemelli'?[emo[p][0],emo[p][0]]:(r()<.5?emo[p]:[emo[p][1],emo[p][0]]);return{e,em,color:cl[p%cl.length],sol:s}});
    const S=sol.reduce((a,s)=>a+s.length-1,0);
-   return{cols,rows,pairs,epMap,rocks,inkMax:Math.ceil(S*2.2)+cols*3,paths:pairs.map(()=>[]),drag:null,hint:null};
+   return{cols,rows,pairs,epMap,rocks,inkMax:Math.ceil(S*2.2)+cols*3,paths:pairs.map(()=>[]),drag:null,hint:null,
+    vn:{associa:'Associazioni',gemelli:'Gemelli',colori:'Colori'}[v],tip:{associa:'Unisci le cose che vanno insieme',gemelli:'Unisci le figure uguali',colori:'Unisci i puntini dello stesso colore'}[v]};
   }},
  layout(){grid(L.cols,L.rows)},
  isDone(p){const pa=L.paths[p];if(pa.length<2)return false;const a=pa[0],b=pa[pa.length-1];return a!==b&&L.epMap[a]===p&&L.epMap[b]===p},
@@ -283,21 +295,24 @@ const legami={name:'Legàmi',icon:'🧵',short:'Unisci le coppie: i fili non si 
   ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`${Math.round(cs*.46)}px ${EF}`;
   L.pairs.forEach((pr,p)=>{const d=this.isDone(p),act=L.drag&&L.drag.p===p;pr.e.forEach((c,k)=>{const[x,y]=center(c),R=cs*.41*(d?1+.05*Math.sin(t*2.2+p):act?1.07:1);
    ctx.save();ctx.shadowColor=pr.color;ctx.shadowBlur=d?22:act?16:6;ctx.fillStyle=rgba(pr.color,d?.38:.2);circle(x,y,R);ctx.fill();ctx.restore();
-   ctx.lineWidth=2;ctx.strokeStyle=rgba(pr.color,.9);circle(x,y,R);ctx.stroke();ctx.fillText(pr.em[k],x,y+cs*.03)})})}
+   ctx.lineWidth=2;ctx.strokeStyle=rgba(pr.color,.9);circle(x,y,R);ctx.stroke();
+   if(pr.em)ctx.fillText(pr.em[k],x,y+cs*.03);else{ctx.fillStyle=pr.color;circle(x,y,R*.55);ctx.fill()}})})}
 };
 
 /* =========================================================
-   MODE 2 — Lanterne: light them all (lights-out)
+   MODE 2 — Lanterne: lights-out with different neighbourhoods
    ========================================================= */
-const lanterne={name:'Lanterne',icon:'🏮',short:'Accendi tutte le lanterne',how:'Toccare una lanterna cambia lei e le vicine (sopra, sotto, ai lati). Accendile tutte.',budget:true,
- flip(on,c){on[c]^=1;for(let d=0;d<4;d++){const q=nbr(c,d,L.cols,L.rows);if(q>=0)on[q]^=1}},
- gen(n,r){const s=3+Math.min(1,Math.floor(n/20)),N=s*s;let on,need;L={cols:s,rows:s};
-  do{on=new Array(N).fill(1);need=new Set();const k=Math.min(4,1+Math.floor(n/12)+Math.floor(r()*2));shuffle([...Array(N).keys()],r).slice(0,k).forEach(c=>{this.flip(on,c);need.add(c)})}while(on.every(v=>v));
-  return{cols:s,rows:s,on,need,vis:on.slice(),pop:new Array(N).fill(0),inkMax:need.size*3+6,hint:null}},
+const PATS={croce:[[0,0],[1,0],[-1,0],[0,1],[0,-1]],diagonali:[[0,0],[1,1],[-1,1],[1,-1],[-1,-1]],riga:[[0,0],[1,0],[-1,0]],colonna:[[0,0],[0,1],[0,-1]]};
+const lanterne={name:'Lanterne',icon:'🏮',short:'Accendi tutte le lanterne',how:'Toccare una lanterna cambia lei e alcune vicine: la regola è scritta in basso. Accendile tutte.',budget:true,
+ aff(c){const x=c%L.cols,y=Math.floor(c/L.cols),o=[];PATS[L.v].forEach(([dx,dy])=>{const X=x+dx,Y=y+dy;if(X>=0&&Y>=0&&X<L.cols&&Y<L.rows)o.push(Y*L.cols+X)});return o},
+ gen(n,r){const vs=Object.keys(PATS),v=vs[Math.floor(r()*vs.length)],s=3+Math.min(1,Math.floor(n/20)),N=s*s;let on,need;L={cols:s,rows:s,v};
+  do{on=new Array(N).fill(1);need=new Set();const k=Math.min(4,1+Math.floor(n/12)+Math.floor(r()*2));shuffle([...Array(N).keys()],r).slice(0,k).forEach(c=>{this.aff(c).forEach(q=>on[q]^=1);need.has(c)?need.delete(c):need.add(c)})}while(on.every(x=>x));
+  const tip={croce:'Ogni lanterna cambia anche quelle sopra, sotto e ai lati',diagonali:'Ogni lanterna cambia anche quelle in diagonale',riga:'Ogni lanterna cambia anche quelle a destra e a sinistra',colonna:'Ogni lanterna cambia anche quelle sopra e sotto'}[v];
+  return{cols:s,rows:s,v,on,need,vis:on.slice(),pop:new Array(N).fill(0),inkMax:need.size*3+6,hint:null,vn:{croce:'A croce',diagonali:'Diagonali',riga:'In riga',colonna:'In colonna'}[v],tip}},
  layout(){grid(L.cols,L.rows,110)},
  won(){return L.on.every(v=>v)},
- down(x,y){const c=cellAt(x,y);if(c<0||!spend())return false;this.flip(L.on,c);L.need.has(c)?L.need.delete(c):L.need.add(c);
-  L.pop[c]=1;A.note(penta(L.on.filter(v=>v).length%10),.04,1.4);if(this.won())A.done();check();return false},
+ down(x,y){const c=cellAt(x,y);if(c<0||!spend())return false;this.aff(c).forEach(q=>{L.on[q]^=1;L.pop[q]=1});L.need.has(c)?L.need.delete(c):L.need.add(c);
+  A.note(penta(L.on.filter(v=>v).length%10),.04,1.4);if(this.won())A.done();check();return false},
  hint(){const c=[...L.need][0];if(c!==undefined){L.hint={c,t:performance.now()};toast('Prova a toccare quella che pulsa')}},
  status(){return null},
  draw(t,dt,now){board();const N=L.cols*L.rows;
@@ -309,51 +324,62 @@ const lanterne={name:'Lanterne',icon:'🏮',short:'Accendi tutte le lanterne',ho
    ctx.strokeStyle=`rgba(255,230,180,${.25+.5*v})`;ctx.lineWidth=1.5;rr(x-R*.75,y-R,R*1.5,R*2,R*.6);ctx.stroke();
    ctx.fillStyle='rgba(255,255,255,.22)';rr(x-R*.4,y-R*1.18,R*.8,R*.2,2);ctx.fill();rr(x-R*.4,y+R*.98,R*.8,R*.2,2);ctx.fill();
    if(v>.05){ctx.fillStyle=`rgba(255,250,225,${v*(.8+.2*Math.sin(t*6+i))})`;ctx.beginPath();ctx.ellipse(x,y+R*.15,R*.18,R*.32,0,0,7);ctx.fill()}}
-  if(L.hint){const e=(now-L.hint.t)/3000;if(e>1)L.hint=null;else{const[x,y]=center(L.hint.c);ctx.strokeStyle=`rgba(255,255,255,${Math.sin(e*Math.PI)*.7})`;ctx.lineWidth=2;circle(x,y,cs*.42+Math.sin(now/200)*3);ctx.stroke()}}}
+  if(L.hint){const e=(now-L.hint.t)/3000;if(e>1)L.hint=null;else{const a=Math.sin(e*Math.PI);this.aff(L.hint.c).forEach(q=>{const[x,y]=center(q),main=q===L.hint.c;ctx.strokeStyle=`rgba(255,255,255,${a*(main?.8:.3)})`;ctx.lineWidth=main?2.5:1.5;circle(x,y,cs*.42+(main?Math.sin(now/200)*3:0));ctx.stroke()})}}}
 };
 
 /* =========================================================
-   MODE 3 — Sentieri: rotate tiles to close every path
+   MODE 3 — Sentieri: rotate tiles (variants: garden, spring, locked tiles)
    ========================================================= */
 const rot=m=>((m<<1)|(m>>3))&15;
 const sentieri={name:'Sentieri',icon:'🌿',short:'Ruota i tasselli: nessun sentiero aperto',how:'Tocca un tassello per ruotarlo. Quando ogni sentiero si collega a un altro, il giardino si illumina.',budget:true,
- gen(n,r){const cols=4+Math.min(1,Math.floor(n/18)),rows=cols+1,N=cols*rows,sol=new Array(N).fill(0),vis=new Array(N).fill(false);
+ gen(n,r){const v=r()<.4?'giardino':r()<.5?'fonte':'fissi';
+  const cols=4+Math.min(1,Math.floor(n/18)),rows=cols+1,N=cols*rows,sol=new Array(N).fill(0),vis=new Array(N).fill(false);
   const st=[Math.floor(r()*N)];vis[st[0]]=true;
   while(st.length){const idx=r()<.5?st.length-1:Math.floor(r()*st.length),c=st[idx];
    const ds=shuffle([0,1,2,3],r).filter(d=>{const q=nbr(c,d,cols,rows);return q>=0&&!vis[q]});
    if(!ds.length){st.splice(idx,1);continue}const d=ds[0],q=nbr(c,d,cols,rows);sol[c]|=1<<d;sol[q]|=1<<((d+2)%4);vis[q]=true;st.push(q)}
-  let cur,bad;do{cur=sol.map(m=>{let x=m;const k=r()<.45?0:1+Math.floor(r()*3);for(let i=0;i<k;i++)x=rot(x);return x});bad=cur.filter((m,i)=>m!==sol[i]).length}while(bad<N/3);
+  const locked=new Set(v==='fissi'?shuffle([...Array(N).keys()],r).slice(0,Math.round(N*.3)):[]);
+  let cur,bad;do{cur=sol.map((m,i)=>{if(locked.has(i))return m;let x=m;const k=r()<.45?0:1+Math.floor(r()*3);for(let j=0;j<k;j++)x=rot(x);return x});bad=cur.filter((m,i)=>m!==sol[i]).length}while(bad<(N-locked.size)/3);
   const need=cur.reduce((a,m,i)=>a+this.minRot(m,sol[i]),0);
-  return{cols,rows,sol,cur,ang:new Array(N).fill(0),glow:new Array(N).fill(0),inkMax:Math.ceil(need*2.2)+cols*3}},
+  return{cols,rows,sol,cur,locked,src:Math.floor(r()*N),v,ang:new Array(N).fill(0),glow:new Array(N).fill(0),inkMax:Math.ceil(need*2.2)+cols*3,
+   vn:{giardino:'Giardino',fonte:'Fonte',fissi:'Pietre fisse'}[v],tip:{giardino:'Ruota i tasselli: nessun sentiero aperto',fonte:"Porta l'acqua della fonte ovunque",fissi:'I tasselli scuri sono già giusti'}[v]}},
  minRot(m,s){for(let k=0;k<4;k++){if(m===s)return k;m=rot(m)}return 0},
  layout(){grid(L.cols,L.rows,92)},
  linked(c){const m=L.cur[c];for(let d=0;d<4;d++)if(m&(1<<d)){const q=nbr(c,d,L.cols,L.rows);if(q<0||!(L.cur[q]&(1<<((d+2)%4))))return false}return true},
+ reach(){const seen=new Set([L.src]),q=[L.src];while(q.length){const c=q.pop();for(let d=0;d<4;d++)if(L.cur[c]&(1<<d)){const nb=nbr(c,d,L.cols,L.rows);if(nb>=0&&!seen.has(nb)&&(L.cur[nb]&(1<<((d+2)%4)))){seen.add(nb);q.push(nb)}}}return seen},
  won(){return L.cur.every((_,c)=>this.linked(c))},
- down(x,y){const c=cellAt(x,y);if(c<0||!spend())return false;L.cur[c]=rot(L.cur[c]);L.ang[c]+=1;A.tick(1+(c%5));if(this.won()){A.done()}check();return false},
+ down(x,y){const c=cellAt(x,y);if(c<0)return false;if(L.locked.has(c)){A.soft();return false}if(!spend())return false;L.cur[c]=rot(L.cur[c]);L.ang[c]+=1;A.tick(1+(c%5));if(this.won())A.done();check();return false},
  hint(){const c=L.cur.findIndex((m,i)=>m!==L.sol[i]);if(c>=0){const k=this.minRot(L.cur[c],L.sol[c]);L.cur[c]=L.sol[c];L.ang[c]+=k;A.tick(3);toast('Ho girato un tassello per te');check()}},
  status(){return null},
- draw(t,dt){board();const N=L.cols*L.rows;
-  for(let c=0;c<N;c++){const[x,y]=center(c);L.ang[c]=Math.max(0,L.ang[c]-dt*6);const ok=this.linked(c);L.glow[c]+=((ok?1:0)-L.glow[c])*Math.min(1,dt*5);const g=L.glow[c];
-   ctx.fillStyle=`rgba(255,255,255,${.04+.03*g})`;rr(x-cs/2+3,y-cs/2+3,cs-6,cs-6,cs*.18);ctx.fill();
+ draw(t,dt){board();const N=L.cols*L.rows,fonte=L.v==='fonte',re=fonte?this.reach():null;
+  for(let c=0;c<N;c++){const[x,y]=center(c);L.ang[c]=Math.max(0,L.ang[c]-dt*6);const ok=fonte?re.has(c):this.linked(c);L.glow[c]+=((ok?1:0)-L.glow[c])*Math.min(1,dt*5);const g=L.glow[c],lk=L.locked.has(c);
+   ctx.fillStyle=lk?'rgba(0,0,0,.25)':`rgba(255,255,255,${.04+.03*g})`;rr(x-cs/2+3,y-cs/2+3,cs-6,cs-6,cs*.18);ctx.fill();
+   if(lk){ctx.fillStyle='rgba(255,255,255,.25)';circle(x-cs*.3,y-cs*.3,2.5);ctx.fill()}
    ctx.save();ctx.translate(x,y);ctx.rotate(-L.ang[c]*Math.PI/2);
-   ctx.strokeStyle=`rgba(${Math.round(225+30*g)},${Math.round(230-10*g)},${Math.round(240-110*g)},${.45+.5*g})`;ctx.lineWidth=cs*.17;ctx.lineCap='round';
-   if(g>.3){ctx.shadowColor='#ffd27a';ctx.shadowBlur=14*g}
+   ctx.strokeStyle=fonte?`rgba(${Math.round(225-100*g)},${Math.round(230-20*g)},${Math.round(240+15*g)},${.45+.5*g})`:`rgba(${Math.round(225+30*g)},${Math.round(230-10*g)},${Math.round(240-110*g)},${.45+.5*g})`;
+   ctx.lineWidth=cs*.17;ctx.lineCap='round';if(g>.3){ctx.shadowColor=fonte?'#7dd3fc':'#ffd27a';ctx.shadowBlur=14*g}
    const m=L.cur[c];let bits=0;ctx.beginPath();for(let d=0;d<4;d++)if(m&(1<<d)){bits++;const a=d*Math.PI/2-Math.PI/2;ctx.moveTo(0,0);ctx.lineTo(Math.cos(a)*cs/2,Math.sin(a)*cs/2)}ctx.stroke();
    if(bits===1){ctx.fillStyle=ctx.strokeStyle;circle(0,0,cs*.16);ctx.fill()}
-   ctx.restore()}}
+   ctx.restore();
+   if(fonte&&c===L.src){ctx.save();ctx.shadowColor='#7dd3fc';ctx.shadowBlur=20;ctx.fillStyle='#bae6fd';circle(x,y,cs*.2+Math.sin(t*3)*1.5);ctx.fill();ctx.restore()}}}
 };
 
 /* =========================================================
-   MODE 4 — Sfumature: reorder a colour gradient
+   MODE 4 — Sfumature: reorder a gradient (corners, rows, single tint)
    ========================================================= */
-const sfumature={name:'Sfumature',icon:'🎨',short:'Riordina i colori in una sfumatura',how:'Tocca due tasselli per scambiarli. I tasselli con il puntino sono già al loro posto.',budget:true,
- gen(n,r){const cols=4,rows=5+Math.min(1,Math.floor(n/20)),N=cols*rows,h=r()*360;
-  const C=[hsl(h,70,64),hsl(h+70+r()*40,65,55),hsl(h+170+r()*40,55,42),hsl(h+250+r()*40,70,72)];
-  const col=[];for(let i=0;i<N;i++){const u=(i%cols)/(cols-1),v=Math.floor(i/cols)/(rows-1);col.push([0,1,2].map(k=>Math.round(C[0][k]*(1-u)*(1-v)+C[1][k]*u*(1-v)+C[2][k]*(1-u)*v+C[3][k]*u*v)))}
-  const fixed=new Set([0,cols-1,N-cols,N-1]);const extra=Math.max(0,Math.round(N*Math.max(.2,.4-n*.006)));shuffle([...Array(N).keys()].filter(i=>!fixed.has(i)),r).slice(0,extra).forEach(i=>fixed.add(i));
+const sfumature={name:'Sfumature',icon:'🎨',short:'Riordina i colori in una sfumatura',how:'Tocca due tasselli per scambiarli. Quelli con il puntino sono già al loro posto.',budget:true,
+ gen(n,r){const v=r()<.4?'angoli':r()<.5?'righe':'tinta',cols=4,rows=5+Math.min(1,Math.floor(n/20)),N=cols*rows,h=r()*360;
+  const C=[hsl(h,70,64),hsl(h+70+r()*40,65,55),hsl(h+170+r()*40,55,42),hsl(h+250+r()*40,70,72)],col=[];
+  for(let i=0;i<N;i++){const x=i%cols,y=Math.floor(i/cols),u=x/(cols-1),w=y/(rows-1);
+   if(v==='angoli')col.push([0,1,2].map(k=>Math.round(C[0][k]*(1-u)*(1-w)+C[1][k]*u*(1-w)+C[2][k]*(1-u)*w+C[3][k]*u*w)));
+   else if(v==='righe')col.push(hsl(h+y*(260/rows),65,76-u*36));
+   else col.push(hsl(h+w*55,35+u*45,74-w*34))}
+  const fixed=new Set([0,cols-1,N-cols,N-1]);if(v==='righe')for(let y=0;y<rows;y++)fixed.add(y*cols);
+  const extra=Math.max(0,Math.round(N*Math.max(.2,.4-n*.006))-(v==='righe'?rows-2:0));shuffle([...Array(N).keys()].filter(i=>!fixed.has(i)),r).slice(0,extra).forEach(i=>fixed.add(i));
   const mov=[...Array(N).keys()].filter(i=>!fixed.has(i));let cur,bad;
-  do{cur=[...Array(N).keys()];const sh=shuffle(mov,r);mov.forEach((p,i)=>cur[p]=sh[i]);bad=cur.filter((v,i)=>v!==i).length}while(bad<mov.length*.6);
-  return{cols,rows,col,fixed,cur,sel:-1,dn:-1,off:[...Array(N)].map(()=>[0,0]),inkMax:Math.ceil(bad*2)+6}},
+  do{cur=[...Array(N).keys()];const sh=shuffle(mov,r);mov.forEach((p,i)=>cur[p]=sh[i]);bad=cur.filter((x,i)=>x!==i).length}while(bad<mov.length*.6);
+  return{cols,rows,col,fixed,cur,sel:-1,dn:-1,off:[...Array(N)].map(()=>[0,0]),inkMax:Math.ceil(bad*2)+6,
+   vn:{angoli:'Quattro angoli',righe:'Righe',tinta:'Una tinta'}[v],tip:{angoli:'Ricomponi la sfumatura tra i quattro angoli',righe:'Ogni riga va dal chiaro allo scuro',tinta:'Una sola tinta che cambia piano piano'}[v]}},
  layout(){grid(L.cols,L.rows,86)},
  won(){return L.cur.every((v,i)=>v===i)},
  swap(a,b,free){if(!free&&!spend())return;const[ax,ay]=center(a),[bx,by]=center(b);[L.cur[a],L.cur[b]]=[L.cur[b],L.cur[a]];L.off[a]=[bx-ax,by-ay];L.off[b]=[ax-bx,ay-by];
@@ -375,109 +401,126 @@ const sfumature={name:'Sfumature',icon:'🎨',short:'Riordina i colori in una sf
 };
 
 /* =========================================================
-   MODE 5 — Melodia: repeat the constellation's song
+   MODE 5 — Melodia: repeat the song (classic, echo, backwards)
    ========================================================= */
-const melodia={name:'Melodia',icon:'✨',short:'Ascolta le stelle, poi ripeti la melodia',how:'Le stelle suonano una breve melodia. Ascoltala, poi toccale nello stesso ordine. Se sbagli si riascolta, nessun problema.',budget:false,
- gen(n,r){const k=4+Math.min(2,Math.floor(n/14)),len=3+Math.min(2,Math.floor(n/10)),st=[];
+const melodia={name:'Melodia',icon:'✨',short:'Ascolta le stelle, poi ripeti la melodia',how:'Le stelle suonano una breve melodia: ascoltala, poi toccale nell\'ordine giusto. Se sbagli si riascolta, nessun problema.',budget:false,
+ gen(n,r){const v=r()<.45?'classica':r()<.55?'eco':'contrario',k=4+Math.min(2,Math.floor(n/14)),len=v==='contrario'?3+Math.min(1,Math.floor(n/15)):3+Math.min(2,Math.floor(n/10)),st=[];
   for(let t=0;st.length<k&&t<500;t++){const p=[.12+r()*.76,.12+r()*.76];if(st.every(q=>Math.hypot(q[0]-p[0],q[1]-p[1])>.24))st.push(p)}
   const byH=st.map((p,i)=>i).sort((a,b)=>st[b][1]-st[a][1]);const notes=[];byH.forEach((s,j)=>notes[s]=penta(j));
   const seq=[];while(seq.length<len){const s=Math.floor(r()*st.length);if(s!==seq[seq.length-1])seq.push(s)}
-  const links=[];st.forEach((p,i)=>{const near=st.map((q,j)=>[Math.hypot(q[0]-p[0],q[1]-p[1]),j]).filter(x=>x[1]!==i).sort((a,b)=>a[0]-b[0]).slice(0,2);near.forEach(([,j])=>{if(i<j||!links.some(l=>l[0]===j&&l[1]===i))links.push([i,j])})});
-  return{st,notes,seq,links,cols:1,rows:1,lit:st.map(()=>0),pos:0,phase:'wait',play:{i:0,t:performance.now()+1300},col:shuffle(COLORS,r)}},
+  const links=[];st.forEach((p,i)=>{st.map((q,j)=>[Math.hypot(q[0]-p[0],q[1]-p[1]),j]).filter(x=>x[1]!==i).sort((a,b)=>a[0]-b[0]).slice(0,2).forEach(([,j])=>{if(!links.some(l=>(l[0]===i&&l[1]===j)||(l[0]===j&&l[1]===i)))links.push([i,j])})});
+  return{st,notes,seq,links,v,upto:v==='eco'?1:len,fin:false,cols:1,rows:1,lit:st.map(()=>0),pos:0,phase:'wait',play:{i:0,t:performance.now()+1300},col:shuffle(COLORS,r),
+   vn:{classica:'Classica',eco:'Eco',contrario:'Al contrario'}[v],tip:{classica:'Ascolta le stelle, poi ripeti la melodia',eco:'La melodia cresce di una nota alla volta',contrario:"Ripeti la melodia dall'ultima nota alla prima"}[v]}},
  geo(){const a=area(),side=Math.min(a.w,a.h*.82);return{bx:a.x+(a.w-side)/2,by:a.y+(a.h-side)/2-10,side,R:Math.max(16,side*.055)}},
  sp(i){const g=this.geo();return[g.bx+L.st[i][0]*g.side,g.by+L.st[i][1]*g.side]},
  layout(){},
- won(){return L.pos>=L.seq.length},
+ won(){return L.fin},
+ exp(i){return L.v==='contrario'?L.seq[L.upto-1-i]:L.seq[i]},
  light(i,v=.05){L.lit[i]=1;A.note(L.notes[i],v,1.8)},
  replay(d=900){L.phase='listen';L.pos=0;L.play={i:0,t:performance.now()+d};updInk()},
  down(x,y){if(L.phase!=='input')return false;const R=this.geo().R;let best=-1,bd=1e9;L.st.forEach((_,i)=>{const[sx,sy]=this.sp(i),d=Math.hypot(sx-x,sy-y);if(d<bd){bd=d;best=i}});
   if(best<0||bd>R*2.2)return false;
-  if(best===L.seq[L.pos]){this.light(best);L.pos++;updInk();if(this.won()){L.phase='done';const[sx,sy]=this.sp(best);burstAt(sx,sy,L.col[best%9],16);const lv=L;setTimeout(()=>L===lv&&check(),500)}}
+  if(best===this.exp(L.pos)){this.light(best);L.pos++;updInk();
+   if(L.pos>=L.upto){if(L.upto>=L.seq.length){L.fin=true;L.phase='done';const[sx,sy]=this.sp(best);burstAt(sx,sy,L.col[best%9],16);const lv=L;setTimeout(()=>L===lv&&check(),500)}else{L.upto++;A.done();toast('Bene, aggiungiamo una nota');this.replay(1300)}}}
   else{L.lit[best]=.5;A.soft();toast('Riascoltiamola insieme');this.replay(1300)}return false},
  hint(){if(L.phase==='input'||L.phase==='listen'){this.replay(500);toast('Ascolta di nuovo')}},
- status(){return L.phase==='listen'||L.phase==='wait'?'Ascolta…':L.phase==='input'?`Ripeti la melodia · ${L.pos}/${L.seq.length}`:''},
+ status(){if(L.phase==='listen'||L.phase==='wait')return'Ascolta…';if(L.phase!=='input')return'';
+  return L.v==='contrario'?`Ripetila al contrario · ${L.pos}/${L.upto}`:L.v==='eco'?`Ripeti · ${L.upto} note su ${L.seq.length}`:`Ripeti la melodia · ${L.pos}/${L.upto}`},
  draw(t,dt,now){
   if(L.phase==='wait'&&now>=L.play.t-400){L.phase='listen';updInk()}
-  if(L.phase==='listen'&&now>=L.play.t){if(L.play.i<L.seq.length){this.light(L.seq[L.play.i]);L.play.i++;L.play.t=now+720}else{L.phase='input';updInk()}}
+  if(L.phase==='listen'&&now>=L.play.t){if(L.play.i<L.upto){this.light(L.seq[L.play.i]);L.play.i++;L.play.t=now+720}else{L.phase='input';updInk()}}
   const{R}=this.geo();ctx.lineWidth=1;ctx.strokeStyle='rgba(255,255,255,.1)';L.links.forEach(([i,j])=>{const[a,b]=this.sp(i),[c,d]=this.sp(j);ctx.beginPath();ctx.moveTo(a,b);ctx.lineTo(c,d);ctx.stroke()});
   L.st.forEach((_,i)=>{L.lit[i]=Math.max(0,L.lit[i]-dt*1.6);const v=L.lit[i],[x,y]=this.sp(i),col=L.col[i%9],tw=.5+.5*Math.sin(t*1.3+i*2);
    ctx.save();ctx.shadowColor=col;ctx.shadowBlur=10+40*v;ctx.fillStyle=rgba(col,.18+.6*v);circle(x,y,R*(1+.25*v));ctx.fill();ctx.restore();
    ctx.strokeStyle=rgba(col,.6+.4*v);ctx.lineWidth=1.5;circle(x,y,R*(1+.25*v));ctx.stroke();
-   ctx.fillStyle=`rgba(255,255,255,${.6+.4*Math.max(v,tw*.4)})`;ctx.beginPath();for(let k=0;k<10;k++){const a=k*Math.PI/5-Math.PI/2,rr2=k%2?R*.18:R*.42;ctx.lineTo(x+Math.cos(a)*rr2,y+Math.sin(a)*rr2)}ctx.fill()});
-  const g=this.geo(),dy=g.by+g.side+18,w=L.seq.length*16;for(let k=0;k<L.seq.length;k++){ctx.fillStyle=k<L.pos?'#ffe7a8':'rgba(255,255,255,.2)';circle(W/2-w/2+8+k*16,dy,4);ctx.fill()}}
+   ctx.fillStyle=`rgba(255,255,255,${.6+.4*Math.max(v,tw*.4)})`;ctx.beginPath();for(let k=0;k<10;k++){const a=k*Math.PI/5-Math.PI/2,q=k%2?R*.18:R*.42;ctx.lineTo(x+Math.cos(a)*q,y+Math.sin(a)*q)}ctx.fill()});
+  const g=this.geo(),dy=g.by+g.side+18,n=L.seq.length,w=n*16,done=L.v==='eco'?L.upto-1+(L.fin?1:0):L.pos;
+  for(let k=0;k<n;k++){ctx.fillStyle=k<done?'#ffe7a8':k<L.upto?'rgba(255,255,255,.45)':'rgba(255,255,255,.15)';circle(W/2-w/2+8+k*16,dy,4);ctx.fill()}}
 };
 
 /* =========================================================
-   MODE 6 — Intruso: find the odd one out
+   MODE 6 — Intruso: odd one out, by family or by colour, with labels
    ========================================================= */
-const intruso={name:'Intruso',icon:'🔍',short:"Trova chi non c'entra",how:"In ogni gruppo tutti hanno qualcosa in comune, tranne uno. Toccalo. Cinque gruppi e il livello è fatto.",budget:false,
- gen(n,r){const per=4,rounds=[];
-  for(let k=0;k<5;k++){const c=shuffle(CATS,r),a=c[0],b=c[1],odd=b.it[Math.floor(r()*b.it.length)],items=shuffle([...shuffle(a.it,r).slice(0,per-1),odd],r);rounds.push({items,odd:items.indexOf(odd),nm:a.nm})}
-  return{rounds,ri:0,per,cols:1,rows:1,dim:new Set(),shake:new Array(per).fill(0),found:false,glow:0}},
- geo(){const a=area(),rows=L.per/2,ts=Math.min((a.w-16)/2,(a.h*.85-12*(rows-1))/rows,150);const gw=ts*2+16,gh=ts*rows+16*(rows-1);return{ts,x0:a.x+(a.w-gw)/2,y0:a.y+(a.h-gh)/2-8,gh}},
+const intruso={name:'Intruso',icon:'🔍',short:"Trova chi non c'entra",how:"In ogni gruppo tutti hanno qualcosa in comune, tranne uno: toccalo. Sotto ogni figura c'è il suo nome. Cinque gruppi e il livello è fatto.",budget:false,
+ gen(n,r){const v=r()<.6?'famiglia':'colore',src=v==='colore'?COLGROUPS:CATS,rounds=[];
+  for(let k=0;k<5;k++){const c=shuffle(src,r),a=c[0],b=c[1],odd=b.it[Math.floor(r()*b.it.length)],items=shuffle([...shuffle(a.it,r).slice(0,3),odd],r);rounds.push({items,odd:items.indexOf(odd),nm:a.nm})}
+  return{rounds,ri:0,per:4,v,cols:1,rows:1,dim:new Set(),shake:[0,0,0,0],found:false,glow:0,
+   vn:v==='colore'?'Colori':'Famiglie',tip:v==='colore'?'Tre hanno lo stesso colore, uno no':"Tre sono della stessa famiglia, uno no"}},
+ geo(){const a=area(),ts=Math.min((a.w-16)/2,(a.h*.85-16)/2,170);return{ts,x0:a.x+(a.w-ts*2-16)/2,y0:a.y+(a.h-ts*2-16)/2-8,gh:ts*2+16}},
  pos(i){const g=this.geo();return[g.x0+(i%2)*(g.ts+16),g.y0+Math.floor(i/2)*(g.ts+16)]},
  layout(){},
  won(){return L.ri>=L.rounds.length},
  down(x,y){if(L.found)return false;const g=this.geo(),R=L.rounds[L.ri];
-  for(let i=0;i<L.per;i++){const[px,py]=this.pos(i);if(x>=px&&x<=px+g.ts&&y>=py&&y<=py+g.ts){
+  for(let i=0;i<4;i++){const[px,py]=this.pos(i);if(x>=px&&x<=px+g.ts&&y>=py&&y<=py+g.ts){
    if(L.dim.has(i))return false;
-   if(i===R.odd){L.found=true;A.done();burstAt(px+g.ts/2,py+g.ts/2,'#86efac',16);toast(`Tutti ${R.nm} · l'intruso era ${R.items[i]}`);
-    const lv=L;setTimeout(()=>{if(L!==lv)return;L.ri++;L.dim.clear();L.found=false;L.glow=0;updInk();if(this.won())check()},1500)}
+   if(i===R.odd){L.found=true;A.done();burstAt(px+g.ts/2,py+g.ts/2,'#86efac',16);toast(`Gli altri erano ${R.nm}: ${R.items[i][1]} no`);
+    const lv=L;setTimeout(()=>{if(L!==lv)return;L.ri++;L.dim.clear();L.found=false;L.glow=0;updInk();if(this.won())check()},1700)}
    else{L.shake[i]=1;L.dim.add(i);A.soft()}return false}}return false},
  hint(){if(L.found)return;const R=L.rounds[L.ri],c=R.items.map((_,i)=>i).filter(i=>i!==R.odd&&!L.dim.has(i));if(c.length){L.dim.add(c[0]);toast('Uno in meno tra cui scegliere')}},
- status(){return`Gruppo ${Math.min(L.ri+1,5)} di 5`},
+ status(){return`${L.v==='colore'?'Stesso colore':'Stessa famiglia'} · gruppo ${Math.min(L.ri+1,5)} di 5`},
  draw(t,dt){if(L.ri>=L.rounds.length)return;const R=L.rounds[L.ri],g=this.geo();if(L.found)L.glow=Math.min(1,L.glow+dt*3);
-  ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`${Math.round(g.ts*.48)}px ${EF}`;
-  R.items.forEach((em,i)=>{let[x,y]=this.pos(i);L.shake[i]=Math.max(0,L.shake[i]-dt*2);x+=Math.sin(t*38)*7*L.shake[i];
-   const dim=L.dim.has(i),isOdd=L.found&&i===R.odd;ctx.globalAlpha=dim?.28:L.found&&!isOdd?.5:1;
-   ctx.save();if(isOdd){ctx.shadowColor='#86efac';ctx.shadowBlur=30*L.glow}ctx.fillStyle=isOdd?`rgba(134,239,172,${.12+.2*L.glow})`:'rgba(255,255,255,.06)';rr(x,y,g.ts,g.ts,22);ctx.fill();ctx.restore();
-   ctx.strokeStyle=isOdd?'rgba(134,239,172,.8)':'rgba(255,255,255,.14)';ctx.lineWidth=1.5;rr(x,y,g.ts,g.ts,22);ctx.stroke();
-   ctx.fillText(em,x+g.ts/2,y+g.ts/2+g.ts*.03);ctx.globalAlpha=1});
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  R.items.forEach(([em,nm],i)=>{let[x,y]=this.pos(i);L.shake[i]=Math.max(0,L.shake[i]-dt*2);x+=Math.sin(t*38)*7*L.shake[i];
+   const dim=L.dim.has(i),isOdd=L.found&&i===R.odd;ctx.globalAlpha=dim?.3:L.found&&!isOdd?.55:1;
+   ctx.save();if(isOdd){ctx.shadowColor='#86efac';ctx.shadowBlur=30*L.glow}ctx.fillStyle=isOdd?`rgba(134,239,172,${.14+.2*L.glow})`:'rgba(255,255,255,.1)';rr(x,y,g.ts,g.ts,22);ctx.fill();ctx.restore();
+   ctx.strokeStyle=isOdd?'rgba(134,239,172,.85)':'rgba(255,255,255,.2)';ctx.lineWidth=1.5;rr(x,y,g.ts,g.ts,22);ctx.stroke();
+   ctx.font=`${Math.round(g.ts*.44)}px ${EF}`;ctx.fillText(em,x+g.ts/2,y+g.ts*.42);
+   ctx.fillStyle='rgba(255,255,255,.88)';ctx.font=`700 ${Math.max(13,Math.round(g.ts*.12))}px Nunito,sans-serif`;ctx.fillText(nm,x+g.ts/2,y+g.ts*.82);ctx.globalAlpha=1});
   const dy=g.y0+g.gh+26;for(let k=0;k<5;k++){ctx.fillStyle=k<L.ri?'#86efac':k===L.ri?'rgba(255,255,255,.55)':'rgba(255,255,255,.18)';circle(W/2-32+k*16,dy,4);ctx.fill()}}
 };
 
 /* =========================================================
-   MODE 7 — Memoria: classic card pairs
+   MODE 7 — Memoria: card pairs (identical, associated, colours)
    ========================================================= */
-const memoria={name:'Memoria',icon:'🃏',short:'Trova le coppie di carte uguali',how:'Gira due carte alla volta: se sono uguali restano scoperte. Prenditi tutto il tempo che vuoi.',budget:false,
- gen(n,r){const pairs=4+2*Math.min(1,Math.floor(n/10)),cols=pairs===4?2:pairs===6?3:4,rows=pairs*2/cols;
-  const uniq=[...new Set(shuffle(CATS.flatMap(c=>c.it),r))].slice(0,pairs),cards=shuffle([...uniq,...uniq],r);
-  return{cols,rows,cards,open:[],done:new Set(),vis:cards.map(()=>0),peek:0,lock:false}},
+const memoria={name:'Memoria',icon:'🃏',short:'Trova le coppie di carte',how:'Gira due carte alla volta: se fanno coppia restano scoperte. Prenditi tutto il tempo che vuoi.',budget:false,
+ gen(n,r){const v=r()<.4?'uguali':r()<.6?'associate':'colori',pairs=4+2*Math.min(1,Math.floor(n/10)),cols=pairs===4?2:3,rows=pairs*2/cols;let cards=[];
+  if(v==='uguali')[...new Set(shuffle(CATS.flatMap(c=>c.it.map(x=>x[0])),r))].slice(0,pairs).forEach((e,i)=>cards.push({f:e,id:i},{f:e,id:i}));
+  else if(v==='associate')shuffle(PAIRS,r).slice(0,pairs).forEach((p,i)=>cards.push({f:p[0],id:i},{f:p[1],id:i}));
+  else shuffle(COLORS,r).slice(0,pairs).forEach((c,i)=>cards.push({c,id:i},{c,id:i}));
+  cards=shuffle(cards,r);
+  return{cols,rows,cards,open:[],done:new Set(),vis:cards.map(()=>0),peek:0,lock:false,v,
+   vn:{uguali:'Uguali',associate:'Associate',colori:'Colori'}[v],tip:{uguali:'Trova le coppie di carte uguali',associate:'Trova le carte che vanno insieme (🔑 e 🔒)',colori:'Trova le coppie dello stesso colore'}[v]}},
  layout(){grid(L.cols,L.rows,110)},
  won(){return L.done.size===L.cards.length},
  down(x,y){const c=cellAt(x,y);if(c<0||L.lock||L.done.has(c)||L.open.includes(c))return false;L.open.push(c);A.tick(L.open.length*2);
   if(L.open.length===2){const[a,b]=L.open,lv=L;
-   if(L.cards[a]===L.cards[b]){L.done.add(a);L.done.add(b);L.open=[];A.done();burst(a,'#fcd34d',8);burst(b,'#fcd34d',8);updInk();check()}
-   else{L.lock=true;setTimeout(()=>{lv.open=[];lv.lock=false;A.soft()},950)}}return false},
+   if(L.cards[a].id===L.cards[b].id){L.done.add(a);L.done.add(b);L.open=[];A.done();burst(a,'#fcd34d',8);burst(b,'#fcd34d',8);updInk();check()}
+   else{L.lock=true;setTimeout(()=>{lv.open=[];lv.lock=false;A.soft()},1000)}}return false},
  hint(){L.peek=1.3;toast('Una sbirciatina veloce')},
  status(){return`Coppie ${L.done.size/2} di ${L.cards.length/2}`},
  draw(t,dt){L.peek=Math.max(0,L.peek-dt);ctx.textAlign='center';ctx.textBaseline='middle';
-  L.cards.forEach((em,c)=>{const up=L.done.has(c)||L.open.includes(c)||L.peek>0;L.vis[c]+=((up?1:0)-L.vis[c])*Math.min(1,dt*9);const v=L.vis[c],[x,y]=center(c),w=cs-10,sx=Math.max(.04,Math.abs(Math.cos(Math.PI*v)));
+  L.cards.forEach((cd,c)=>{const up=L.done.has(c)||L.open.includes(c)||L.peek>0;L.vis[c]+=((up?1:0)-L.vis[c])*Math.min(1,dt*9);const v=L.vis[c],[x,y]=center(c),w=cs-10,sx=Math.max(.04,Math.abs(Math.cos(Math.PI*v)));
    ctx.save();ctx.translate(x,y);ctx.scale(sx,1);const face=v>.5,dn=L.done.has(c);
    if(dn){ctx.shadowColor='#fcd34d';ctx.shadowBlur=16}
    ctx.fillStyle=face?(dn?'rgba(252,211,77,.2)':'rgba(255,255,255,.16)'):'rgba(165,180,252,.16)';rr(-w/2,-w/2,w,w,14);ctx.fill();ctx.shadowBlur=0;
    ctx.strokeStyle=face?(dn?'rgba(252,211,77,.7)':'rgba(255,255,255,.3)'):'rgba(165,180,252,.35)';ctx.lineWidth=1.5;rr(-w/2,-w/2,w,w,14);ctx.stroke();
-   if(face){ctx.font=`${Math.round(cs*.48)}px ${EF}`;ctx.fillText(em,0,cs*.03)}
+   if(face){if(cd.c){ctx.fillStyle=cd.c;circle(0,0,w*.3);ctx.fill()}else{ctx.font=`${Math.round(cs*.48)}px ${EF}`;ctx.fillText(cd.f,0,cs*.03)}}
    else{ctx.fillStyle='rgba(255,255,255,.3)';ctx.beginPath();for(let k=0;k<8;k++){const a=k*Math.PI/4,q=k%2?w*.07:w*.17;ctx.lineTo(Math.cos(a)*q,Math.sin(a)*q)}ctx.fill()}
    ctx.restore()})}
 };
 
 /* =========================================================
-   MODE 8 — Specchio: complete the mirrored half
+   MODE 8 — Specchio: symmetry (vertical, horizontal, rotated, four-way)
    ========================================================= */
-const specchio={name:'Specchio',icon:'🪞',short:"Rifletti il disegno sull'altra metà",how:"Metà del disegno è già fatta. Tocca le caselle dell'altra metà per rifletterlo come in uno specchio.",budget:true,
- gen(n,r){const axis=r()<.5?'v':'h',half=3,other=4+Math.min(1,Math.floor(n/12));
-  const cols=axis==='v'?half*2:other,rows=axis==='v'?other:half*2,N=cols*rows,ids=[...Array(N).keys()];
-  const isSrc=ids.map(i=>axis==='v'?(i%cols)<cols/2:Math.floor(i/cols)<rows/2);
-  const mir=ids.map(i=>{const x=i%cols,y=Math.floor(i/cols);return axis==='v'?y*cols+(cols-1-x):(rows-1-y)*cols+x});
-  let on;do{on=ids.map(i=>isSrc[i]&&r()<.35?1:0)}while(on.filter(v=>v).length<3);
-  const need=on.filter(v=>v).length;
-  return{cols,rows,axis,on,isSrc,mir,srcSet:ids.filter(i=>isSrc[i]),color:COLORS[Math.floor(r()*COLORS.length)],vis:new Array(N).fill(0),inkMax:Math.ceil(need*2.2)+6}},
+const specchio={name:'Specchio',icon:'🪞',short:"Rifletti il disegno sull'altra metà",how:"Una parte del disegno è già fatta. Tocca le caselle vuote per completarlo seguendo la simmetria indicata in basso.",budget:true,
+ gen(n,r){const vs=n<4?['v','h']:['v','h','punto','doppio'],v=vs[Math.floor(r()*vs.length)],o=4+Math.min(1,Math.floor(n/12));
+  const[cols,rows]=v==='v'?[6,o]:v==='doppio'?[6,6]:[o,6],N=cols*rows,ids=[...Array(N).keys()];
+  const srcOf=ids.map(i=>{const x=i%cols,y=Math.floor(i/cols);
+   if(v==='v')return x<cols/2?i:y*cols+(cols-1-x);
+   if(v==='h')return y<rows/2?i:(rows-1-y)*cols+x;
+   if(v==='punto')return y<rows/2?i:N-1-i;
+   return(y<rows/2?y:rows-1-y)*cols+(x<cols/2?x:cols-1-x)});
+  const isSrc=ids.map(i=>srcOf[i]===i);
+  let on;do{on=ids.map(i=>isSrc[i]&&r()<.38?1:0)}while(on.filter(x=>x).length<(v==='doppio'?2:3));
+  const need=ids.filter(i=>!isSrc[i]&&on[srcOf[i]]).length;
+  return{cols,rows,v,on,isSrc,srcOf,color:COLORS[Math.floor(r()*COLORS.length)],vis:new Array(N).fill(0),inkMax:Math.ceil(need*1.8)+6,
+   vn:{v:'Verticale',h:'Orizzontale',punto:'Capovolto',doppio:'Quattro specchi'}[v],
+   tip:{v:'Rifletti il disegno sulla destra',h:'Rifletti il disegno in basso',punto:'Copia il disegno capovolto, come girando il foglio',doppio:"Rifletti l'angolo nelle altre tre parti"}[v]}},
  layout(){grid(L.cols,L.rows,84)},
- wrong(){return L.srcSet.filter(i=>L.on[i]!==L.on[L.mir[i]])},
+ wrong(){return L.on.map((_,i)=>i).filter(i=>!L.isSrc[i]&&L.on[i]!==L.on[L.srcOf[i]])},
  won(){return this.wrong().length===0},
  down(x,y){const c=cellAt(x,y);if(c<0||L.isSrc[c]||!spend())return false;L.on[c]^=1;A.tick(L.on[c]?3:1);if(this.won())A.done();check();return false},
- hint(){const w=this.wrong()[0];if(w!==undefined){L.on[L.mir[w]]=L.on[w];A.tick(4);toast('Una casella sistemata');check()}},
+ hint(){const w=this.wrong()[0];if(w!==undefined){L.on[w]^=1;A.tick(4);toast('Una casella sistemata');check()}},
  status(){return null},
  draw(t,dt){board();const ok=this.won(),N=L.cols*L.rows;
   for(let c=0;c<N;c++){const[x,y]=center(c),s=L.isSrc[c];L.vis[c]+=(L.on[c]-L.vis[c])*Math.min(1,dt*10);const v=L.vis[c];
@@ -485,42 +528,205 @@ const specchio={name:'Specchio',icon:'🪞',short:"Rifletti il disegno sull'altr
    if(v>.02){ctx.save();ctx.shadowColor=L.color;ctx.shadowBlur=ok?22:s?4:10;ctx.fillStyle=rgba(L.color,(s?.5:.88)*v);rr(x-cs/2+4,y-cs/2+4,cs-8,cs-8,cs*.16);ctx.fill();ctx.restore()}
    if(!s){ctx.strokeStyle='rgba(255,255,255,.13)';ctx.lineWidth=1;rr(x-cs/2+4,y-cs/2+4,cs-8,cs-8,cs*.16);ctx.stroke()}}
   ctx.save();ctx.strokeStyle=`rgba(255,255,255,${.35+.15*Math.sin(t*2)})`;ctx.lineWidth=2;ctx.setLineDash([6,6]);ctx.beginPath();
-  if(L.axis==='v'){const mx=ox+L.cols*cs/2;ctx.moveTo(mx,oy-14);ctx.lineTo(mx,oy+L.rows*cs+14)}else{const my=oy+L.rows*cs/2;ctx.moveTo(ox-14,my);ctx.lineTo(ox+L.cols*cs+14,my)}
-  ctx.stroke();ctx.restore()}
+  const mx=ox+L.cols*cs/2,my=oy+L.rows*cs/2;
+  if(L.v==='v'||L.v==='doppio'){ctx.moveTo(mx,oy-14);ctx.lineTo(mx,oy+L.rows*cs+14)}
+  if(L.v==='h'||L.v==='doppio'||L.v==='punto'){ctx.moveTo(ox-14,my);ctx.lineTo(ox+L.cols*cs+14,my)}
+  ctx.stroke();ctx.restore();
+  if(L.v==='punto'){ctx.fillStyle='rgba(255,255,255,.8)';circle(mx,my,5);ctx.fill();ctx.strokeStyle='rgba(255,255,255,.5)';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(mx,my,14,-.4,Math.PI*1.4);ctx.stroke()}}
 };
 
 /* =========================================================
-   MODE 9 — Bolle: pop floating bubbles in order
+   MODE 9 — Bolle: pop bubbles in order (numbers, letters, rainbow)
    ========================================================= */
-const bolle={name:'Bolle',icon:'🎈',short:'Scoppia le bolle in ordine',how:"Tocca le bolle seguendo i numeri. A volte si parte dal più piccolo, a volte dal più grande: lo trovi scritto in basso.",budget:false,
- gen(n,r){const k=4+Math.min(3,Math.floor(n/8)),desc=n>4&&r()<.4,a=area(),R=Math.max(24,Math.min(42,Math.min(a.w,a.h)*.085));
-  const vals=n>10&&r()<.4?shuffle([...Array(20).keys()].map(i=>i+1),r).slice(0,k):[...Array(k).keys()].map(i=>i+1);
-  const order=vals.slice().sort((x,y)=>desc?y-x:x-y),b=[];
-  vals.forEach(v=>{let x,y,t=0;do{x=R+r()*(a.w-2*R);y=R+r()*(a.h-2*R)}while(t++<200&&b.some(o=>Math.hypot(o.x-x,o.y-y)<R*2.3));
-   const ang=r()*6.28,sp=10+r()*14;b.push({v,x,y,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,wob:0,gone:false})});
-  return{b,order,idx:0,desc,R,col:shuffle(COLORS,r),cols:1,rows:1,hintT:0}},
+const RAINBOW=['#f87171','#fb923c','#facc15','#4ade80','#38bdf8','#6366f1','#c084fc'];
+const ALPH='ABCDEFGHILMNOPQRSTUVZ';
+const bolle={name:'Bolle',icon:'🎈',short:'Scoppia le bolle in ordine',how:"Tocca le bolle nell'ordine indicato in basso: numeri, lettere o colori dell'arcobaleno.",budget:false,
+ gen(n,r){const v=r()<.45?'numeri':r()<.55?'lettere':'arcobaleno',a=area(),R=Math.max(24,Math.min(42,Math.min(a.w,a.h)*.085));let k=4+Math.min(3,Math.floor(n/8)),desc=false,items;
+  if(v==='numeri'){desc=n>4&&r()<.4;const vals=n>10&&r()<.4?shuffle([...Array(20).keys()].map(i=>i+1),r).slice(0,k):[...Array(k).keys()].map(i=>i+1);items=vals.map(x=>({v:x,label:String(x)}))}
+  else if(v==='lettere'){desc=n>8&&r()<.3;items=shuffle([...ALPH].map((ch,i)=>({v:i,label:ch})),r).slice(0,k)}
+  else{k=Math.min(7,k+1);items=shuffle([...Array(7).keys()],r).slice(0,k).map(i=>({v:i,label:'',color:RAINBOW[i]}))}
+  const order=items.map(x=>x.v).sort((x,y)=>desc?y-x:x-y),b=[],cl=shuffle(COLORS,r);
+  items.forEach((it,i)=>{let x,y,t=0;do{x=R+r()*(a.w-2*R);y=R+r()*(a.h-2*R-40)}while(t++<200&&b.some(o=>Math.hypot(o.x-x,o.y-y)<R*2.3));
+   const ang=r()*6.28,sp=10+r()*14;b.push({...it,color:it.color||cl[i%9],x,y,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,wob:0,gone:false})});
+  return{b,order,idx:0,desc,R,v,cols:1,rows:1,hintT:0,vn:{numeri:'Numeri',lettere:'Lettere',arcobaleno:'Arcobaleno'}[v],
+   tip:v==='arcobaleno'?"Segui i colori dell'arcobaleno, dal rosso al viola":v==='lettere'?(desc?'Dalla Z alla A':'In ordine alfabetico'):(desc?'Dal più grande al più piccolo':'Dal più piccolo al più grande')}},
  layout(){},
  won(){return L.idx>=L.order.length},
  down(x,y){const a=area();let hit=-1;L.b.forEach((b,i)=>{if(!b.gone&&Math.hypot(a.x+b.x-x,a.y+b.y-y)<L.R*1.2)hit=i});if(hit<0)return false;const b=L.b[hit];
-  if(b.v===L.order[L.idx]){b.gone=true;L.idx++;A.tick(L.idx);burstAt(a.x+b.x,a.y+b.y,L.col[hit%9],12);updInk();if(this.won()){A.done();const lv=L;setTimeout(()=>L===lv&&check(),400)}}
+  if(b.v===L.order[L.idx]){b.gone=true;L.idx++;A.tick(L.idx);burstAt(a.x+b.x,a.y+b.y,b.color,12);updInk();if(this.won()){A.done();const lv=L;setTimeout(()=>L===lv&&check(),400)}}
   else{b.wob=1;A.soft()}return false},
  hint(){L.hintT=performance.now();toast('Quella che pulsa è la prossima')},
- status(){return`${L.desc?'Dal più grande al più piccolo':'Dal più piccolo al più grande'} · ${L.idx}/${L.order.length}`},
- draw(t,dt,now){const a=area(),R=L.R,live=L.b.filter(b=>!b.gone);
-  live.forEach(b=>{b.x+=b.vx*dt;b.y+=b.vy*dt;if(b.x<R){b.x=R;b.vx=Math.abs(b.vx)}if(b.x>a.w-R){b.x=a.w-R;b.vx=-Math.abs(b.vx)}if(b.y<R){b.y=R;b.vy=Math.abs(b.vy)}if(b.y>a.h-R){b.y=a.h-R;b.vy=-Math.abs(b.vy)}});
+ status(){return`${L.tip} · ${L.idx}/${L.order.length}`},
+ draw(t,dt,now){const a=area(),R=L.R,live=L.b.filter(b=>!b.gone),hb=a.h-40;
+  live.forEach(b=>{b.x+=b.vx*dt;b.y+=b.vy*dt;if(b.x<R){b.x=R;b.vx=Math.abs(b.vx)}if(b.x>a.w-R){b.x=a.w-R;b.vx=-Math.abs(b.vx)}if(b.y<R){b.y=R;b.vy=Math.abs(b.vy)}if(b.y>hb-R){b.y=hb-R;b.vy=-Math.abs(b.vy)}});
   for(let i=0;i<live.length;i++)for(let j=i+1;j<live.length;j++){const p=live[i],q=live[j],dx=q.x-p.x,dy=q.y-p.y,d=Math.hypot(dx,dy)||1,m=2*R+6;if(d<m){const k=(m-d)/2/d;p.x-=dx*k;p.y-=dy*k;q.x+=dx*k;q.y+=dy*k}}
   ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`700 ${Math.round(R*.78)}px Nunito,sans-serif`;
   const next=L.order[L.idx];
-  L.b.forEach((b,i)=>{if(b.gone)return;b.wob=Math.max(0,b.wob-dt*2);const x=a.x+b.x,y=a.y+b.y,s=1+.1*Math.sin(t*22)*b.wob,col=L.col[i%9],rad=R*s*(1+.03*Math.sin(t*1.5+i));
-   ctx.save();ctx.shadowColor=col;ctx.shadowBlur=12;ctx.fillStyle=rgba(col,.2);circle(x,y,rad);ctx.fill();ctx.restore();
-   ctx.strokeStyle=rgba(col,.85);ctx.lineWidth=2;circle(x,y,rad);ctx.stroke();
-   ctx.fillStyle='rgba(255,255,255,.35)';ctx.beginPath();ctx.ellipse(x-rad*.38,y-rad*.42,rad*.2,rad*.11,-.6,0,7);ctx.fill();
-   ctx.fillStyle='#fff';ctx.fillText(b.v,x,y+1);
-   if(b.v===next&&now-L.hintT<2600){ctx.strokeStyle=`rgba(255,255,255,${.4+.4*Math.sin(now/150)})`;ctx.lineWidth=2;circle(x,y,rad+8);ctx.stroke()}})}
+  L.b.forEach((b,i)=>{if(b.gone)return;b.wob=Math.max(0,b.wob-dt*2);const x=a.x+b.x,y=a.y+b.y,s=1+.1*Math.sin(t*22)*b.wob,rad=R*s*(1+.03*Math.sin(t*1.5+i)),rb=L.v==='arcobaleno';
+   ctx.save();ctx.shadowColor=b.color;ctx.shadowBlur=12;ctx.fillStyle=rgba(b.color,rb?.75:.2);circle(x,y,rad);ctx.fill();ctx.restore();
+   ctx.strokeStyle=rgba(b.color,.9);ctx.lineWidth=2;circle(x,y,rad);ctx.stroke();
+   ctx.fillStyle='rgba(255,255,255,.4)';ctx.beginPath();ctx.ellipse(x-rad*.38,y-rad*.42,rad*.2,rad*.11,-.6,0,7);ctx.fill();
+   if(b.label){ctx.fillStyle='#fff';ctx.fillText(b.label,x,y+1)}
+   if(b.v===next&&now-L.hintT<2600){ctx.strokeStyle=`rgba(255,255,255,${.4+.4*Math.sin(now/150)})`;ctx.lineWidth=2;circle(x,y,rad+8);ctx.stroke()}});
+  if(L.v==='arcobaleno'){const ly=a.y+a.h-14,n=L.order.length,w=n*26;L.order.forEach((v,k)=>{ctx.globalAlpha=k<L.idx?.25:1;ctx.fillStyle=RAINBOW[v];circle(W/2-w/2+13+k*26,ly,8);ctx.fill();ctx.globalAlpha=1})}}
+};
+
+/* =========================================================
+   MODE 10 — Vasetti: sort stones by colour (ball sort, always solvable)
+   ========================================================= */
+const FRUITS=['🍎','🍋','🍇','🍊','🥝'];
+const vasetti={name:'Vasetti',icon:'🏺',short:'Ogni vasetto un solo colore',how:'Tocca un vasetto per prendere la pietra in cima, poi tocca dove posarla: sopra una uguale o in un vasetto vuoto. Alla fine ogni vasetto deve avere un solo colore.',budget:false,
+ gen(n,r){const c=3+Math.min(2,Math.floor(n/10)),cap=4,T=c+2,v=r()<.6?'pietre':'frutta';let tubes;
+  for(let att=0;att<120;att++){tubes=[...Array(T)].map((_,i)=>i<c?Array(cap).fill(i):[]);
+   for(let s=0;s<400;s++){const As=[];tubes.forEach((t,i)=>{if(t.length){const x=t[t.length-1];if(t.length===1||t[t.length-2]===x)As.push(i)}});if(!As.length)break;
+    const a=As[Math.floor(r()*As.length)],Bs=tubes.map((_,i)=>i).filter(i=>i!==a&&tubes[i].length<cap);if(!Bs.length)continue;tubes[Bs[Math.floor(r()*Bs.length)]].push(tubes[a].pop())}
+   const mix=tubes.reduce((s,t)=>s+t.reduce((q,x,i)=>q+(i&&x!==t[i-1]?1:0),0),0);if(mix>=c*2&&!this.solved(tubes,cap))break}
+  return{tubes,cap,v,sel:-1,undo:[],shake:new Array(T).fill(0),pal:shuffle(COLORS,r),cols:1,rows:1,vn:v==='pietre'?'Pietre':'Frutta',tip:v==='pietre'?'Ogni vasetto un solo colore':'Ogni cestino un solo frutto'}},
+ solved(ts,cap){return ts.every(t=>!t.length||(t.length===cap&&t.every(x=>x===t[0])))},
+ geo(){const a=area(),T=L.tubes.length,per=T<=5?T:Math.ceil(T/2),rowsN=T<=5?1:2,tw=Math.min(64,a.w/per*.7),br=tw*.36,th=L.cap*br*2.25+br*.9,gapY=br*3;
+  const totalH=rowsN*th+(rowsN-1)*gapY,y0=a.y+(a.h-totalH)/2+br*1.5;return{tw,br,th,per,y0,gapY,a}},
+ tr(i){const g=this.geo(),row=Math.floor(i/g.per),inRow=row===0?Math.min(g.per,L.tubes.length):L.tubes.length-g.per,k=i-row*g.per,sp=g.a.w/inRow;return{x:g.a.x+sp*(k+.5)-g.tw/2,y:g.y0+row*(g.th+g.gapY),w:g.tw,h:g.th}},
+ layout(){},
+ won(){return this.solved(L.tubes,L.cap)},
+ down(x,y){let t=-1;L.tubes.forEach((_,i)=>{const b=this.tr(i);if(x>=b.x-12&&x<=b.x+b.w+12&&y>=b.y-50&&y<=b.y+b.h+12)t=i});if(t<0)return false;
+  if(L.sel<0){if(L.tubes[t].length){L.sel=t;A.tick(2)}return false}
+  if(t===L.sel){L.sel=-1;return false}
+  const from=L.tubes[L.sel],to=L.tubes[t],x0=from[from.length-1];
+  if(to.length<L.cap&&(!to.length||to[to.length-1]===x0)){to.push(from.pop());L.undo.push([L.sel,t]);A.note(penta(to.length+2),.04,1.2);
+   if(to.length===L.cap&&to.every(q=>q===to[0])){A.done();const b=this.tr(t);burstAt(b.x+b.w/2,b.y+b.h/2,this.col(to[0]),12)}L.sel=-1;check()}
+  else{L.shake[t]=1;A.soft();L.sel=to.length?t:-1}return false},
+ col(x){return L.pal[x%L.pal.length]},
+ hint(){if(L.undo.length){const[a,b]=L.undo.pop();L.tubes[a].push(L.tubes[b].pop());L.sel=-1;toast('Una mossa indietro')}else toast('Cerca una pietra che può andare sopra una uguale')},
+ status(){return L.tip},
+ draw(t,dt){const g=this.geo();ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`${Math.round(g.br*1.5)}px ${EF}`;
+  L.tubes.forEach((tb,i)=>{const b=this.tr(i);L.shake[i]=Math.max(0,L.shake[i]-dt*2.5);const sx=Math.sin(t*40)*5*L.shake[i],full=tb.length===L.cap&&tb.every(q=>q===tb[0]);
+   ctx.save();if(full){ctx.shadowColor=this.col(tb[0]);ctx.shadowBlur=20}ctx.fillStyle='rgba(255,255,255,.06)';rr(b.x+sx,b.y,b.w,b.h,b.w*.4);ctx.fill();ctx.restore();
+   ctx.strokeStyle=i===L.sel?'rgba(255,255,255,.75)':'rgba(255,255,255,.3)';ctx.lineWidth=2;rr(b.x+sx,b.y,b.w,b.h,b.w*.4);ctx.stroke();
+   tb.forEach((x,k)=>{const lift=i===L.sel&&k===tb.length-1,cx=b.x+b.w/2+sx,cy=lift?b.y-g.br*1.4:b.y+b.h-g.br*1.25-k*g.br*2.25;
+    if(L.v==='frutta')ctx.fillText(FRUITS[x],cx,cy+2);
+    else{ctx.save();ctx.shadowColor=this.col(x);ctx.shadowBlur=lift?18:8;ctx.fillStyle=this.col(x);circle(cx,cy,g.br);ctx.fill();ctx.restore();ctx.fillStyle='rgba(255,255,255,.35)';circle(cx-g.br*.3,cy-g.br*.3,g.br*.25);ctx.fill()}})})}
+};
+
+/* =========================================================
+   MODE 11 — Labirinto: guide the light home (garden, dark, fireflies)
+   ========================================================= */
+const labirinto={name:'Labirinto',icon:'🧭',short:'Porta la luce fino alla lanterna',how:'Trascina il dito dal punto luminoso lungo i sentieri del labirinto fino alla lanterna 🏮. Puoi tornare indietro quando vuoi.',budget:false,
+ gen(n,r){const v=r()<.45?'giardino':r()<.5?'buio':'lucciole',cols=5+Math.min(2,Math.floor(n/10)),rows=cols+2,N=cols*rows,open=new Array(N).fill(0),vis=new Array(N).fill(false),st=[Math.floor(r()*N)];vis[st[0]]=true;
+  while(st.length){const c=st[st.length-1],ds=shuffle([0,1,2,3],r).filter(d=>{const q=nbr(c,d,cols,rows);return q>=0&&!vis[q]});if(!ds.length){st.pop();continue}const d=ds[0],q=nbr(c,d,cols,rows);open[c]|=1<<d;open[q]|=1<<((d+2)%4);vis[q]=true;st.push(q)}
+  for(let i=0;i<Math.floor(N*.1);i++){const c=Math.floor(r()*N),d=Math.floor(r()*4),q=nbr(c,d,cols,rows);if(q>=0){open[c]|=1<<d;open[q]|=1<<((d+2)%4)}}
+  const corners=[0,cols-1,N-cols,N-1],start=corners[Math.floor(r()*4)],dist=new Array(N).fill(-1),q=[start];dist[start]=0;
+  while(q.length){const c=q.shift();for(let d=0;d<4;d++)if(open[c]&(1<<d)){const nb=nbr(c,d,cols,rows);if(nb>=0&&dist[nb]<0){dist[nb]=dist[c]+1;q.push(nb)}}}
+  const goal=dist.indexOf(Math.max(...dist)),mid=[...Array(N).keys()].filter(i=>i!==start&&i!==goal&&dist[i]>1);
+  const flies=new Set(v==='lucciole'?shuffle(mid,r).slice(0,3):[]);
+  return{cols,rows,open,start,goal,flies,got:new Set(),path:[start],v,drag:false,fin:false,
+   vn:{giardino:'Giardino',buio:'Al buio',lucciole:'Lucciole'}[v],tip:{giardino:'Porta la luce fino alla lanterna',buio:'Al buio vedi solo vicino alla tua luce',lucciole:'Raccogli le lucciole ✨, poi vai alla lanterna'}[v]}},
+ layout(){grid(L.cols,L.rows,72)},
+ won(){return L.fin},
+ dirTo(a,b){return b===a-L.cols?0:b===a+1?1:b===a+L.cols?2:b===a-1?3:-1},
+ step(c){const p=L.path,h=p[p.length-1];if(p.length>=2&&c===p[p.length-2]){p.pop();return true}
+  const i=p.indexOf(c);if(i>=0){p.length=i+1;return true}
+  const d=this.dirTo(h,c);if(d<0||!(L.open[h]&(1<<d)))return false;
+  p.push(c);A.tick(p.length);
+  if(L.flies.has(c)&&!L.got.has(c)){L.got.add(c);A.done();burst(c,'#fde68a',10);updInk()}
+  if(c===L.goal){if(L.got.size===L.flies.size){L.fin=true;L.drag=false;burst(c,'#ffcf6e',18);check()}else toast('Prima raccogli le lucciole ✨')}
+  return true},
+ down(x,y){const c=cellAt(x,y);if(c<0||L.fin)return false;const i=L.path.indexOf(c);if(i<0)return false;L.path.length=i+1;L.drag=true;return true},
+ move(x,y){if(!L.drag)return;const t=cellAt(x,y);if(t<0)return;let g=0;
+  while(L.drag&&g++<20){const h=L.path[L.path.length-1];if(h===t)break;const dx=t%L.cols-h%L.cols,dy=Math.floor(t/L.cols)-Math.floor(h/L.cols);
+   const a=Math.abs(dx)>=Math.abs(dy)?h+Math.sign(dx):h+Math.sign(dy)*L.cols,b=Math.abs(dx)>=Math.abs(dy)?(dy?h+Math.sign(dy)*L.cols:-1):(dx?h+Math.sign(dx):-1);
+   if(!this.step(a)&&!(b>=0&&this.step(b)))break}},
+ up(){L.drag=false},
+ hint(){const N=L.cols*L.rows,h=L.path[L.path.length-1],targets=[...L.flies].filter(f=>!L.got.has(f));const tg=targets.length?targets[0]:L.goal;
+  const prev=new Array(N).fill(-1),q=[h],seen=new Set([h]);while(q.length){const c=q.shift();if(c===tg)break;for(let d=0;d<4;d++)if(L.open[c]&(1<<d)){const nb=nbr(c,d,L.cols,L.rows);if(nb>=0&&!seen.has(nb)){seen.add(nb);prev[nb]=c;q.push(nb)}}}
+  const route=[];let c=tg;while(c!==h&&c>=0){route.unshift(c);c=prev[c]}route.slice(0,3).forEach(s=>this.step(s));toast('Ti ho fatto fare qualche passo')},
+ status(){return L.v==='lucciole'?`Lucciole ${L.got.size} di ${L.flies.size}`:null},
+ draw(t,dt){board();const{cols,rows}=L,wl=Math.max(3,cs*.1);
+  const line=()=>{ctx.beginPath();L.path.forEach((c,i)=>{const[x,y]=center(c);i?ctx.lineTo(x,y):ctx.moveTo(x,y)})};
+  ctx.save();ctx.strokeStyle='#ffd98a';ctx.globalAlpha=.85;ctx.lineWidth=cs*.22;ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowColor='#ffcf6e';ctx.shadowBlur=14;line();ctx.stroke();ctx.restore();
+  ctx.strokeStyle='rgba(190,230,200,.55)';ctx.lineWidth=wl;ctx.lineCap='round';ctx.beginPath();
+  for(let c=0;c<cols*rows;c++){const x=ox+(c%cols)*cs,y=oy+Math.floor(c/cols)*cs,m=L.open[c];
+   if(!(m&1)){ctx.moveTo(x,y);ctx.lineTo(x+cs,y)}if(!(m&8)){ctx.moveTo(x,y);ctx.lineTo(x,y+cs)}
+   if(c%cols===cols-1&&!(m&2)){ctx.moveTo(x+cs,y);ctx.lineTo(x+cs,y+cs)}if(Math.floor(c/cols)===rows-1&&!(m&4)){ctx.moveTo(x,y+cs);ctx.lineTo(x+cs,y+cs)}}
+  ctx.stroke();
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`${Math.round(cs*.5)}px ${EF}`;
+  L.flies.forEach(f=>{if(L.got.has(f))return;const[x,y]=center(f);ctx.globalAlpha=.7+.3*Math.sin(t*3+f);ctx.fillText('✨',x,y);ctx.globalAlpha=1});
+  const h=L.path[L.path.length-1],[hx,hy]=center(h);
+  if(L.v==='buio'){for(let c=0;c<cols*rows;c++){const[x,y]=center(c),d=Math.hypot(x-hx,y-hy)/cs,a=Math.min(.9,Math.max(0,(d-1.4)/1.3));if(a>0){ctx.fillStyle=`rgba(3,5,14,${a})`;ctx.fillRect(x-cs/2-.5,y-cs/2-.5,cs+1,cs+1)}}}
+  const[gx,gy]=center(L.goal);ctx.save();ctx.shadowColor='#ffcf6e';ctx.shadowBlur=20+8*Math.sin(t*2);ctx.fillText('🏮',gx,gy);ctx.restore();
+  ctx.save();ctx.shadowColor='#fff3c4';ctx.shadowBlur=22;ctx.fillStyle='#fff7da';circle(hx,hy,cs*.2+Math.sin(t*4)*1.5);ctx.fill();ctx.restore()}
+};
+
+/* =========================================================
+   MODE 12 — Tessere: sliding puzzle 3×3 (numbers, moon phases, gradient)
+   ========================================================= */
+const MOONS=['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];
+function solve8(start){const key=a=>a.join(','),h=a=>{let s=0;for(let i=0;i<9;i++){const v=a[i];if(v!==8)s+=Math.abs(i%3-v%3)+Math.abs(Math.floor(i/3)-Math.floor(v/3))}return s};
+ const heap=[],push=n=>{heap.push(n);let i=heap.length-1;while(i){const p=(i-1)>>1;if(heap[p].f<=heap[i].f)break;[heap[p],heap[i]]=[heap[i],heap[p]];i=p}},
+ pop=()=>{const top=heap[0],last=heap.pop();if(heap.length){heap[0]=last;let i=0;for(;;){const l=2*i+1,r=l+1;let m=i;if(l<heap.length&&heap[l].f<heap[m].f)m=l;if(r<heap.length&&heap[r].f<heap[m].f)m=r;if(m===i)break;[heap[m],heap[i]]=[heap[i],heap[m]];i=m}}return top};
+ const seen=new Map();push({a:start,g:0,f:h(start),first:-1});let it=0;
+ while(heap.length&&it++<150000){const n=pop(),k=key(n.a);if(seen.has(k))continue;seen.set(k,1);if(h(n.a)===0)return n.first;const b=n.a.indexOf(8);
+  for(let d=0;d<4;d++){const q=nbr(b,d,3,3);if(q<0)continue;const a=n.a.slice();[a[b],a[q]]=[a[q],a[b]];if(!seen.has(key(a)))push({a,g:n.g+1,f:n.g+1+h(a),first:n.first<0?q:n.first})}}
+ return -1}
+const tessere={name:'Tessere',icon:'🧩',short:'Rimetti in ordine le tessere',how:'Tocca una tessera accanto allo spazio vuoto per farla scorrere. Rimettile in ordine da sinistra a destra, dall\'alto in basso.',budget:false,
+ gen(n,r){const v=r()<.4?'numeri':r()<.5?'lune':'sfumatura';let cur;
+  do{cur=[...Array(9).keys()];let b=8,prev=-1;const moves=14+Math.min(26,n*2);for(let i=0;i<moves;i++){const opts=[0,1,2,3].map(d=>nbr(b,d,3,3)).filter(q=>q>=0&&q!==prev);const q=opts[Math.floor(r()*opts.length)];[cur[b],cur[q]]=[cur[q],cur[b]];prev=b;b=q}}while(cur.every((x,i)=>x===i));
+  return{cols:3,rows:3,cur,v,h0:r()*360,off:[...Array(9)].map(()=>[0,0]),hintC:-1,hintT:0,vn:{numeri:'Numeri',lune:'Fasi lunari',sfumatura:'Sfumatura'}[v],
+   tip:{numeri:'Metti i numeri da 1 a 8',lune:'Dalla luna nuova 🌑 alla calante 🌘',sfumatura:'Ricomponi la sfumatura: il numerino ti aiuta'}[v]}},
+ layout(){grid(3,3,110)},
+ won(){return L.cur.every((x,i)=>x===i)},
+ slide(c){let b=L.cur.indexOf(8);const sameRow=Math.floor(b/3)===Math.floor(c/3),sameCol=b%3===c%3;if(c===b||!(sameRow||sameCol))return false;
+  while(b!==c){const nx=sameRow?b+Math.sign(c-b):b+3*Math.sign(c-b);const[bx,by]=center(b),[nxx,nyy]=center(nx);[L.cur[b],L.cur[nx]]=[L.cur[nx],L.cur[b]];L.off[b]=[nxx-bx,nyy-by];b=nx}
+  A.tick(3+L.cur.filter((x,i)=>x===i).length);if(this.won())A.done();check();return true},
+ down(x,y){const c=cellAt(x,y);if(c>=0&&!this.slide(c))A.soft();return false},
+ hint(){const m=solve8(L.cur.slice());if(m>=0){L.hintC=m;L.hintT=performance.now();toast('Tocca la tessera che pulsa')}},
+ status(){return L.tip},
+ draw(t,dt,now){board();ctx.textAlign='center';ctx.textBaseline='middle';
+  for(let c=0;c<9;c++){const id=L.cur[c];if(id===8)continue;const o=L.off[c];o[0]*=Math.max(0,1-dt*12);o[1]*=Math.max(0,1-dt*12);const[x0,y0]=center(c),x=x0+o[0],y=y0+o[1],w=cs-8;
+   const[R,G,B2]=hsl(L.h0+id*(L.v==='sfumatura'?14:40),L.v==='sfumatura'?60:45,L.v==='sfumatura'?72-id*4:30);
+   ctx.save();ctx.shadowColor='rgba(0,0,0,.35)';ctx.shadowBlur=8;ctx.fillStyle=`rgb(${R},${G},${B2})`;rr(x-w/2,y-w/2,w,w,14);ctx.fill();ctx.restore();
+   ctx.strokeStyle=id===c?'rgba(255,231,168,.7)':'rgba(255,255,255,.15)';ctx.lineWidth=1.5;rr(x-w/2,y-w/2,w,w,14);ctx.stroke();
+   if(L.v==='lune'){ctx.font=`${Math.round(cs*.5)}px ${EF}`;ctx.fillText(MOONS[id],x,y+2)}
+   else if(L.v==='numeri'){ctx.fillStyle='#fff';ctx.font=`700 ${Math.round(cs*.4)}px Nunito,sans-serif`;ctx.fillText(id+1,x,y+1)}
+   else{ctx.fillStyle='rgba(0,0,0,.35)';ctx.font=`700 ${Math.round(cs*.16)}px Nunito,sans-serif`;ctx.fillText(id+1,x+w*.32,y+w*.32)}
+   if(c===L.hintC&&now-L.hintT<2600){ctx.strokeStyle=`rgba(255,255,255,${.5+.4*Math.sin(now/150)})`;ctx.lineWidth=3;rr(x-w/2-3,y-w/2-3,w+6,w+6,16);ctx.stroke()}}}
+};
+
+/* =========================================================
+   MODE 13 — Conta: gentle counting (one kind, everything)
+   ========================================================= */
+const conta={name:'Conta',icon:'🧮',short:'Conta con calma e scegli il numero',how:'Guarda la scena, conta senza fretta e tocca il numero giusto. Se sbagli, riprova.',budget:false,
+ gen(n,r){const v=r()<.6?'tipo':'tutti',rounds=[];
+  for(let k=0;k<4;k++){const cats=shuffle(CATS,r),pick=c=>c.it[Math.floor(r()*c.it.length)],tg=pick(cats[0]),items=[];
+   const ans=2+Math.floor(r()*(3+Math.min(3,Math.floor(n/8))));for(let i=0;i<ans;i++)items.push(tg[0]);
+   if(v==='tipo'){const d1=pick(cats[1]),d2=pick(cats[2]),nd=2+Math.floor(r()*3);for(let i=0;i<nd;i++)items.push(i%2?d1[0]:d2[0])}
+   const pts=[];items.forEach(e=>{let p,t=0;do{p=[.1+r()*.8,.12+r()*.76]}while(t++<300&&pts.some(q=>Math.hypot(q[0]-p[0],q[1]-p[1])<.17));pts.push(p)});
+   const opts=new Set([ans]);while(opts.size<3){const o=ans+(r()<.5?-1:1)*(1+Math.floor(r()*2));if(o>0)opts.add(o)}
+   rounds.push({items:shuffle(items.map((e,i)=>({e,x:pts[i][0],y:pts[i][1],ph:r()*6.28})),r),tg,ans,opts:[...opts].sort((a,b)=>a-b)})}
+  return{rounds,ri:0,v,dim:new Set(),found:false,cols:1,rows:1,vn:v==='tipo'?'Un tipo':'Tutti',tip:v==='tipo'?'Conta solo quelli indicati':'Conta tutto quello che vedi'}},
+ geo(){const a=area(),bh=56,sc={x:a.x,y:a.y+34,w:a.w,h:a.h-bh-60},bw=Math.min(96,(a.w-32)/3);return{a,sc,bw,bh,by:a.y+a.h-bh-6}},
+ bx(i){const g=this.geo();return W/2+(i-1)*(g.bw+16)-g.bw/2},
+ layout(){},
+ won(){return L.ri>=L.rounds.length},
+ down(x,y){if(L.found)return false;const g=this.geo(),R=L.rounds[L.ri];
+  R.opts.forEach((o,i)=>{const bx=this.bx(i);if(x>=bx&&x<=bx+g.bw&&y>=g.by&&y<=g.by+g.bh&&!L.dim.has(i)){
+   if(o===R.ans){L.found=true;A.done();burstAt(bx+g.bw/2,g.by,'#86efac',14);const lv=L;setTimeout(()=>{if(L!==lv)return;L.ri++;L.dim.clear();L.found=false;updInk();if(this.won())check()},1100)}
+   else{L.dim.add(i);A.soft()}}});return false},
+ hint(){if(L.found)return;const R=L.rounds[L.ri],i=R.opts.findIndex((o,k)=>o!==R.ans&&!L.dim.has(k));if(i>=0){L.dim.add(i);toast('Uno in meno tra cui scegliere')}},
+ status(){return`Domanda ${Math.min(L.ri+1,4)} di 4`},
+ draw(t){if(L.ri>=L.rounds.length)return;const R=L.rounds[L.ri],g=this.geo(),s=Math.min(52,g.sc.w*.12);
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='rgba(255,255,255,.9)';ctx.font='700 18px Nunito,sans-serif';
+  ctx.fillText(L.v==='tipo'?`Quanti sono: ${R.tg[1]}?`:'Quanti sono in tutto?',W/2-(L.v==='tipo'?s*.35:0),g.a.y+12);
+  if(L.v==='tipo'){const tw=ctx.measureText(`Quanti sono: ${R.tg[1]}?`).width;ctx.font=`22px ${EF}`;ctx.fillText(R.tg[0],W/2+tw/2+4,g.a.y+12)}
+  ctx.fillStyle='rgba(255,255,255,.04)';rr(g.sc.x,g.sc.y,g.sc.w,g.sc.h,18);ctx.fill();
+  ctx.font=`${Math.round(s)}px ${EF}`;R.items.forEach(it=>{ctx.fillText(it.e,g.sc.x+it.x*g.sc.w,g.sc.y+it.y*g.sc.h+Math.sin(t*1.2+it.ph)*3)});
+  R.opts.forEach((o,i)=>{const bx=this.bx(i),ok=L.found&&o===R.ans,dm=L.dim.has(i);ctx.globalAlpha=dm?.3:1;
+   ctx.save();if(ok){ctx.shadowColor='#86efac';ctx.shadowBlur=20}ctx.fillStyle=ok?'rgba(134,239,172,.25)':'rgba(255,255,255,.1)';rr(bx,g.by,g.bw,g.bh,16);ctx.fill();ctx.restore();
+   ctx.strokeStyle=ok?'rgba(134,239,172,.8)':'rgba(255,255,255,.22)';ctx.lineWidth=1.5;rr(bx,g.by,g.bw,g.bh,16);ctx.stroke();
+   ctx.fillStyle='#fff';ctx.font='700 24px Nunito,sans-serif';ctx.fillText(o,bx+g.bw/2,g.by+g.bh/2+1);ctx.globalAlpha=1})}
 };
 
 /* ---------- Random level selection ---------- */
-const MODES={legami,lanterne,sentieri,sfumature,melodia,intruso,memoria,specchio,bolle};
+const MODES={legami,lanterne,sentieri,sfumature,melodia,intruso,memoria,specchio,bolle,vasetti,labirinto,tessere,conta};
 const KEYS=Object.keys(MODES);
 let enabled=store.get('modes',KEYS).filter(k=>KEYS.includes(k));KEYS.forEach(k=>{if(!store.get('known_'+k,false)){store.set('known_'+k,true);if(!enabled.includes(k))enabled.push(k)}});if(!enabled.length)enabled=KEYS.slice();
 let cur=store.get('cur',null);
@@ -534,8 +740,8 @@ function loadLevel(){const{n,seed,mode:key}=cur;level=n;store.set('level',n);M=M
  const nt=THEMES[Math.floor((n-1)/8)%THEMES.length];if(nt!==theme){theme=nt;initFx()}A.root=theme.root;
  L=null;L=M.gen(n,rng(seed));L.n=n;L.ink=L.inkMax||0;
  document.querySelector('meta[name=theme-color]').content=theme.top;
- $('lv').textContent='Livello '+n;$('th').textContent=M.icon+' '+M.name+' · '+theme.name;layout();updInk();
- const seen=store.get('seen',[]);if(!seen.includes(key)){seen.push(key);store.set('seen',seen);showMsg(M.icon,M.name,M.how,()=>{},12000,'Nuovo gioco')}else setTimeout(()=>state==='play'&&toast(M.short),500)}
+ $('lv').textContent='Livello '+n;$('th').textContent=M.icon+' '+M.name+(L.vn?' · '+L.vn:'')+' · '+theme.name;layout();updInk();
+ const seen=store.get('seen',[]);if(!seen.includes(key)){seen.push(key);store.set('seen',seen);showMsg(M.icon,M.name,M.how,()=>toast(L.tip||M.short),12000,'Nuovo gioco')}else{const lv=L;setTimeout(()=>state==='play'&&L===lv&&toast(L.tip||M.short),500)}}
 function updInk(){const bar=$('inkBar'),lb=$('inkLbl');if(!M)return;
  if(!M.budget){bar.classList.add('hide');lb.textContent=M.status()||'';return}
  if(zen){bar.classList.add('hide');lb.textContent='Modalità zen · luce infinita';return}

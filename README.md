@@ -6,17 +6,23 @@ Every level is randomly generated and picks one of nine small puzzles at random,
 
 ## Minigames
 
-| | Name | Goal |
-|---|---|---|
-| 🧵 | Legàmi | Connect things that belong together (🐝 → 🌸) without crossing threads |
-| 🏮 | Lanterne | Light every lantern (tapping one toggles it and its neighbours) |
-| 🌿 | Sentieri | Rotate tiles until no path is left open |
-| 🎨 | Sfumature | Swap tiles to rebuild a colour gradient |
-| ✨ | Melodia | Listen to the stars, then repeat the melody |
-| 🔍 | Intruso | Find the odd one out in each group |
-| 🃏 | Memoria | Classic memory card pairs |
-| 🪞 | Specchio | Mirror the drawing onto the other half |
-| 🎈 | Bolle | Pop floating bubbles in ascending or descending order |
+Thirteen games, each with several variants picked at random:
+
+| | Name | Goal | Variants |
+|---|---|---|---|
+| 🧵 | Legàmi | Connect pairs without crossing threads | associations (🐝 → 🌸), twins, colours |
+| 🏮 | Lanterne | Light every lantern | cross, diagonals, row, column neighbourhoods |
+| 🌿 | Sentieri | Rotate tiles until no path is left open | garden, spring (bring water everywhere), fixed stones |
+| 🎨 | Sfumature | Swap tiles to rebuild a colour gradient | four corners, rows, single tint |
+| ✨ | Melodia | Listen to the stars, then repeat the melody | classic, echo (grows one note at a time), backwards |
+| 🔍 | Intruso | Find the odd one out (every item is labelled) | by family, by colour |
+| 🃏 | Memoria | Memory card pairs | identical, associated, colours |
+| 🪞 | Specchio | Complete the symmetric drawing | vertical, horizontal, rotated, four mirrors |
+| 🎈 | Bolle | Pop floating bubbles in order | numbers, letters, rainbow |
+| 🏺 | Vasetti | Sort stones so each jar has one colour | stones, fruit |
+| 🧭 | Labirinto | Guide the light through a maze to the lantern | garden, in the dark, fireflies to collect |
+| 🧩 | Tessere | 3×3 sliding puzzle | numbers, moon phases, gradient |
+| 🧮 | Conta | Count calmly and pick the right number | one kind, everything |
 
 ## Features
 
