@@ -28,6 +28,7 @@ Thirteen games, each with several variants picked at random:
 
 - Guided breathing between levels: an orb expands as you inhale and shrinks as you exhale. The exhale gets slightly longer as you keep playing, to help slow you down, and every fourth level adds a three-breath pause. The background also glows gently in the same rhythm
 - Gentle difficulty curve in every mode
+- Body awareness guide covering 21 areas where tension builds up (upper trapezius, scalenes, SCM, suboccipitals, jaw, diaphragm, intercostals, pectorals, rhomboids, latissimus dorsi, lumbar muscles, quadratus lumborum, psoas, glutes, pelvic floor and more). Each area shows where it is on a small figure, how to notice the tension and a simple, calming release. A short body check is available from the HUD, and a tip appears every third level. These are gentle wellness cues, not therapy
 - 116 original calming phrases across eleven themes (breath, body, present moment, self-kindness, letting go, nature, simplicity, gratitude, evening, visualisations, small practices). They are drawn from a shuffled deck so none repeats until all have been shown, and inhale/exhale cues vary too
 - Infinite, procedurally generated levels that are always solvable
 - Six atmospheric chapters (starry night, lantern lake, dawn garden, autumn forest, seabed, aurora), each with its own animated background and musical key
