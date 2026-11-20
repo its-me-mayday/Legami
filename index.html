@@ -54,7 +54,9 @@ button:focus-visible{outline:2px solid #ffe7a8;outline-offset:2px}
 .orb{width:min(220px,60vw);aspect-ratio:1;display:grid;place-items:center;margin:14px 0 6px}
 .ring{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,rgba(255,238,200,.6),rgba(255,214,140,.14) 58%,transparent 72%);box-shadow:0 0 70px rgba(255,220,150,.3);transform:scale(.45)}
 .bt{font-size:14px;opacity:.7;margin:0}
-#bWord{font-size:clamp(30px,8vw,42px);margin:6px 0 4px}
+#bWord{font-size:clamp(30px,8vw,42px);margin:6px 0 4px;max-width:18ch}
+#bWord.ph{font-size:clamp(22px,6vw,28px);line-height:1.25;max-width:22ch}
+#sPhrase{font-family:Fraunces,Georgia,serif;font-style:italic;opacity:.75;margin-top:10px}
 @media (prefers-reduced-motion:reduce){.ov,.sheet{transition:none}}
 </style>
 </head>
@@ -94,6 +96,7 @@ button:focus-visible{outline:2px solid #ffe7a8;outline-offset:2px}
   <div class="demo">🧵 🏮 🌿 🎨 ✨ 🔍 🃏 🪞 🎈</div>
   <p>Nove piccoli giochi, mescolati a caso. Ogni livello è un enigma nuovo e non sai mai quale arriva.</p>
   <p style="opacity:.6;font-size:15px">Tra un livello e l'altro, un respiro. Nessuna fretta, nessun punteggio. Se la luce finisce si ricomincia e basta.</p>
+  <p id="sPhrase"></p>
   <button class="pill" id="bStart">Tocca per iniziare</button>
   <small>Meglio con le cuffie 🎧</small>
 </div>
@@ -133,7 +136,35 @@ const CATS=[
  {nm:'verdure',it:['🥕','🥦','🌽','🥒','🍆','🥔','🧅']},
  {nm:'cose da scuola',it:['✏️','📏','📐','📎','✂️','🖍️','📌']}
 ];
-const PHRASES=['Inspira… ed espira.','Un passo alla volta.','Va tutto bene così.','Lascia andare la giornata.','Piano piano.','Le spalle giù, il respiro lungo.','Niente da rincorrere.','Ogni cosa al suo posto.','Hai fatto abbastanza, oggi.','Il silenzio è un bel posto.'];
+/* Calming phrases, grouped by theme. Drawn from a shuffled deck so none repeats until all have been shown. */
+const PHRASES=[
+ // respiro
+ "Inspira… ed espira.","Il respiro sa già cosa fare. Lascialo fare.","Ogni espiro porta via un po' di peso.","Respira lento, come le onde che tornano a riva.","Non devi controllare il respiro, solo ascoltarlo.","Un respiro alla volta è sempre abbastanza.","Senti l'aria fresca che entra e quella tiepida che esce.","Lascia che l'espiro sia un po' più lungo dell'inspiro.","Il respiro è un'ancora: puoi sempre tornare qui.","Respira come se avessi tutto il tempo del mondo.",
+ // corpo
+ "Le spalle giù, il respiro lungo.","Sciogli la mascella, lascia la lingua morbida.","Rilassa la fronte, come se qualcuno la accarezzasse.","Senti il peso del corpo appoggiato. Non devi reggere niente.","Lascia che le mani si aprano.","Ammorbidisci lo sguardo.","Il cuore rallenta quando gli dai spazio.","Senti i piedi per terra. Sei qui.","Nota dove sei teso, e lascia andare solo un po'.","Il tuo corpo ha lavorato tanto oggi. Ringrazialo.",
+ // presente
+ "Adesso non c'è niente da risolvere.","Questo momento basta così com'è.","Il passato è passato, il domani può aspettare.","Sei esattamente dove devi essere.","Qui e ora, nient'altro.","Il presente è un posto tranquillo, se ti fermi.","Non serve essere altrove.","Per qualche minuto il mondo può andare avanti da solo.","Ogni istante è un piccolo nuovo inizio.","Ascolta i suoni intorno a te, senza giudicarli.",
+ // gentilezza verso sé
+ "Hai fatto abbastanza, oggi.","Sii gentile con te stesso, come lo saresti con un amico.","Non devi essere perfetto per stare bene.","Va bene essere stanchi.","Ti meriti questo momento di pace.","Puoi essere fiero anche delle piccole cose.","Gli errori di oggi non dicono chi sei.","Concediti di non avere tutte le risposte.","Trattati con la stessa pazienza che dai agli altri.","Il riposo non si guadagna: ti spetta.","Quello che senti è valido, e passerà.","Stai facendo del tuo meglio, ed è abbastanza.",
+ // lasciar andare
+ "Lascia andare la giornata.","Niente da rincorrere.","Posa i pensieri, come si posa una borsa pesante.","I pensieri sono nuvole: guardali passare.","Non tutto va sistemato stasera.","Quello che non puoi cambiare, puoi lasciarlo andare.","Lascia che le preoccupazioni aspettino fuori dalla porta.","Ogni nodo si scioglie, con calma.","Quello che lasci oggi puoi riprenderlo domani.","L'acqua agitata torna limpida se la lasci ferma.","Non devi tenere tutto insieme. Non adesso.","Anche la fretta, a un certo punto, si stanca e se ne va.",
+ // natura
+ "Il fiume non ha fretta, eppure arriva al mare.","Anche gli alberi riposano d'inverno.","La luna non si affanna per brillare.","Il mare si muove sempre, ma in fondo è calmo.","Le foglie cadono senza paura.","Ogni tramonto è un permesso di rallentare.","Il seme cresce anche quando nessuno lo guarda.","La notte arriva piano, e porta silenzio.","Le stelle ci sono anche quando non le vedi.","Come la neve, lascia che tutto si posi.","La montagna resta ferma mentre il vento passa.","Anche dietro il cielo più grigio c'è il sole.","Le lucciole non hanno fretta di brillare.","Il lago riflette il cielo solo quando è calmo.",
+ // semplicità
+ "Piano piano.","Un passo alla volta.","Va tutto bene così.","Ogni cosa al suo posto.","Il silenzio è un bel posto.","La calma è sempre lì, sotto il rumore.","La pace non si cerca: si lascia arrivare.","Lento è bello.","Meno è abbastanza.","Sorridi appena, anche solo dentro.","La serenità è fatta di piccoli momenti come questo.","Rallentare non è perdere tempo.",
+ // gratitudine
+ "Pensa a una cosa bella di oggi, anche piccola.","Grazie per esserti preso questo momento.","C'è sempre qualcosa per cui sorridere.","Ricorda una persona che ti vuole bene.","Il caffè del mattino, una risata, un raggio di sole: contano.","Oggi hai respirato migliaia di volte. Che meraviglia.","Una tazza calda, una coperta, un respiro: basta poco.","Sei qui, adesso. È già tanto.","Qualcuno, oggi, è stato contento di vederti.",
+ // sera e sonno
+ "La giornata si chiude come un libro. Domani, una pagina nuova.","Stasera puoi posare il telefono, e anche i pensieri.","Il sonno arriva quando smetti di cercarlo.","Lascia che la sera ti avvolga.","Domani sarà un altro giorno, e tu sarai più riposato.","La mente si quieta come una stanza quando si spengono le luci.","La notte non chiede niente. Riposa.",
+ // visualizzazioni
+ "Immagina una luce calda che scende dalla testa ai piedi.","Immagina di stare su una spiaggia al tramonto.","Visualizza un lago calmo, senza increspature.","Immagina di sdraiarti su un prato, col sole sul viso.","Pensa a un posto dove ti sei sentito al sicuro.","Immagina ogni tensione che diventa sabbia e scivola via.","Immagina di camminare nel bosco, un passo dopo l'altro.","Pensa al rumore della pioggia sulla finestra.","Immagina di galleggiare sull'acqua, sostenuto senza sforzo.","Immagina il fuoco di un camino che scoppietta piano.",
+ // piccole pratiche
+ "Guarda intorno a te e trova cinque cose.","Nota tre suoni che senti in questo momento.","Appoggia una mano sul petto e senti il calore.","Fai un respiro profondo e lascialo uscire con un sospiro.","Muovi piano il collo, da un lato all'altro.","Chiudi gli occhi per tre respiri.","Stringi i pugni, poi rilascia. Senti la differenza.","Bevi un sorso d'acqua, con calma.","Distendi le dita, una alla volta.","Lascia cadere le spalle e senti quanto erano su."
+];
+const INH=["Inspira…","Inspira calma…","Inspira lentamente…","Inspira luce…","Riempiti d'aria…","Accogli l'aria…","Inspira dal naso…","Inspira pace…"];
+const EXH=["Espira…","Espira la fatica…","Lascia andare…","Espira piano…","Svuotati, dolcemente…","Espira le tensioni…","Lascia uscire tutto…","Espira la giornata…"];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function phrase(){let d=store.get('deck',null);if(!Array.isArray(d)||!d.length||d.some(i=>!(i<PHRASES.length)))d=shuffle([...PHRASES.keys()],Math.random);const i=d.pop();store.set('deck',d);return PHRASES[i]}
 const PENTA=[0,2,4,7,9];
 const PROG=[[0,7,11,16,26],[-3,4,9,12,19],[-7,5,9,12,16],[-5,2,7,14,17]];
 const mtof=m=>440*2**((m-69)/12);
@@ -524,18 +555,18 @@ function closeMsg(){if(!msgCb)return;const cb=msgCb;msgCb=null;clearTimeout(msgT
 $('msg').addEventListener('click',closeMsg);
 function win(){state='won';A.win();if(M===legami)L.pairs.forEach(pr=>pr.e.forEach(c=>burst(c,pr.color,10)));else{const a=area();for(let i=0;i<5;i++)burstAt(a.x+Math.random()*a.w,a.y+a.h*(.2+Math.random()*.6),COLORS[i],12)}
  wins++;const n=L.n,nx=()=>{fade=1;newLevel(n+1)};
- setTimeout(()=>{if(breathOn)breathe(n%4===0?3:1,'✨ Livello '+n+' completato',nx);else showMsg('✨','Livello '+n+' completato',PHRASES[Math.floor(Math.random()*PHRASES.length)],nx,3200)},900)}
+ setTimeout(()=>{if(breathOn)breathe(n%4===0?3:1,'✨ Livello '+n+' completato',nx);else showMsg('✨','Livello '+n+' completato',phrase(),nx,3200)},900)}
 /* ---------- Guided breathing: the exhale slowly lengthens as you play ---------- */
 let breathOn=store.get('breath',true),wins=0;
 const BR=()=>({inh:4,exh:4+Math.min(3,wins*.5)});
-function breathe(cycles,title,cb){const ov=$('breath'),orb=$('orb'),ease='cubic-bezier(.45,0,.55,1)';let k=0,done=false,tm;$('bTitle').textContent=title;$('bWord').textContent='';$('bSub').textContent='';
+function breathe(cycles,title,cb){const ov=$('breath'),orb=$('orb'),ease='cubic-bezier(.45,0,.55,1)';let k=0,done=false,tm;$('bTitle').textContent=title;$('bWord').textContent='';$('bWord').classList.remove('ph');$('bSub').textContent='';
  orb.style.transition='none';orb.style.transform='scale(.45)';void orb.offsetWidth;ov.classList.add('show');
  const end=()=>{if(done)return;done=true;clearTimeout(tm);ov.onclick=null;ov.classList.remove('show');setTimeout(cb,400)};ov.onclick=end;
- const step=()=>{if(done)return;if(k>=cycles){$('bWord').textContent=PHRASES[Math.floor(Math.random()*PHRASES.length)];$('bSub').textContent='';tm=setTimeout(end,2000);return}
-  const{inh,exh}=BR();$('bWord').textContent='Inspira…';$('bSub').textContent=cycles>1?`Respiro ${k+1} di ${cycles}`:'';orb.style.transition=`transform ${inh}s ${ease}`;orb.style.transform='scale(1)';A.breath(true,inh);
-  tm=setTimeout(()=>{if(done)return;$('bWord').textContent='Espira…';orb.style.transition=`transform ${exh}s ${ease}`;orb.style.transform='scale(.45)';A.breath(false,exh);k++;tm=setTimeout(step,exh*1000)},inh*1000)};
+ const step=()=>{if(done)return;if(k>=cycles){const ph=phrase();$('bWord').classList.add('ph');$('bWord').textContent=ph;$('bSub').textContent='';tm=setTimeout(end,2600+ph.length*45);return}
+  const{inh,exh}=BR();$('bWord').textContent=pick(INH);$('bSub').textContent=cycles>1?`Respiro ${k+1} di ${cycles}`:'';orb.style.transition=`transform ${inh}s ${ease}`;orb.style.transform='scale(1)';A.breath(true,inh);
+  tm=setTimeout(()=>{if(done)return;$('bWord').textContent=pick(EXH);orb.style.transition=`transform ${exh}s ${ease}`;orb.style.transform='scale(.45)';A.breath(false,exh);k++;tm=setTimeout(step,exh*1000)},inh*1000)};
  tm=setTimeout(step,800)}
-function lose(){state='lost';A.lose();showMsg('🌙','La luce si è spenta','Nessun problema: si riparte dallo stesso enigma, con calma.',()=>{fade=1;loadLevel()},3000)}
+function lose(){state='lost';A.lose();showMsg('🌙','La luce si è spenta','Nessun problema, si riparte con calma. '+phrase(),()=>{fade=1;loadLevel()},3000)}
 let toastT;function toast(s){const el=$('toast');el.textContent=s;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2200)}
 
 /* ---------- Buttons ---------- */
@@ -584,6 +615,7 @@ function frame(now){const t=now/1000,dt=Math.min(.05,(now-last)/1000);last=now;
  if(fade>0){ctx.fillStyle=`rgba(4,6,18,${fade})`;ctx.fillRect(0,0,W,H);fade=Math.max(0,fade-dt*1.6)}
  requestAnimationFrame(frame)}
 
+$('sPhrase').textContent=phrase();
 layout();if(cur&&MODES[cur.mode]&&enabled.includes(cur.mode))loadLevel();else newLevel(store.get('level',1));initFx();requestAnimationFrame(frame);
 }
 </script>
