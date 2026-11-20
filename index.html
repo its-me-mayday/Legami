@@ -183,8 +183,8 @@ function board(){ctx.fillStyle='rgba(255,255,255,.035)';rr(ox-8,oy-8,L.cols*cs+1
    ========================================================= */
 const legami={name:'Legàmi',icon:'🧵',short:'Unisci le coppie: i fili non si incrociano',how:'Trascina il dito da una cosa a quella che le si associa (🐝 → 🌸). I fili non possono incrociarsi.',budget:true,
  gen(n,r){
-  const cols=Math.min(7,5+Math.floor((n-1)/12)),rows=cols+2,N=cols*rows;
-  let want=Math.min(8,3+Math.floor(n/5));
+  const cols=5+Math.min(1,Math.floor(n/15)),rows=cols+2,N=cols*rows;
+  let want=Math.min(6,3+Math.floor(n/8));
   const nb=c=>[0,1,2,3].map(d=>nbr(c,d,cols,rows)).filter(x=>x>=0);
   const man=(a,b)=>Math.abs(a%cols-b%cols)+Math.abs(Math.floor(a/cols)-Math.floor(b/cols));
   for(let att=0;att<200;att++){
@@ -204,11 +204,11 @@ const legami={name:'Legàmi',icon:'🧵',short:'Unisci le coppie: i fili non si 
    }
    if(!ok)continue;
    const rocks=new Set();
-   if(n>=10&&r()<.5){const free=[];for(let i=0;i<N;i++)if(occ[i]<0)free.push(i);shuffle(free,r).slice(0,1+Math.floor(r()*3)).forEach(c=>rocks.add(c))}
+   if(n>=20&&r()<.35){const free=[];for(let i=0;i<N;i++)if(occ[i]<0)free.push(i);shuffle(free,r).slice(0,1+Math.floor(r()*2)).forEach(c=>rocks.add(c))}
    const emo=shuffle(PAIRS,r),cl=shuffle(COLORS,r),epMap={};
    const pairs=sol.map((s,p)=>{const e=[s[0],s[s.length-1]];epMap[e[0]]=p;epMap[e[1]]=p;return{e,em:r()<.5?emo[p]:[emo[p][1],emo[p][0]],color:cl[p%cl.length],sol:s}});
    const S=sol.reduce((a,s)=>a+s.length-1,0);
-   return{cols,rows,pairs,epMap,rocks,inkMax:Math.ceil(S*1.7)+cols*2,paths:pairs.map(()=>[]),drag:null,hint:null};
+   return{cols,rows,pairs,epMap,rocks,inkMax:Math.ceil(S*2.2)+cols*3,paths:pairs.map(()=>[]),drag:null,hint:null};
   }},
  layout(){grid(L.cols,L.rows)},
  isDone(p){const pa=L.paths[p];if(pa.length<2)return false;const a=pa[0],b=pa[pa.length-1];return a!==b&&L.epMap[a]===p&&L.epMap[b]===p},
@@ -251,9 +251,9 @@ const legami={name:'Legàmi',icon:'🧵',short:'Unisci le coppie: i fili non si 
    ========================================================= */
 const lanterne={name:'Lanterne',icon:'🏮',short:'Accendi tutte le lanterne',how:'Toccare una lanterna cambia lei e le vicine (sopra, sotto, ai lati). Accendile tutte.',budget:true,
  flip(on,c){on[c]^=1;for(let d=0;d<4;d++){const q=nbr(c,d,L.cols,L.rows);if(q>=0)on[q]^=1}},
- gen(n,r){const s=3+Math.min(2,Math.floor(n/14)),N=s*s;let on,need;L={cols:s,rows:s};
-  do{on=new Array(N).fill(1);need=new Set();const k=Math.min(Math.floor(N/2),2+Math.floor(n/8)+Math.floor(r()*2));shuffle([...Array(N).keys()],r).slice(0,k).forEach(c=>{this.flip(on,c);need.add(c)})}while(on.every(v=>v));
-  return{cols:s,rows:s,on,need,vis:on.slice(),pop:new Array(N).fill(0),inkMax:need.size*2+4,hint:null}},
+ gen(n,r){const s=3+Math.min(1,Math.floor(n/20)),N=s*s;let on,need;L={cols:s,rows:s};
+  do{on=new Array(N).fill(1);need=new Set();const k=Math.min(4,1+Math.floor(n/12)+Math.floor(r()*2));shuffle([...Array(N).keys()],r).slice(0,k).forEach(c=>{this.flip(on,c);need.add(c)})}while(on.every(v=>v));
+  return{cols:s,rows:s,on,need,vis:on.slice(),pop:new Array(N).fill(0),inkMax:need.size*3+6,hint:null}},
  layout(){grid(L.cols,L.rows,110)},
  won(){return L.on.every(v=>v)},
  down(x,y){const c=cellAt(x,y);if(c<0||!spend())return false;this.flip(L.on,c);L.need.has(c)?L.need.delete(c):L.need.add(c);
@@ -277,14 +277,14 @@ const lanterne={name:'Lanterne',icon:'🏮',short:'Accendi tutte le lanterne',ho
    ========================================================= */
 const rot=m=>((m<<1)|(m>>3))&15;
 const sentieri={name:'Sentieri',icon:'🌿',short:'Ruota i tasselli: nessun sentiero aperto',how:'Tocca un tassello per ruotarlo. Quando ogni sentiero si collega a un altro, il giardino si illumina.',budget:true,
- gen(n,r){const cols=4+Math.min(2,Math.floor(n/14)),rows=cols+1+Math.min(1,Math.floor(n/22)),N=cols*rows,sol=new Array(N).fill(0),vis=new Array(N).fill(false);
+ gen(n,r){const cols=4+Math.min(1,Math.floor(n/18)),rows=cols+1,N=cols*rows,sol=new Array(N).fill(0),vis=new Array(N).fill(false);
   const st=[Math.floor(r()*N)];vis[st[0]]=true;
   while(st.length){const idx=r()<.5?st.length-1:Math.floor(r()*st.length),c=st[idx];
    const ds=shuffle([0,1,2,3],r).filter(d=>{const q=nbr(c,d,cols,rows);return q>=0&&!vis[q]});
    if(!ds.length){st.splice(idx,1);continue}const d=ds[0],q=nbr(c,d,cols,rows);sol[c]|=1<<d;sol[q]|=1<<((d+2)%4);vis[q]=true;st.push(q)}
-  let cur,bad;do{cur=sol.map(m=>{let x=m;const k=Math.floor(r()*4);for(let i=0;i<k;i++)x=rot(x);return x});bad=cur.filter((m,i)=>m!==sol[i]).length}while(bad<N/2);
+  let cur,bad;do{cur=sol.map(m=>{let x=m;const k=r()<.45?0:1+Math.floor(r()*3);for(let i=0;i<k;i++)x=rot(x);return x});bad=cur.filter((m,i)=>m!==sol[i]).length}while(bad<N/3);
   const need=cur.reduce((a,m,i)=>a+this.minRot(m,sol[i]),0);
-  return{cols,rows,sol,cur,ang:new Array(N).fill(0),glow:new Array(N).fill(0),inkMax:Math.ceil(need*1.6)+cols*2}},
+  return{cols,rows,sol,cur,ang:new Array(N).fill(0),glow:new Array(N).fill(0),inkMax:Math.ceil(need*2.2)+cols*3}},
  minRot(m,s){for(let k=0;k<4;k++){if(m===s)return k;m=rot(m)}return 0},
  layout(){grid(L.cols,L.rows,92)},
  linked(c){const m=L.cur[c];for(let d=0;d<4;d++)if(m&(1<<d)){const q=nbr(c,d,L.cols,L.rows);if(q<0||!(L.cur[q]&(1<<((d+2)%4))))return false}return true},
@@ -307,13 +307,13 @@ const sentieri={name:'Sentieri',icon:'🌿',short:'Ruota i tasselli: nessun sent
    MODE 4 — Sfumature: reorder a colour gradient
    ========================================================= */
 const sfumature={name:'Sfumature',icon:'🎨',short:'Riordina i colori in una sfumatura',how:'Tocca due tasselli per scambiarli. I tasselli con il puntino sono già al loro posto.',budget:true,
- gen(n,r){const cols=4+Math.min(1,Math.floor(n/18)),rows=cols+1+Math.min(1,Math.floor(n/26)),N=cols*rows,h=r()*360;
+ gen(n,r){const cols=4,rows=5+Math.min(1,Math.floor(n/20)),N=cols*rows,h=r()*360;
   const C=[hsl(h,70,64),hsl(h+70+r()*40,65,55),hsl(h+170+r()*40,55,42),hsl(h+250+r()*40,70,72)];
   const col=[];for(let i=0;i<N;i++){const u=(i%cols)/(cols-1),v=Math.floor(i/cols)/(rows-1);col.push([0,1,2].map(k=>Math.round(C[0][k]*(1-u)*(1-v)+C[1][k]*u*(1-v)+C[2][k]*(1-u)*v+C[3][k]*u*v)))}
-  const fixed=new Set([0,cols-1,N-cols,N-1]);const extra=Math.max(0,Math.round(N*(.3-n*.005)));shuffle([...Array(N).keys()].filter(i=>!fixed.has(i)),r).slice(0,extra).forEach(i=>fixed.add(i));
+  const fixed=new Set([0,cols-1,N-cols,N-1]);const extra=Math.max(0,Math.round(N*Math.max(.2,.4-n*.006)));shuffle([...Array(N).keys()].filter(i=>!fixed.has(i)),r).slice(0,extra).forEach(i=>fixed.add(i));
   const mov=[...Array(N).keys()].filter(i=>!fixed.has(i));let cur,bad;
   do{cur=[...Array(N).keys()];const sh=shuffle(mov,r);mov.forEach((p,i)=>cur[p]=sh[i]);bad=cur.filter((v,i)=>v!==i).length}while(bad<mov.length*.6);
-  return{cols,rows,col,fixed,cur,sel:-1,dn:-1,off:[...Array(N)].map(()=>[0,0]),inkMax:Math.ceil(bad*1.4)+4}},
+  return{cols,rows,col,fixed,cur,sel:-1,dn:-1,off:[...Array(N)].map(()=>[0,0]),inkMax:Math.ceil(bad*2)+6}},
  layout(){grid(L.cols,L.rows,86)},
  won(){return L.cur.every((v,i)=>v===i)},
  swap(a,b,free){if(!free&&!spend())return;const[ax,ay]=center(a),[bx,by]=center(b);[L.cur[a],L.cur[b]]=[L.cur[b],L.cur[a]];L.off[a]=[bx-ax,by-ay];L.off[b]=[ax-bx,ay-by];
@@ -338,7 +338,7 @@ const sfumature={name:'Sfumature',icon:'🎨',short:'Riordina i colori in una sf
    MODE 5 — Melodia: repeat the constellation's song
    ========================================================= */
 const melodia={name:'Melodia',icon:'✨',short:'Ascolta le stelle, poi ripeti la melodia',how:'Le stelle suonano una breve melodia. Ascoltala, poi toccale nello stesso ordine. Se sbagli si riascolta, nessun problema.',budget:false,
- gen(n,r){const k=4+Math.min(3,Math.floor(n/12)),len=3+Math.min(5,Math.floor(n/9)),st=[];
+ gen(n,r){const k=4+Math.min(2,Math.floor(n/14)),len=3+Math.min(2,Math.floor(n/10)),st=[];
   for(let t=0;st.length<k&&t<500;t++){const p=[.12+r()*.76,.12+r()*.76];if(st.every(q=>Math.hypot(q[0]-p[0],q[1]-p[1])>.24))st.push(p)}
   const byH=st.map((p,i)=>i).sort((a,b)=>st[b][1]-st[a][1]);const notes=[];byH.forEach((s,j)=>notes[s]=penta(j));
   const seq=[];while(seq.length<len){const s=Math.floor(r()*st.length);if(s!==seq[seq.length-1])seq.push(s)}
@@ -371,7 +371,7 @@ const melodia={name:'Melodia',icon:'✨',short:'Ascolta le stelle, poi ripeti la
    MODE 6 — Intruso: find the odd one out
    ========================================================= */
 const intruso={name:'Intruso',icon:'🔍',short:"Trova chi non c'entra",how:"In ogni gruppo tutti hanno qualcosa in comune, tranne uno. Toccalo. Cinque gruppi e il livello è fatto.",budget:false,
- gen(n,r){const per=n<24?4:6,rounds=[];
+ gen(n,r){const per=4,rounds=[];
   for(let k=0;k<5;k++){const c=shuffle(CATS,r),a=c[0],b=c[1],odd=b.it[Math.floor(r()*b.it.length)],items=shuffle([...shuffle(a.it,r).slice(0,per-1),odd],r);rounds.push({items,odd:items.indexOf(odd),nm:a.nm})}
   return{rounds,ri:0,per,cols:1,rows:1,dim:new Set(),shake:new Array(per).fill(0),found:false,glow:0}},
  geo(){const a=area(),rows=L.per/2,ts=Math.min((a.w-16)/2,(a.h*.85-12*(rows-1))/rows,150);const gw=ts*2+16,gh=ts*rows+16*(rows-1);return{ts,x0:a.x+(a.w-gw)/2,y0:a.y+(a.h-gh)/2-8,gh}},
@@ -400,7 +400,7 @@ const intruso={name:'Intruso',icon:'🔍',short:"Trova chi non c'entra",how:"In 
    MODE 7 — Memoria: classic card pairs
    ========================================================= */
 const memoria={name:'Memoria',icon:'🃏',short:'Trova le coppie di carte uguali',how:'Gira due carte alla volta: se sono uguali restano scoperte. Prenditi tutto il tempo che vuoi.',budget:false,
- gen(n,r){const pairs=4+2*Math.min(2,Math.floor(n/8)),cols=pairs===4?2:pairs===6?3:4,rows=pairs*2/cols;
+ gen(n,r){const pairs=4+2*Math.min(1,Math.floor(n/10)),cols=pairs===4?2:pairs===6?3:4,rows=pairs*2/cols;
   const uniq=[...new Set(shuffle(CATS.flatMap(c=>c.it),r))].slice(0,pairs),cards=shuffle([...uniq,...uniq],r);
   return{cols,rows,cards,open:[],done:new Set(),vis:cards.map(()=>0),peek:0,lock:false}},
  layout(){grid(L.cols,L.rows,110)},
@@ -426,13 +426,13 @@ const memoria={name:'Memoria',icon:'🃏',short:'Trova le coppie di carte uguali
    MODE 8 — Specchio: complete the mirrored half
    ========================================================= */
 const specchio={name:'Specchio',icon:'🪞',short:"Rifletti il disegno sull'altra metà",how:"Metà del disegno è già fatta. Tocca le caselle dell'altra metà per rifletterlo come in uno specchio.",budget:true,
- gen(n,r){const axis=r()<.5?'v':'h',half=3+Math.min(1,Math.floor(n/15)),other=4+Math.min(2,Math.floor(n/10));
+ gen(n,r){const axis=r()<.5?'v':'h',half=3,other=4+Math.min(1,Math.floor(n/12));
   const cols=axis==='v'?half*2:other,rows=axis==='v'?other:half*2,N=cols*rows,ids=[...Array(N).keys()];
   const isSrc=ids.map(i=>axis==='v'?(i%cols)<cols/2:Math.floor(i/cols)<rows/2);
   const mir=ids.map(i=>{const x=i%cols,y=Math.floor(i/cols);return axis==='v'?y*cols+(cols-1-x):(rows-1-y)*cols+x});
-  let on;do{on=ids.map(i=>isSrc[i]&&r()<.42?1:0)}while(on.filter(v=>v).length<3);
+  let on;do{on=ids.map(i=>isSrc[i]&&r()<.35?1:0)}while(on.filter(v=>v).length<3);
   const need=on.filter(v=>v).length;
-  return{cols,rows,axis,on,isSrc,mir,srcSet:ids.filter(i=>isSrc[i]),color:COLORS[Math.floor(r()*COLORS.length)],vis:new Array(N).fill(0),inkMax:Math.ceil(need*1.6)+4}},
+  return{cols,rows,axis,on,isSrc,mir,srcSet:ids.filter(i=>isSrc[i]),color:COLORS[Math.floor(r()*COLORS.length)],vis:new Array(N).fill(0),inkMax:Math.ceil(need*2.2)+6}},
  layout(){grid(L.cols,L.rows,84)},
  wrong(){return L.srcSet.filter(i=>L.on[i]!==L.on[L.mir[i]])},
  won(){return this.wrong().length===0},
@@ -453,8 +453,8 @@ const specchio={name:'Specchio',icon:'🪞',short:"Rifletti il disegno sull'altr
    MODE 9 — Bolle: pop floating bubbles in order
    ========================================================= */
 const bolle={name:'Bolle',icon:'🎈',short:'Scoppia le bolle in ordine',how:"Tocca le bolle seguendo i numeri. A volte si parte dal più piccolo, a volte dal più grande: lo trovi scritto in basso.",budget:false,
- gen(n,r){const k=5+Math.min(5,Math.floor(n/6)),desc=n>3&&r()<.45,a=area(),R=Math.max(24,Math.min(42,Math.min(a.w,a.h)*.085));
-  const vals=n>6&&r()<.55?shuffle([...Array(40).keys()].map(i=>i+1),r).slice(0,k):[...Array(k).keys()].map(i=>i+1);
+ gen(n,r){const k=4+Math.min(3,Math.floor(n/8)),desc=n>4&&r()<.4,a=area(),R=Math.max(24,Math.min(42,Math.min(a.w,a.h)*.085));
+  const vals=n>10&&r()<.4?shuffle([...Array(20).keys()].map(i=>i+1),r).slice(0,k):[...Array(k).keys()].map(i=>i+1);
   const order=vals.slice().sort((x,y)=>desc?y-x:x-y),b=[];
   vals.forEach(v=>{let x,y,t=0;do{x=R+r()*(a.w-2*R);y=R+r()*(a.h-2*R)}while(t++<200&&b.some(o=>Math.hypot(o.x-x,o.y-y)<R*2.3));
    const ang=r()*6.28,sp=10+r()*14;b.push({v,x,y,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,wob:0,gone:false})});
