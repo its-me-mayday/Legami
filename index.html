@@ -57,6 +57,15 @@ button:focus-visible{outline:2px solid #ffe7a8;outline-offset:2px}
 #bWord{font-size:clamp(30px,8vw,42px);margin:6px 0 4px;max-width:18ch}
 #bWord.ph{font-size:clamp(22px,6vw,28px);line-height:1.25;max-width:22ch}
 #sPhrase{font-family:Fraunces,Georgia,serif;font-style:italic;opacity:.75;margin-top:10px}
+#mood{z-index:6;background:rgba(4,6,18,.82)}
+.scale{display:grid;grid-template-columns:repeat(5,52px);gap:10px;margin:18px 0 8px}
+.sc{height:52px;border-radius:16px;border:1.5px solid var(--c);background:transparent;color:#fff;font:700 18px Nunito,sans-serif;cursor:pointer}
+.sc.on{background:var(--c);color:#0b1026;box-shadow:0 0 18px var(--c)}
+.scaleLbl{display:flex;justify-content:space-between;width:min(300px,100%);font-size:13px;opacity:.6}
+#moodR{min-height:3em;margin-top:16px;max-width:32ch}
+.pill.ghost{background:transparent;margin-top:10px}
+.link{margin-top:14px;background:none;border:0;color:#fff;opacity:.5;font:600 14px Nunito,sans-serif;min-height:44px;cursor:pointer}
+[hidden]{display:none!important}
 .bc{width:min(440px,100%);max-height:88vh;overflow-y:auto;text-align:left;background:rgba(18,22,44,.9);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:22px}
 .bc .kick{margin:0 0 8px;font-size:13px;opacity:.6;max-width:none}
 .bcTop{display:flex;gap:16px;align-items:center}
@@ -113,7 +122,7 @@ details p{font-size:15px;opacity:.85;margin:8px 0 0}
 
 <div class="sheet" id="bodySheet" role="dialog" aria-label="Il tuo corpo">
   <h3>Il tuo corpo</h3>
-  <p class="intro">Quando siamo stressati il corpo si chiude senza che ce ne accorgiamo: spalle su, denti stretti, respiro alto. Qui non ci sono esercizi, solo inviti: porta l'attenzione su una parte del corpo, nota com'è e, a ogni espiro, lasciala cadere, pesante.</p>
+  <p class="intro">Quando c'è tanto stress il corpo si chiude senza che ce ne accorgiamo: spalle su, denti stretti, respiro alto. Qui non ci sono esercizi, solo inviti: porta l'attenzione su una parte del corpo, nota com'è e, a ogni espiro, lasciala cadere, pesante.</p>
   <button class="pill" id="bScan">Body scan guidato · circa 4 minuti</button>
   <div id="bodyList"></div>
   <p class="note">Sono piccoli momenti di consapevolezza, non una terapia: se un dolore è forte o non passa, parlane con un medico o un fisioterapista.</p>
@@ -129,8 +138,20 @@ details p{font-size:15px;opacity:.85;margin:8px 0 0}
   <div class="row"><span>Pause per il corpo<small>Ogni tre livelli, una parte del corpo da lasciar andare</small></span><button class="tg" id="tBody" aria-label="Pause per il corpo"></button></div>
   <h4>Giochi che possono capitare</h4>
   <div id="modeRows"></div>
+  <button class="pill" id="bMood">Come mi sento adesso</button>
   <button class="pill" id="bSkip">Salta questo livello</button>
   <button class="pill" id="bClose">Chiudi</button>
+</div>
+
+<div class="ov" id="mood">
+  <h2 id="moodT">Come ti senti?</h2>
+  <p id="moodP">Quanto stress senti in questo momento, da 1 a 10?</p>
+  <div class="scale" id="scale"></div>
+  <div class="scaleLbl"><span>1 · calma</span><span>10 · tanto stress</span></div>
+  <p id="moodR"></p>
+  <button class="pill" id="moodGo" hidden>Iniziamo</button>
+  <button class="pill ghost" id="moodScan" hidden>Prima un body scan</button>
+  <button class="link" id="moodSkip">Salta</button>
 </div>
 
 <div class="ov" id="start">
@@ -192,11 +213,11 @@ const PHRASES=[
  // respiro
  "Inspira… ed espira.","Il respiro sa già cosa fare. Lascialo fare.","Ogni espiro porta via un po' di peso.","Respira lento, come le onde che tornano a riva.","Non devi controllare il respiro, solo ascoltarlo.","Un respiro alla volta è sempre abbastanza.","Senti l'aria fresca che entra e quella tiepida che esce.","Lascia che l'espiro sia un po' più lungo dell'inspiro.","Il respiro è un'ancora: puoi sempre tornare qui.","Respira come se avessi tutto il tempo del mondo.",
  // corpo
- "Le spalle giù, il respiro lungo.","Sciogli la mascella, lascia la lingua morbida.","Rilassa la fronte, come se qualcuno la accarezzasse.","Senti il peso del corpo appoggiato. Non devi reggere niente.","Lascia che le mani si aprano.","Ammorbidisci lo sguardo.","Il cuore rallenta quando gli dai spazio.","Senti i piedi per terra. Sei qui.","Nota dove sei teso, e lascia andare solo un po'.","Il tuo corpo ha lavorato tanto oggi. Ringrazialo.",
+ "Le spalle giù, il respiro lungo.","Sciogli la mascella, lascia la lingua morbida.","Rilassa la fronte, come se qualcuno la accarezzasse.","Senti il peso del corpo appoggiato. Non devi reggere niente.","Lascia che le mani si aprano.","Ammorbidisci lo sguardo.","Il cuore rallenta quando gli dai spazio.","Senti i piedi per terra. Sei qui.","Nota dove senti tensione, e lascia andare solo un po'.","Il tuo corpo ha lavorato tanto oggi. Ringrazialo.",
  // presente
  "Adesso non c'è niente da risolvere.","Questo momento basta così com'è.","Il passato è passato, il domani può aspettare.","Sei esattamente dove devi essere.","Qui e ora, nient'altro.","Il presente è un posto tranquillo, se ti fermi.","Non serve essere altrove.","Per qualche minuto il mondo può andare avanti da solo.","Ogni istante è un piccolo nuovo inizio.","Ascolta i suoni intorno a te, senza giudicarli.",
  // gentilezza verso sé
- "Hai fatto abbastanza, oggi.","Sii gentile con te stesso, come lo saresti con un amico.","Non devi essere perfetto per stare bene.","Va bene essere stanchi.","Ti meriti questo momento di pace.","Puoi essere fiero anche delle piccole cose.","Gli errori di oggi non dicono chi sei.","Concediti di non avere tutte le risposte.","Trattati con la stessa pazienza che dai agli altri.","Il riposo non si guadagna: ti spetta.","Quello che senti è valido, e passerà.","Stai facendo del tuo meglio, ed è abbastanza.",
+ "Hai fatto abbastanza, oggi.","Sii gentile con te, come lo saresti con una persona cara.","Non devi essere perfetto per stare bene.","Va bene sentire la stanchezza.","Ti meriti questo momento di pace.","Anche le piccole cose fatte oggi contano.","Gli errori di oggi non dicono chi sei.","Concediti di non avere tutte le risposte.","Trattati con la stessa pazienza che dai agli altri.","Il riposo non si guadagna: ti spetta.","Quello che senti è valido, e passerà.","Stai facendo del tuo meglio, ed è abbastanza.",
  // lasciar andare
  "Lascia andare la giornata.","Niente da rincorrere.","Posa i pensieri, come si posa una borsa pesante.","I pensieri sono nuvole: guardali passare.","Non tutto va sistemato stasera.","Quello che non puoi cambiare, puoi lasciarlo andare.","Lascia che le preoccupazioni aspettino fuori dalla porta.","Ogni nodo si scioglie, con calma.","Quello che lasci oggi puoi riprenderlo domani.","L'acqua agitata torna limpida se la lasci ferma.","Non devi tenere tutto insieme. Non adesso.","Anche la fretta, a un certo punto, si stanca e se ne va.",
  // natura
@@ -204,11 +225,11 @@ const PHRASES=[
  // semplicità
  "Piano piano.","Un passo alla volta.","Va tutto bene così.","Ogni cosa al suo posto.","Il silenzio è un bel posto.","La calma è sempre lì, sotto il rumore.","La pace non si cerca: si lascia arrivare.","Lento è bello.","Meno è abbastanza.","Sorridi appena, anche solo dentro.","La serenità è fatta di piccoli momenti come questo.","Rallentare non è perdere tempo.",
  // gratitudine
- "Pensa a una cosa bella di oggi, anche piccola.","Grazie per esserti preso questo momento.","C'è sempre qualcosa per cui sorridere.","Ricorda una persona che ti vuole bene.","Il caffè del mattino, una risata, un raggio di sole: contano.","Oggi hai respirato migliaia di volte. Che meraviglia.","Una tazza calda, una coperta, un respiro: basta poco.","Sei qui, adesso. È già tanto.","Qualcuno, oggi, è stato contento di vederti.",
+ "Pensa a una cosa bella di oggi, anche piccola.","Questo momento è un regalo che ti fai.","C'è sempre qualcosa per cui sorridere.","Ricorda una persona che ti vuole bene.","Il caffè del mattino, una risata, un raggio di sole: contano.","Oggi hai respirato migliaia di volte. Che meraviglia.","Una tazza calda, una coperta, un respiro: basta poco.","Sei qui, adesso. È già tanto.","Qualcuno, oggi, è stato contento di vederti.",
  // sera e sonno
- "La giornata si chiude come un libro. Domani, una pagina nuova.","Stasera puoi posare il telefono, e anche i pensieri.","Il sonno arriva quando smetti di cercarlo.","Lascia che la sera ti avvolga.","Domani sarà un altro giorno, e tu sarai più riposato.","La mente si quieta come una stanza quando si spengono le luci.","La notte non chiede niente. Riposa.",
+ "La giornata si chiude come un libro. Domani, una pagina nuova.","Stasera puoi posare il telefono, e anche i pensieri.","Il sonno arriva quando smetti di cercarlo.","Lascia che la sera ti avvolga.","Domani sarà un altro giorno, e avrai nuove energie.","La mente si quieta come una stanza quando si spengono le luci.","La notte non chiede niente. Riposa.",
  // visualizzazioni
- "Immagina una luce calda che scende dalla testa ai piedi.","Immagina di stare su una spiaggia al tramonto.","Visualizza un lago calmo, senza increspature.","Immagina di sdraiarti su un prato, col sole sul viso.","Pensa a un posto dove ti sei sentito al sicuro.","Immagina ogni tensione che diventa sabbia e scivola via.","Immagina di camminare nel bosco, un passo dopo l'altro.","Pensa al rumore della pioggia sulla finestra.","Immagina di galleggiare sull'acqua, sostenuto senza sforzo.","Immagina il fuoco di un camino che scoppietta piano.",
+ "Immagina una luce calda che scende dalla testa ai piedi.","Immagina di stare su una spiaggia al tramonto.","Visualizza un lago calmo, senza increspature.","Immagina di sdraiarti su un prato, col sole sul viso.","Pensa a un posto che ti fa sentire al sicuro.","Immagina ogni tensione che diventa sabbia e scivola via.","Immagina di camminare nel bosco, un passo dopo l'altro.","Pensa al rumore della pioggia sulla finestra.","Immagina di galleggiare sull'acqua, senza alcuno sforzo.","Immagina il fuoco di un camino che scoppietta piano.",
  // piccole pratiche
  "Guarda intorno a te e trova cinque cose.","Nota tre suoni che senti in questo momento.","Appoggia una mano sul petto e senti il calore.","Fai un respiro profondo e lascialo uscire con un sospiro.","Muovi piano il collo, da un lato all'altro.","Chiudi gli occhi per tre respiri.","Stringi i pugni, poi rilascia. Senti la differenza.","Bevi un sorso d'acqua, con calma.","Distendi le dita, una alla volta.","Lascia cadere le spalle e senti quanto erano su."
 ];
@@ -261,8 +282,8 @@ function grid(cols,rows,max=84){const a=area();cs=Math.floor(Math.min(a.w/cols,a
 const center=c=>[ox+(c%L.cols+.5)*cs,oy+(Math.floor(c/L.cols)+.5)*cs];
 function cellAt(x,y){const c=Math.floor((x-ox)/cs),r=Math.floor((y-oy)/cs);if(c<0||r<0||c>=L.cols||r>=L.rows)return-1;return r*L.cols+c}
 function nbr(c,d,cols,rows){const x=c%cols,y=Math.floor(c/cols);if(d===0)return y>0?c-cols:-1;if(d===1)return x<cols-1?c+1:-1;if(d===2)return y<rows-1?c+cols:-1;return x>0?c-1:-1}
-function spend(){if(zen)return true;if(L.ink<=0){toast('La luce è finita');return false}L.ink--;updInk();return true}
-function check(){if(state!=='play')return;if(M.won())win();else if(M.budget&&!zen&&L.ink<=0)lose()}
+function spend(){if(zenNow())return true;if(L.ink<=0){toast('La luce è finita');return false}L.ink--;updInk();return true}
+function check(){if(state!=='play')return;if(M.won())win();else if(M.budget&&!zenNow()&&L.ink<=0)lose()}
 function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
 function circle(x,y,r){ctx.beginPath();ctx.arc(x,y,r,0,7)}
 function burstAt(x,y,color,n){for(let i=0;i<n;i++){const a=Math.random()*6.28,v=40+Math.random()*90;B.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:1,color})}}
@@ -772,7 +793,7 @@ const MODES={legami,lanterne,sentieri,sfumature,melodia,intruso,memoria,specchio
 const KEYS=Object.keys(MODES);
 let enabled=store.get('modes',KEYS).filter(k=>KEYS.includes(k));KEYS.forEach(k=>{if(!store.get('known_'+k,false)){store.set('known_'+k,true);if(!enabled.includes(k))enabled.push(k)}});if(!enabled.length)enabled=KEYS.slice();
 let cur=store.get('cur',null);
-function newLevel(n){const ks=KEYS.filter(k=>enabled.includes(k));let pool=ks.filter(k=>!cur||k!==cur.mode);if(!pool.length)pool=ks;
+function newLevel(n){const ks=modePool(KEYS.filter(k=>enabled.includes(k)));let pool=ks.filter(k=>!cur||k!==cur.mode);if(!pool.length)pool=ks;
  cur={n,seed:Math.floor(Math.random()*2147483647),mode:pool[Math.floor(Math.random()*pool.length)]};store.set('cur',cur);loadLevel()}
 
 /* ---------- Level flow ---------- */
@@ -780,13 +801,13 @@ function layout(){DPR=Math.min(window.devicePixelRatio||1,2);W=innerWidth;H=inne
 addEventListener('resize',()=>{layout();initFx()});
 function loadLevel(){const{n,seed,mode:key}=cur;level=n;store.set('level',n);M=MODES[key];state='play';
  const nt=THEMES[Math.floor((n-1)/8)%THEMES.length];if(nt!==theme){theme=nt;initFx()}A.root=theme.root;
- L=null;L=M.gen(n,rng(seed));L.n=n;L.ink=L.inkMax||0;
+ L=null;L=M.gen(diffN(n),rng(seed));L.n=n;L.ink=L.inkMax||0;
  document.querySelector('meta[name=theme-color]').content=theme.top;
  $('lv').textContent='Livello '+n;$('th').textContent=M.icon+' '+M.name+(L.vn?' · '+L.vn:'')+' · '+theme.name;layout();updInk();
  const seen=store.get('seen',[]);if(!seen.includes(key)){seen.push(key);store.set('seen',seen);showMsg(M.icon,M.name,M.how,()=>toast(L.tip||M.short),12000,'Nuovo gioco')}else{const lv=L;setTimeout(()=>state==='play'&&L===lv&&toast(L.tip||M.short),500)}}
 function updInk(){const bar=$('inkBar'),lb=$('inkLbl');if(!M)return;
  if(!M.budget){bar.classList.add('hide');lb.textContent=M.status()||'';return}
- if(zen){bar.classList.add('hide');lb.textContent='Modalità zen · luce infinita';return}
+ if(zenNow()){bar.classList.add('hide');lb.textContent=zen?'Modalità zen · luce infinita':'Luce infinita, oggi si va piano';return}
  bar.classList.remove('hide');lb.textContent='Luce della lanterna';$('ink').style.width=Math.max(0,L.ink/L.inkMax*100)+'%'}
 
 /* ---------- Input ---------- */
@@ -802,8 +823,8 @@ function showMsg(big,t,p,cb,ms,small){$('mBig').textContent=big;$('mT').textCont
 function closeMsg(){if(!msgCb)return;const cb=msgCb;msgCb=null;clearTimeout(msgT);$('msg').classList.remove('show');setTimeout(cb,350)}
 $('msg').addEventListener('click',closeMsg);
 function win(){state='won';A.win();if(M===legami)L.pairs.forEach(pr=>pr.e.forEach(c=>burst(c,pr.color,10)));else{const a=area();for(let i=0;i<5;i++)burstAt(a.x+Math.random()*a.w,a.y+a.h*(.2+Math.random()*.6),COLORS[i],12)}
- wins++;const n=L.n,go=()=>{fade=1;newLevel(n+1)},w=wins,nx=()=>{if(bodyOn&&w%3===0)bodyTip(go);else go()};
- setTimeout(()=>{if(breathOn)breathe(n%4===0?3:1,'✨ Livello '+n+' completato',nx);else showMsg('✨','Livello '+n+' completato',phrase(),nx,3200)},900)}
+ wins++;sessWins++;const n=L.n,sw=sessWins,go0=()=>{fade=1;newLevel(n+1)},go=()=>{if(sw%10===0)askMood(true,go0);else go0()},w=wins,nx=()=>{if(bodyOn&&w%3===0)bodyTip(go);else go()};
+ setTimeout(()=>{if(breathOn)breathe(n%4===0?3:stress!==null&&stress>=7?2:1,'✨ Livello '+n+' completato',nx);else showMsg('✨','Livello '+n+' completato',phrase(),nx,3200)},900)}
 /* ---------- Guided breathing: the exhale slowly lengthens as you play ---------- */
 let breathOn=store.get('breath',true),wins=0;
 const BR=()=>({inh:4,exh:4+Math.min(3,wins*.5)});
@@ -832,13 +853,12 @@ const BODY=[
  {nm:"Diaframma",where:"Una cupola sotto le costole: è il muscolo principale del respiro.",pts:[[50,76]],sign:"Con lo stress il respiro sale nel petto: la pancia resta ferma, sospiri spesso, senti un nodo allo stomaco.",go:["Porta l'attenzione sotto le costole, dove il respiro nasce.","Non guidare il respiro: lascia che arrivi e se ne vada da solo.","Ad ogni espiro il centro del corpo si fa morbido e pesante, e sprofonda un po' di più."]},
  {nm:"Gran dorsale",where:"Sui lati della schiena, dalle ascelle fino al bacino.",back:1,pts:[[34,76],[66,76]],sign:"I fianchi della schiena sono rigidi, le braccia sembrano trattenute.",go:["Senti i fianchi della schiena, dalle ascelle fino al bacino.","Inspirando si allargano appena verso l'esterno.","Espirando si posano e si allungano verso il basso, pesanti e larghi."]},
  {nm:"Addome",where:"La pancia, davanti.",pts:[[50,92]],sign:"Tieni la pancia in dentro per abitudine o per tensione, e il respiro resta corto.",go:["Porta l'attenzione alla pancia.","Smetti di trattenerla: lasciala libera, rotonda, morbida.","Ad ogni espiro la pancia si fa più pesante e calda, come un sasso al sole."]},
- {nm:"Muscoli lombari",where:"Ai lati della colonna, nella parte bassa della schiena.",back:1,pts:[[45,98],[55,98]],sign:"Rigidità alla bassa schiena dopo tante ore seduto, o al mattino appena alzato.",go:["Porta l'attenzione alla parte bassa della schiena, ai lati della colonna.","Nota se c'è rigidità, senza giudicarla.","Ad ogni espiro la bassa schiena si appoggia e sprofonda, pesante, come nella sabbia calda."]},
+ {nm:"Muscoli lombari",where:"Ai lati della colonna, nella parte bassa della schiena.",back:1,pts:[[45,98],[55,98]],sign:"Rigidità alla bassa schiena dopo tante ore sulla sedia, o appena ti alzi al mattino.",go:["Porta l'attenzione alla parte bassa della schiena, ai lati della colonna.","Nota se c'è rigidità, senza giudicarla.","Ad ogni espiro la bassa schiena si appoggia e sprofonda, pesante, come nella sabbia calda."]},
  {nm:"Quadrato dei lombi",where:"In profondità, tra l'ultima costola e il bacino, su ogni fianco.",back:1,pts:[[37,94],[63,94]],sign:"Un fastidio sordo su un lato della bassa schiena, spesso se carichi il peso su una gamba sola.",go:["Porta l'attenzione ai fianchi, tra l'ultima costola e il bacino.","Immagina lo spazio tra costole e bacino che si allunga, piano.","Espirando i fianchi si fanno pesanti e si lasciano andare verso il basso."]},
  {nm:"Psoas e flessori dell'anca",where:"In profondità, dalla bassa schiena alla parte davanti dell'anca.",pts:[[43,106],[57,106]],sign:"Si accorciano stando seduti e si tendono con lo stress, come per proteggersi. Possono tirare sulla bassa schiena.",go:["Porta l'attenzione in profondità, alla parte davanti delle anche.","Lascia che le gambe pesino del tutto: non serve tenerle.","Ad ogni espiro le anche si ammorbidiscono e il bacino si fa pesante, accolto da ciò che ti sostiene."]},
- {nm:"Glutei",where:"I muscoli del sedere, dietro il bacino.",back:1,pts:[[42,114],[58,114]],sign:"Li stringi senza accorgertene quando sei teso.",go:["Porta l'attenzione ai glutei, dove sei seduto o appoggiato.","Nota se c'è una piccola stretta, e lasciala andare.","Espirando diventano pesanti e larghi, e il sostegno sotto di te li accoglie tutti."]},
- {nm:"Pavimento pelvico",where:"Alla base del bacino, come un'amaca di muscoli.",pts:[[50,113]],sign:"Si contrae insieme al diaframma quando sei sotto stress, spesso senza che tu lo sappia.",go:["Porta l'attenzione alla base del bacino.","Inspirando lascia che si ammorbidisca e scenda appena, senza spingere.","Espirando resta morbida, pesante, a riposo."]},
+ {nm:"Glutei",where:"I muscoli del sedere, dietro il bacino.",back:1,pts:[[42,114],[58,114]],sign:"Li stringi senza accorgertene quando sei teso.",go:["Porta l'attenzione ai glutei, dove il corpo si appoggia.","Nota se c'è una piccola stretta, e lasciala andare.","Espirando diventano pesanti e larghi, e il sostegno sotto di te li accoglie tutti."]},
  {nm:"Braccia e mani",where:"Dalle spalle fino alla punta delle dita.",pts:[[22,96],[78,96]],sign:"Pugni stretti, dita rigide, polsi stanchi da mouse e telefono.",go:["Porta l'attenzione alle braccia e alle mani.","Lascia che le dita si aprano da sole, senza stringere nulla.","Le braccia diventano pesanti, sempre più pesanti, abbandonate."]},
- {nm:"Polpacci",where:"Dietro la gamba, sotto il ginocchio.",back:1,pts:[[39,160],[61,160]],sign:"Pesanti o rigidi dopo una giornata in piedi, o se sei rimasto fermo a lungo.",go:["Porta l'attenzione ai polpacci.","Lascia che tutto il peso delle gambe sia sostenuto: non serve tenerle.","Ad ogni espiro i polpacci si sciolgono e affondano, pesanti e caldi."]},
+ {nm:"Polpacci",where:"Dietro la gamba, sotto il ginocchio.",back:1,pts:[[39,160],[61,160]],sign:"Pesanti o rigidi dopo una giornata in piedi, o dopo tanto tempo senza muoverti.",go:["Porta l'attenzione ai polpacci.","Lascia che il pavimento o il divano regga tutto il peso delle gambe: non serve tenerle.","Ad ogni espiro i polpacci si sciolgono e affondano, pesanti e caldi."]},
  {nm:"Piedi",where:"La pianta e le dita dei piedi.",pts:[[39,190],[61,190]],sign:"Dita aggrappate, piedi freddi o stanchi.",go:["Porta l'attenzione ai piedi, alle piante e alle dita.","Lascia che le dita si allentino e si aprano.","Senti i piedi pesanti, radicati, come radici che scendono nella terra."]}
 ];
 const WHOLE={nm:"Tutto il corpo",where:"Dalla testa ai piedi.",pts:[[50,16],[50,45],[50,80],[50,112],[30,90],[70,90],[40,170],[60,170]],sign:"",go:["Senti tutto il corpo, dalla testa ai piedi.","Ogni parte è pesante, calda, sostenuta.","Resta qui ancora un momento. Non c'è niente da fare."]};
@@ -848,7 +868,7 @@ function bodyZone(){let d=store.get('bdeck',null);if(!Array.isArray(d)||!d.lengt
 let bodyOn=store.get('body',true),bodyCb=null,bodyQueue=[],bodyT=null,bodyScanTotal=0,bodyDone=false;
 function guide(z,kick){clearTimeout(bodyT);bodyDone=false;const orb=$('bcOrb'),ease='cubic-bezier(.45,0,.55,1)';
  $('bcKick').textContent=kick;$('bcName').textContent=z.nm;$('bcWhere').textContent=z.where;$('bcSign').textContent=z.sign;$('bcSignH').style.display=z.sign?'':'none';$('bcSign').style.display=z.sign?'':'none';
- $('bcFig').innerHTML=fig(z);$('bcNext').textContent=bodyQueue.length?'Avanti':'Salta';$('bcLine').textContent='';$('bcCue').textContent='Mettiti comodo…';
+ $('bcFig').innerHTML=fig(z);$('bcNext').textContent=bodyQueue.length?'Avanti':'Salta';$('bcLine').textContent='';$('bcCue').textContent='Trova una posizione comoda…';
  orb.style.transition='none';orb.style.transform='scale(.5)';$('bodyCard').classList.add('show');$('bodyCard').querySelector('.bc').scrollTop=0;
  let i=0;const step=()=>{if(i>=z.go.length){bodyDone=true;$('bcCue').textContent='';
    if(bodyQueue.length)bodyT=setTimeout(nextBody,1500);else $('bcNext').textContent=bodyScanTotal?'Fatto':'Fatto, continuo';return}
@@ -882,7 +902,34 @@ $('tBreath').onclick=()=>{breathOn=!breathOn;store.set('breath',breathOn);syncT(
 $('tZen').onclick=()=>{zen=!zen;store.set('zen',zen);syncT();updInk()};
 $('bSkip').onclick=()=>{sheet.classList.remove('show');fade=1;newLevel(level+1)};
 $('bStart').onclick=()=>{A.init();try{A.ctx&&A.ctx.resume()}catch(_){}const s=$('start');s.classList.remove('show');s.style.opacity=0;s.style.pointerEvents='none';
- if(M===melodia){L.phase='wait';L.play={i:0,t:performance.now()+1500}}};
+ askMood(false,()=>{const ks=modePool(KEYS.filter(k=>enabled.includes(k)));if(stress!==null&&!ks.includes(cur.mode)){fade=1;newLevel(level);return}if(M===melodia&&L.phase!=='done'){L.phase='wait';L.pos=0;L.play={i:0,t:performance.now()+1500}}})};
+/* ---------- Stress check: how are you, 1–10, and games tuned to it ---------- */
+const POOLS={low:['lanterne','tessere','sentieri','vasetti','labirinto','legami','specchio','melodia','sfumature'],
+ mid:['legami','sfumature','specchio','sentieri','vasetti','intruso','memoria','bolle','labirinto','melodia'],
+ high:['bolle','memoria','conta','melodia','labirinto','intruso','legami']};
+let stress=null,stressFirst=null,sessWins=0,moodCb=null,moodSel=null;
+const band=v=>v>=8?'high':v>=4?'mid':'low';
+const zenNow=()=>zen||(stress!==null&&stress>=8);
+const diffN=n=>stress===null?n:stress>=8?Math.min(n,6):stress>=4?Math.min(n,24):n;
+function modePool(ks){if(stress===null)return ks;const p=ks.filter(k=>POOLS[band(stress)].includes(k));return p.length>=2?p:ks}
+const MOODTXT={low:"Va già abbastanza bene. Ti propongo enigmi un po' più vivaci, per tenere la mente sveglia senza fretta.",
+ mid:"Un po' di carico, è normale. Ti propongo giochi tranquilli e piccoli enigmi, con un respiro tra un livello e l'altro.",
+ high:"Giornata pesante. Andiamo piano: giochi semplici e lenti, luce infinita (non si perde mai) e due respiri tra un livello e l'altro. Se vuoi, comincia con un body scan."};
+$('scale').innerHTML=[...Array(10)].map((_,i)=>{const v=i+1,[r,g,b]=hsl(170-v*15,55,58);return`<button class="sc" data-v="${v}" style="--c:rgb(${r},${g},${b})" aria-label="${v}">${v}</button>`}).join('');
+function askMood(again,cb){moodCb=cb;moodSel=null;
+ $('moodT').textContent=again?'Come va adesso?':'Come ti senti?';
+ $('moodP').textContent=again&&stress!==null?`Prima eri a ${stress}. Quanto stress senti adesso, da 1 a 10?`:'Quanto stress senti in questo momento, da 1 a 10?';
+ $('moodR').textContent='';$('moodGo').hidden=true;$('moodScan').hidden=true;document.querySelectorAll('.sc').forEach(b=>b.classList.remove('on'));$('mood').classList.add('show')}
+function closeMood(){$('mood').classList.remove('show');const cb=moodCb;moodCb=null;cb&&setTimeout(cb,300)}
+document.querySelectorAll('.sc').forEach(b=>b.onclick=()=>{const v=+b.dataset.v,prev=stress;moodSel=v;document.querySelectorAll('.sc').forEach(x=>x.classList.toggle('on',x===b));A.tick(11-v);
+ let t=MOODTXT[band(v)];if(prev!==null&&$('moodT').textContent==='Come va adesso?')t=(v<prev?`Da ${prev} a ${v}: il corpo sta rallentando. `:v===prev?'Stesso livello di prima, va bene così. ':'Va bene anche così, si va avanti con calma. ')+t;
+ $('moodR').textContent=t;$('moodGo').hidden=false;$('moodScan').hidden=v<7});
+const applyMood=()=>{if(moodSel!==null){stress=moodSel;if(stressFirst===null)stressFirst=moodSel;store.set('lastStress',moodSel);updInk()}};
+$('moodGo').onclick=()=>{applyMood();closeMood()};
+$('moodScan').onclick=()=>{applyMood();const cb=moodCb;moodCb=null;$('mood').classList.remove('show');setTimeout(()=>{bodyScan();bodyCb=cb||(()=>{})},300)};
+$('moodSkip').onclick=()=>closeMood();
+$('bMood').onclick=()=>{sheet.classList.remove('show');askMood(stress!==null,()=>{if(state==='play'){fade=1;newLevel(level)}})};
+
 
 /* ---------- Atmosphere ---------- */
 function initFx(){P=[];const f=theme.fx,n=(f==='stars'||f==='aurora')?110:42;
