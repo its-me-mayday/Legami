@@ -65,6 +65,12 @@ button:focus-visible{outline:2px solid #ffe7a8;outline-offset:2px}
 .bc p{max-width:none;font-size:16px;margin:0 0 8px}
 .bc h4,.sheet h4{margin:14px 0 4px;font-size:13px;opacity:.6;font-weight:700}
 .bc .pill{width:100%}
+.guide{margin:16px 0 4px;padding:18px 16px;border-radius:18px;background:rgba(255,255,255,.05);text-align:center}
+.gorb{width:72px;height:72px;margin:0 auto 12px;display:grid;place-items:center}
+#bcOrb{width:72px;height:72px;border-radius:50%;background:radial-gradient(circle,rgba(255,238,200,.75),rgba(255,214,140,.15) 62%,transparent 74%);box-shadow:0 0 30px rgba(255,220,150,.3);transform:scale(.5)}
+#bcLine{font:500 clamp(19px,5vw,22px)/1.35 Fraunces,Georgia,serif;min-height:3.9em;margin:0 0 6px;opacity:0}
+#bcLine.in{animation:lineIn 1.2s ease forwards}@keyframes lineIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+#bcCue{font-size:14px;opacity:.6;margin:0;min-height:1.4em}
 .dot{fill:#ffd98a;filter:drop-shadow(0 0 4px #ffcf6e);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{50%{opacity:.4}}
 .sheet .intro,.sheet .note{font-size:15px;opacity:.75;margin:0 0 6px}.sheet .note{font-size:13px;margin-top:14px}
@@ -73,7 +79,7 @@ summary{cursor:pointer;font-weight:700;list-style:none;min-height:24px}summary::
 summary{display:flex;justify-content:space-between;align-items:center;gap:12px}summary::after{content:"+";opacity:.5;font-size:20px;flex:none}details[open] summary::after{content:"–"}
 summary small{display:block;font-weight:500;opacity:.55;font-size:13px}
 details p{font-size:15px;opacity:.85;margin:8px 0 0}
-@media (prefers-reduced-motion:reduce){.ov,.sheet{transition:none}.dot{animation:none}}
+@media (prefers-reduced-motion:reduce){.ov,.sheet{transition:none}.dot,#bcLine.in{animation:none}#bcLine{opacity:1}}
 </style>
 </head>
 <body>
@@ -99,18 +105,18 @@ details p{font-size:15px;opacity:.85;margin:8px 0 0}
 <div class="ov" id="bodyCard"><div class="bc">
   <p class="kick" id="bcKick"></p>
   <div class="bcTop"><svg id="bcFig" viewBox="0 0 100 212" aria-hidden="true"></svg><div><h2 id="bcName"></h2><p id="bcWhere"></p></div></div>
-  <h4>Come te ne accorgi</h4><p id="bcSign"></p>
-  <h4>Prova così</h4><p id="bcTry"></p>
-  <button class="pill" id="bcNext">Fatto, continuo</button>
-  <small>Muoviti piano e senza dolore.</small>
+  <h4 id="bcSignH">Come te ne accorgi</h4><p id="bcSign"></p>
+  <div class="guide"><div class="gorb"><div id="bcOrb"></div></div><p id="bcLine"></p><p id="bcCue"></p></div>
+  <button class="pill" id="bcNext">Salta</button>
+  <small>Se vuoi, chiudi gli occhi e segui il suono del respiro.</small>
 </div></div>
 
 <div class="sheet" id="bodySheet" role="dialog" aria-label="Il tuo corpo">
   <h3>Il tuo corpo</h3>
-  <p class="intro">Quando siamo stressati il corpo si chiude senza che ce ne accorgiamo: spalle su, denti stretti, respiro alto. Qui trovi le zone che si contraggono più spesso, come riconoscerle e un modo semplice e calmo per lasciarle andare.</p>
-  <button class="pill" id="bScan">Fai un piccolo controllo del corpo</button>
+  <p class="intro">Quando siamo stressati il corpo si chiude senza che ce ne accorgiamo: spalle su, denti stretti, respiro alto. Qui non ci sono esercizi, solo inviti: porta l'attenzione su una parte del corpo, nota com'è e, a ogni espiro, lasciala cadere, pesante.</p>
+  <button class="pill" id="bScan">Body scan guidato · circa 4 minuti</button>
   <div id="bodyList"></div>
-  <p class="note">Muoviti sempre piano e senza dolore. Sono piccoli gesti di benessere, non una terapia: se un dolore è forte o non passa, parlane con un medico o un fisioterapista.</p>
+  <p class="note">Sono piccoli momenti di consapevolezza, non una terapia: se un dolore è forte o non passa, parlane con un medico o un fisioterapista.</p>
   <button class="pill" id="bBodyClose">Chiudi</button>
 </div>
 
@@ -120,7 +126,7 @@ details p{font-size:15px;opacity:.85;margin:8px 0 0}
   <div class="row"><span>Suoni del gioco</span><button class="tg" id="tSfx" aria-label="Suoni"></button></div>
   <div class="row"><span>Modalità zen<small>Luce infinita, non si perde mai</small></span><button class="tg" id="tZen" aria-label="Modalità zen"></button></div>
   <div class="row"><span>Pause di respiro<small>Un respiro guidato tra un livello e l'altro</small></span><button class="tg" id="tBreath" aria-label="Pause di respiro"></button></div>
-  <div class="row"><span>Pause per il corpo<small>Ogni tre livelli, un consiglio per sciogliere un muscolo</small></span><button class="tg" id="tBody" aria-label="Pause per il corpo"></button></div>
+  <div class="row"><span>Pause per il corpo<small>Ogni tre livelli, una parte del corpo da lasciar andare</small></span><button class="tg" id="tBody" aria-label="Pause per il corpo"></button></div>
   <h4>Giochi che possono capitare</h4>
   <div id="modeRows"></div>
   <button class="pill" id="bSkip">Salta questo livello</button>
@@ -131,7 +137,7 @@ details p{font-size:15px;opacity:.85;margin:8px 0 0}
   <h2>Legàmi</h2>
   <div class="demo">🧵 🏮 🌿 🎨 ✨ 🔍 🃏<br>🪞 🎈 🏺 🧭 🧩 🧮</div>
   <p>Tredici piccoli giochi, ognuno con più varianti, mescolati a caso. Ogni livello è un enigma nuovo e non sai mai quale arriva.</p>
-  <p style="opacity:.6;font-size:15px">Tra un livello e l'altro, un respiro e un consiglio per sciogliere il corpo. Nessuna fretta, nessun punteggio. Se la luce finisce si ricomincia e basta.</p>
+  <p style="opacity:.6;font-size:15px">Tra un livello e l'altro, un respiro e un momento per lasciar andare il corpo. Nessuna fretta, nessun punteggio. Se la luce finisce si ricomincia e basta.</p>
   <p id="sPhrase"></p>
   <button class="pill" id="bStart">Tocca per iniziare</button>
   <small>Meglio con le cuffie 🎧</small>
@@ -811,38 +817,51 @@ function breathe(cycles,title,cb){const ov=$('breath'),orb=$('orb'),ease='cubic-
 function lose(){state='lost';A.lose();showMsg('🌙','La luce si è spenta','Nessun problema, si riparte con calma. '+phrase(),()=>{fade=1;loadLevel()},3000)}
 let toastT;function toast(s){const el=$('toast');el.textContent=s;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2200)}
 
-/* ---------- Body awareness: where tension hides and a gentle way to release it ---------- */
+/* ---------- Body awareness: a guided, mindful release — notice, soften, let it fall heavy ---------- */
 const BODY=[
- {nm:"Trapezio superiore",where:"Dalla base del collo fino alle spalle.",back:1,pts:[[38,45],[62,45]],sign:"Le spalle salgono verso le orecchie senza che te ne accorga, la base del collo è pesante e a fine giornata può arrivare il mal di testa.",try:"Inspirando porta le spalle verso le orecchie, tienile su un attimo, poi espirando lasciale cadere di colpo. Fallo tre volte, l'ultima piano piano. Senti quanto spazio c'è adesso tra spalle e orecchie."},
- {nm:"Scaleni",where:"Ai lati del collo, sopra la clavicola.",pts:[[44,40],[56,40]],sign:"Aiutano a respirare: quando sei agitato e respiri “alto”, col petto, lavorano troppo e il collo si irrigidisce ai lati.",try:"Appoggia una mano sulla pancia e lascia che il respiro scenda lì: così gli scaleni possono riposare. Poi porta piano l'orecchio verso la spalla e resta tre respiri per lato, senza forzare."},
- {nm:"Sternocleidomastoideo",where:"Dal dietro dell'orecchio fino allo sterno, ai lati del collo.",pts:[[46,37],[54,37]],sign:"Si accorcia quando tieni la testa in avanti, per esempio guardando il telefono. Lo senti come una corda tesa sul lato del collo.",try:"Porta il mento leggermente indietro, come a fare un piccolo doppio mento, e allunga la nuca verso l'alto. Poi gira piano la testa a destra e a sinistra, respirando con calma."},
- {nm:"Suboccipitali",where:"Piccoli muscoli sotto la nuca, alla base del cranio.",back:1,pts:[[50,31]],sign:"Lavorano tanto quando fissi uno schermo: senti un peso dietro gli occhi o un cerchio alla base della testa.",try:"Intreccia le dita dietro la testa, appoggia i pollici alla base del cranio e lascia che la testa pesi sulle mani. Fai dei piccolissimi “sì” con il capo, lentamente."},
- {nm:"Masseteri (mascella)",where:"Davanti alle orecchie, dove la mandibola si chiude.",pts:[[41,24],[59,24]],sign:"Sotto stress si stringono i denti, a volte anche di notte. Te ne accorgi se la mascella è dura o se i denti si toccano.",try:"Labbra chiuse, denti separati, lingua morbida appoggiata dietro i denti di sopra. Massaggia a piccoli cerchi davanti alle orecchie, poi apri piano la bocca in un mezzo sbadiglio."},
- {nm:"Fronte e occhi",where:"Fronte, sopracciglia e muscoli intorno agli occhi.",pts:[[50,14]],sign:"Fronte aggrottata e occhi socchiusi, soprattutto dopo tante ore davanti a uno schermo.",try:"Strofina i palmi finché sono caldi e appoggiali sugli occhi chiusi, senza premere. Resta così tre respiri e lascia la fronte liscia, come acqua ferma."},
- {nm:"Lingua e gola",where:"Dentro la bocca e nella parte alta della gola.",pts:[[50,29]],sign:"La lingua spinge contro il palato e la gola si chiude, come quando trattieni le parole.",try:"Fai uno sbadiglio, anche finto: gola, lingua e mascella si rilassano insieme. Poi lascia la lingua morbida, adagiata in fondo alla bocca."},
- {nm:"Diaframma",where:"Una cupola sotto le costole: è il muscolo principale del respiro.",pts:[[50,76]],sign:"Con lo stress il respiro sale nel petto e il diaframma si muove poco: la pancia resta ferma, sospiri spesso, senti un nodo allo stomaco.",try:"Mani sui fianchi, appena sotto le costole. Inspira dal naso e senti le costole allargarsi sotto le mani, come un ombrello che si apre. Espira lentamente dalla bocca. Cinque respiri così."},
- {nm:"Intercostali",where:"Tra una costola e l'altra, tutto intorno al torace.",pts:[[36,64],[64,64]],sign:"Il petto sembra chiuso e fai fatica a fare un respiro profondo.",try:"Alza un braccio sopra la testa e piegati piano dal lato opposto, mandando il respiro nel fianco che si allunga. Tre respiri per lato."},
- {nm:"Pettorali",where:"Sul petto, dallo sterno verso le spalle.",pts:[[40,54],[60,54]],sign:"Spalle che vanno in avanti e petto chiuso: succede spesso a chi sta alla scrivania o al telefono.",try:"Appoggia le mani sulla parte bassa della schiena, porta i gomiti indietro e lascia che il petto si apra in avanti, senza forzare. Tre respiri lenti."},
- {nm:"Romboidi e dorsali alti",where:"In mezzo alle scapole.",back:1,pts:[[44,58],[56,58]],sign:"Un nodo o un leggero bruciore tra le scapole: spesso non sono muscoli corti ma stanchi, perché stai a lungo con le spalle curve.",try:"Abbracciati, con le mani sulle scapole, e respira nella schiena sentendola allargarsi. Poi apri le braccia, avvicina piano le scapole tra loro e rilascia. Tre volte."},
- {nm:"Gran dorsale",where:"Sui lati della schiena, dalle ascelle fino al bacino.",back:1,pts:[[34,76],[66,76]],sign:"Senti i fianchi della schiena rigidi quando alzi le braccia o ti allunghi.",try:"In piedi, unisci le mani sopra la testa e piegati di lato, come un albero mosso dal vento. Respira nel fianco che si apre, tre respiri per lato."},
- {nm:"Muscoli lombari",where:"Ai lati della colonna, nella parte bassa della schiena.",back:1,pts:[[45,98],[55,98]],sign:"Rigidità alla bassa schiena dopo tante ore seduto, o al mattino appena alzato.",try:"Sdraiati sulla schiena, porta le ginocchia al petto e abbracciale. Dondola piano a destra e a sinistra, come una barca. Se sei seduto, incurva e inarca dolcemente la schiena seguendo il respiro."},
- {nm:"Quadrato dei lombi",where:"In profondità, tra l'ultima costola e il bacino, su ogni fianco.",back:1,pts:[[37,94],[63,94]],sign:"Un fastidio sordo su un lato della bassa schiena, spesso se stai in piedi caricando il peso su una gamba sola.",try:"Sdraiati con le ginocchia piegate e i piedi a terra. Lascia cadere piano entrambe le ginocchia da un lato e respira nel fianco opposto. Cinque respiri, poi cambia lato."},
- {nm:"Psoas e flessori dell'anca",where:"In profondità, dalla bassa schiena alla parte davanti dell'anca.",pts:[[43,106],[57,106]],sign:"Si accorciano stando seduti e si tendono anche con lo stress, come per proteggersi. Possono tirare sulla bassa schiena.",try:"Sdraiati sulla schiena con le gambe appoggiate su una sedia o sul divano, ginocchia piegate ad angolo retto. Lascia che la schiena si posi a terra e respira con la pancia per qualche minuto."},
- {nm:"Glutei",where:"I muscoli del sedere, dietro il bacino.",back:1,pts:[[42,114],[58,114]],sign:"Li stringi senza accorgertene quando sei teso, e si irrigidiscono stando seduti a lungo.",try:"Sdraiato con le ginocchia piegate, appoggia la caviglia destra sul ginocchio sinistro e avvicina piano le gambe al petto. Respira con calma, poi cambia lato."},
- {nm:"Addome",where:"La pancia, davanti.",pts:[[50,92]],sign:"Tieni la pancia in dentro per abitudine o per tensione: così il diaframma ha meno spazio per muoversi.",try:"Lascia andare la pancia, completamente morbida: nessuno ti guarda. Senti come il respiro diventa subito più profondo."},
- {nm:"Pavimento pelvico",where:"Alla base del bacino, come un'amaca di muscoli.",pts:[[50,113]],sign:"Si contrae insieme al diaframma quando sei sotto stress, spesso senza che tu lo sappia.",try:"Mentre inspiri lascia che la base del bacino si ammorbidisca e scenda appena. Non spingere: lascia solo andare. Mentre espiri, lascia che risalga da sola."},
- {nm:"Avambracci e mani",where:"Dal gomito alle dita.",pts:[[22,96],[78,96]],sign:"Pugni stretti, dita rigide, polsi stanchi da mouse e telefono.",try:"Apri e chiudi le mani cinque volte, poi scuotile come per asciugarle. Allunga un braccio davanti a te e tira piano le dita indietro con l'altra mano, poi cambia."},
- {nm:"Polpacci",where:"Dietro la gamba, sotto il ginocchio.",back:1,pts:[[39,160],[61,160]],sign:"Pesanti o rigidi dopo una giornata in piedi, o se sei rimasto fermo a lungo.",try:"Seduto, porta le punte dei piedi verso di te mentre inspiri e allungale in avanti mentre espiri. Dieci volte, piano."},
- {nm:"Piedi",where:"La pianta e le dita dei piedi.",pts:[[39,190],[61,190]],sign:"Dita aggrappate, piedi freddi o stanchi.",try:"Togli le scarpe e fai rotolare la pianta del piede su una pallina o una bottiglietta. Poi apri le dita a ventaglio e senti il pavimento sotto di te."}
+ {nm:"Fronte e occhi",where:"Fronte, sopracciglia e muscoli intorno agli occhi.",pts:[[50,14]],sign:"Fronte aggrottata e occhi socchiusi, soprattutto dopo tante ore davanti a uno schermo.",go:["Porta l'attenzione sulla fronte e intorno agli occhi.","Lascia che la fronte si distenda, liscia, come acqua ferma.","Gli occhi diventano pesanti e affondano morbidi, sempre più giù."]},
+ {nm:"Masseteri (mascella)",where:"Davanti alle orecchie, dove la mandibola si chiude.",pts:[[41,24],[59,24]],sign:"Sotto stress si stringono i denti, a volte anche di notte. La mascella è dura, i denti si toccano.",go:["Porta l'attenzione alla mascella, davanti alle orecchie.","Lascia che i denti si separino appena, e la lingua si posi morbida.","Ad ogni espiro la mandibola si fa più pesante e cade dolcemente verso il basso."]},
+ {nm:"Lingua e gola",where:"Dentro la bocca e nella parte alta della gola.",pts:[[50,29]],sign:"La lingua spinge contro il palato e la gola si chiude, come quando trattieni le parole.",go:["Porta l'attenzione alla lingua e alla gola.","Lascia che la lingua si stacchi dal palato e si adagi in fondo alla bocca.","La gola si fa larga e morbida, come quando sta per arrivare uno sbadiglio."]},
+ {nm:"Suboccipitali",where:"Piccoli muscoli sotto la nuca, alla base del cranio.",back:1,pts:[[50,31]],sign:"Lavorano tanto quando fissi uno schermo: un peso dietro gli occhi, un cerchio alla base della testa.",go:["Porta l'attenzione alla base del cranio, dove la testa incontra il collo.","Nota se c'è una piccola stretta, come un pugno chiuso. Osservala soltanto.","Espirando lascia che si apra, e che il peso della testa scivoli giù, lungo la schiena."]},
+ {nm:"Scaleni",where:"Ai lati del collo, sopra la clavicola.",pts:[[44,40],[56,40]],sign:"Aiutano a respirare: quando sei agitato e respiri “alto”, col petto, lavorano troppo e il collo si irrigidisce ai lati.",go:["Porta l'attenzione ai lati del collo, appena sopra le clavicole.","Lascia che il respiro scenda più in basso, verso la pancia: qui non serve lavorare.","Ad ogni espiro il collo si ammorbidisce e la testa si fa pesante, sostenuta senza sforzo."]},
+ {nm:"Sternocleidomastoideo",where:"Dal dietro dell'orecchio fino allo sterno, ai lati del collo.",pts:[[46,37],[54,37]],sign:"Si accorcia quando tieni la testa in avanti, per esempio sul telefono: una corda tesa sul lato del collo.",go:["Senti i lati del collo, da dietro le orecchie fino allo sterno.","Immagina queste due corde che si allentano, piano piano.","Lascia che la testa si appoggi, pesante, come una pietra liscia posata sulla sabbia."]},
+ {nm:"Trapezio superiore",where:"Dalla base del collo fino alle spalle.",back:1,pts:[[38,45],[62,45]],sign:"Le spalle salgono verso le orecchie senza che te ne accorga, e la base del collo diventa pesante.",go:["Porta l'attenzione alle spalle e alla base del collo.","Nota se sono un po' sollevate. Non correggere nulla, osserva.","Espirando lasciale cadere, pesanti, come se qualcuno ci posasse sopra una coperta calda."]},
+ {nm:"Pettorali",where:"Sul petto, dallo sterno verso le spalle.",pts:[[40,54],[60,54]],sign:"Spalle che vanno in avanti e petto chiuso, raccolto, come per proteggersi.",go:["Porta l'attenzione al petto e alla parte davanti delle spalle.","Nota se il petto è un po' chiuso, raccolto in avanti.","Espirando le spalle cadono indietro e in basso, pesanti, e il petto si allarga da solo."]},
+ {nm:"Romboidi e dorsali alti",where:"In mezzo alle scapole.",back:1,pts:[[44,58],[56,58]],sign:"Un nodo o un leggero bruciore tra le scapole, dopo tanto tempo con le spalle curve.",go:["Porta l'attenzione in mezzo alle scapole.","Immagina le scapole che si staccano piano dalla colonna, come ali che si posano.","Lasciale scivolare in basso, pesanti, verso lo schienale o il pavimento."]},
+ {nm:"Intercostali",where:"Tra una costola e l'altra, tutto intorno al torace.",pts:[[36,64],[64,64]],sign:"Il petto sembra stretto e il respiro profondo non arriva.",go:["Senti le costole, tutto intorno al torace.","Inspirando si allargano appena, come le pagine di un libro che si apre.","Espirando si richiudono e si posano, pesanti, senza nessuno sforzo."]},
+ {nm:"Diaframma",where:"Una cupola sotto le costole: è il muscolo principale del respiro.",pts:[[50,76]],sign:"Con lo stress il respiro sale nel petto: la pancia resta ferma, sospiri spesso, senti un nodo allo stomaco.",go:["Porta l'attenzione sotto le costole, dove il respiro nasce.","Non guidare il respiro: lascia che arrivi e se ne vada da solo.","Ad ogni espiro il centro del corpo si fa morbido e pesante, e sprofonda un po' di più."]},
+ {nm:"Gran dorsale",where:"Sui lati della schiena, dalle ascelle fino al bacino.",back:1,pts:[[34,76],[66,76]],sign:"I fianchi della schiena sono rigidi, le braccia sembrano trattenute.",go:["Senti i fianchi della schiena, dalle ascelle fino al bacino.","Inspirando si allargano appena verso l'esterno.","Espirando si posano e si allungano verso il basso, pesanti e larghi."]},
+ {nm:"Addome",where:"La pancia, davanti.",pts:[[50,92]],sign:"Tieni la pancia in dentro per abitudine o per tensione, e il respiro resta corto.",go:["Porta l'attenzione alla pancia.","Smetti di trattenerla: lasciala libera, rotonda, morbida.","Ad ogni espiro la pancia si fa più pesante e calda, come un sasso al sole."]},
+ {nm:"Muscoli lombari",where:"Ai lati della colonna, nella parte bassa della schiena.",back:1,pts:[[45,98],[55,98]],sign:"Rigidità alla bassa schiena dopo tante ore seduto, o al mattino appena alzato.",go:["Porta l'attenzione alla parte bassa della schiena, ai lati della colonna.","Nota se c'è rigidità, senza giudicarla.","Ad ogni espiro la bassa schiena si appoggia e sprofonda, pesante, come nella sabbia calda."]},
+ {nm:"Quadrato dei lombi",where:"In profondità, tra l'ultima costola e il bacino, su ogni fianco.",back:1,pts:[[37,94],[63,94]],sign:"Un fastidio sordo su un lato della bassa schiena, spesso se carichi il peso su una gamba sola.",go:["Porta l'attenzione ai fianchi, tra l'ultima costola e il bacino.","Immagina lo spazio tra costole e bacino che si allunga, piano.","Espirando i fianchi si fanno pesanti e si lasciano andare verso il basso."]},
+ {nm:"Psoas e flessori dell'anca",where:"In profondità, dalla bassa schiena alla parte davanti dell'anca.",pts:[[43,106],[57,106]],sign:"Si accorciano stando seduti e si tendono con lo stress, come per proteggersi. Possono tirare sulla bassa schiena.",go:["Porta l'attenzione in profondità, alla parte davanti delle anche.","Lascia che le gambe pesino del tutto: non serve tenerle.","Ad ogni espiro le anche si ammorbidiscono e il bacino si fa pesante, accolto da ciò che ti sostiene."]},
+ {nm:"Glutei",where:"I muscoli del sedere, dietro il bacino.",back:1,pts:[[42,114],[58,114]],sign:"Li stringi senza accorgertene quando sei teso.",go:["Porta l'attenzione ai glutei, dove sei seduto o appoggiato.","Nota se c'è una piccola stretta, e lasciala andare.","Espirando diventano pesanti e larghi, e il sostegno sotto di te li accoglie tutti."]},
+ {nm:"Pavimento pelvico",where:"Alla base del bacino, come un'amaca di muscoli.",pts:[[50,113]],sign:"Si contrae insieme al diaframma quando sei sotto stress, spesso senza che tu lo sappia.",go:["Porta l'attenzione alla base del bacino.","Inspirando lascia che si ammorbidisca e scenda appena, senza spingere.","Espirando resta morbida, pesante, a riposo."]},
+ {nm:"Braccia e mani",where:"Dalle spalle fino alla punta delle dita.",pts:[[22,96],[78,96]],sign:"Pugni stretti, dita rigide, polsi stanchi da mouse e telefono.",go:["Porta l'attenzione alle braccia e alle mani.","Lascia che le dita si aprano da sole, senza stringere nulla.","Le braccia diventano pesanti, sempre più pesanti, abbandonate."]},
+ {nm:"Polpacci",where:"Dietro la gamba, sotto il ginocchio.",back:1,pts:[[39,160],[61,160]],sign:"Pesanti o rigidi dopo una giornata in piedi, o se sei rimasto fermo a lungo.",go:["Porta l'attenzione ai polpacci.","Lascia che tutto il peso delle gambe sia sostenuto: non serve tenerle.","Ad ogni espiro i polpacci si sciolgono e affondano, pesanti e caldi."]},
+ {nm:"Piedi",where:"La pianta e le dita dei piedi.",pts:[[39,190],[61,190]],sign:"Dita aggrappate, piedi freddi o stanchi.",go:["Porta l'attenzione ai piedi, alle piante e alle dita.","Lascia che le dita si allentino e si aprano.","Senti i piedi pesanti, radicati, come radici che scendono nella terra."]}
 ];
-function fig(z){return`<g fill="none" stroke="rgba(255,255,255,.24)" stroke-linecap="round"><circle cx="50" cy="19" r="12" fill="rgba(255,255,255,.07)" stroke-width="2"/><path d="M50 31v11" stroke-width="9"/><path d="M30 46Q50 40 70 46L73 110Q50 118 27 110Z" fill="rgba(255,255,255,.07)" stroke-width="2"/><path d="M32 50L20 104M68 50L80 104" stroke-width="9"/><path d="M41 114L39 194M59 114L61 194" stroke-width="12"/></g>${z.pts.map(([x,y])=>`<circle cx="${x}" cy="${y}" r="5.5" class="dot"/>`).join('')}<text x="50" y="208" text-anchor="middle" fill="rgba(255,255,255,.55)" font-size="10" font-family="Nunito,sans-serif">${z.back?'vista da dietro':'vista davanti'}</text>`}
+const WHOLE={nm:"Tutto il corpo",where:"Dalla testa ai piedi.",pts:[[50,16],[50,45],[50,80],[50,112],[30,90],[70,90],[40,170],[60,170]],sign:"",go:["Senti tutto il corpo, dalla testa ai piedi.","Ogni parte è pesante, calda, sostenuta.","Resta qui ancora un momento. Non c'è niente da fare."]};
+const SCAN=["Fronte e occhi","Masseteri (mascella)","Trapezio superiore","Diaframma","Muscoli lombari","Braccia e mani","Piedi"].map(n=>BODY.find(z=>z.nm===n));
+function fig(z){return`<g fill="none" stroke="rgba(255,255,255,.24)" stroke-linecap="round"><circle cx="50" cy="19" r="12" fill="rgba(255,255,255,.07)" stroke-width="2"/><path d="M50 31v11" stroke-width="9"/><path d="M30 46Q50 40 70 46L73 110Q50 118 27 110Z" fill="rgba(255,255,255,.07)" stroke-width="2"/><path d="M32 50L20 104M68 50L80 104" stroke-width="9"/><path d="M41 114L39 194M59 114L61 194" stroke-width="12"/></g>${z.pts.map(([x,y])=>`<circle cx="${x}" cy="${y}" r="5.5" class="dot"/>`).join('')}<text x="50" y="208" text-anchor="middle" fill="rgba(255,255,255,.55)" font-size="10" font-family="Nunito,sans-serif">${z.back?'vista da dietro':z.sign?'vista davanti':''}</text>`}
 function bodyZone(){let d=store.get('bdeck',null);if(!Array.isArray(d)||!d.length||d.some(i=>!(i<BODY.length)))d=shuffle([...BODY.keys()],Math.random);const i=d.pop();store.set('bdeck',d);return BODY[i]}
-let bodyOn=store.get('body',true),bodyCb=null,bodyQueue=[];
-function showZone(z,kick,btn){$('bcKick').textContent=kick;$('bcName').textContent=z.nm;$('bcWhere').textContent=z.where;$('bcSign').textContent=z.sign;$('bcTry').textContent=z.try;$('bcFig').innerHTML=fig(z);$('bcNext').textContent=btn;$('bodyCard').classList.add('show');$('bodyCard').querySelector('.bc').scrollTop=0}
-function bodyTip(cb){bodyCb=cb;bodyQueue=[];showZone(bodyZone(),'Ascolta il corpo','Fatto, continuo')}
-function bodyScan(){bodyCb=()=>{};bodyQueue=[bodyZone(),bodyZone(),bodyZone(),bodyZone()];const z=bodyQueue.shift();showZone(z,'Controllo del corpo · 1 di 4','Avanti')}
-$('bcNext').onclick=()=>{if(bodyQueue.length){const z=bodyQueue.shift(),k=4-bodyQueue.length;showZone(z,`Controllo del corpo · ${k} di 4`,bodyQueue.length?'Avanti':'Fatto')}else{$('bodyCard').classList.remove('show');const cb=bodyCb;bodyCb=null;cb&&setTimeout(cb,350)}};
-$('bodyList').innerHTML=BODY.map(z=>`<details><summary><span>${z.nm}<small>${z.where}</small></span></summary><p><b>Come te ne accorgi.</b> ${z.sign}</p><p><b>Prova così.</b> ${z.try}</p></details>`).join('');
+let bodyOn=store.get('body',true),bodyCb=null,bodyQueue=[],bodyT=null,bodyScanTotal=0,bodyDone=false;
+function guide(z,kick){clearTimeout(bodyT);bodyDone=false;const orb=$('bcOrb'),ease='cubic-bezier(.45,0,.55,1)';
+ $('bcKick').textContent=kick;$('bcName').textContent=z.nm;$('bcWhere').textContent=z.where;$('bcSign').textContent=z.sign;$('bcSignH').style.display=z.sign?'':'none';$('bcSign').style.display=z.sign?'':'none';
+ $('bcFig').innerHTML=fig(z);$('bcNext').textContent=bodyQueue.length?'Avanti':'Salta';$('bcLine').textContent='';$('bcCue').textContent='Mettiti comodo…';
+ orb.style.transition='none';orb.style.transform='scale(.5)';$('bodyCard').classList.add('show');$('bodyCard').querySelector('.bc').scrollTop=0;
+ let i=0;const step=()=>{if(i>=z.go.length){bodyDone=true;$('bcCue').textContent='';
+   if(bodyQueue.length)bodyT=setTimeout(nextBody,1500);else $('bcNext').textContent=bodyScanTotal?'Fatto':'Fatto, continuo';return}
+  const el=$('bcLine');el.classList.remove('in');void el.offsetWidth;el.textContent=z.go[i];el.classList.add('in');
+  $('bcCue').textContent='Inspira…';orb.style.transition=`transform 4s ${ease}`;orb.style.transform='scale(1)';A.breath(true,4);
+  bodyT=setTimeout(()=>{$('bcCue').textContent=i===0?'Espira…':'Espira e lascia cadere…';orb.style.transition=`transform 6s ${ease}`;orb.style.transform='scale(.5)';A.breath(false,6);i++;bodyT=setTimeout(step,6000)},4000)};
+ bodyT=setTimeout(step,900)}
+function nextBody(){clearTimeout(bodyT);if(bodyQueue.length){const z=bodyQueue.shift(),k=bodyScanTotal-bodyQueue.length;guide(z,z===WHOLE?'Body scan · per finire':`Body scan · ${k} di ${bodyScanTotal-1}`)}
+ else{$('bodyCard').classList.remove('show');const cb=bodyCb;bodyCb=null;bodyScanTotal=0;cb&&setTimeout(cb,350)}}
+function bodyTip(cb){bodyCb=cb;bodyQueue=[];bodyScanTotal=0;guide(bodyZone(),'Ascolta il corpo')}
+function bodyScan(){bodyCb=()=>{};bodyQueue=[...SCAN,WHOLE];bodyScanTotal=bodyQueue.length;nextBody()}
+$('bcNext').onclick=()=>{if(!bodyDone&&!bodyQueue.length&&!bodyScanTotal){bodyDone=true;clearTimeout(bodyT)}nextBody()};
+$('bodyList').innerHTML=BODY.map(z=>`<details><summary><span>${z.nm}<small>${z.where}</small></span></summary><p><b>Come te ne accorgi.</b> ${z.sign}</p><p><b>Lascia andare.</b> <i>${z.go.join(' ')}</i></p></details>`).join('');
 $('bBody').onclick=()=>$('bodySheet').classList.add('show');
 $('bBodyClose').onclick=()=>$('bodySheet').classList.remove('show');
 $('bScan').onclick=()=>{$('bodySheet').classList.remove('show');bodyScan()};
